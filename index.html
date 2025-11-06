@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gümrük – Hızlı Erişim Paneli</title>
+<style>
+  :root {
+    --bg: radial-gradient(circle at 20% 20%, #0d1117 0%, #000 100%);
+    --card: rgba(255,255,255,0.08);
+    --accent: #00f6d2;
+    --accent-glow: 0 0 15px rgba(0,246,210,.6);
+    --text: #e2e8f0;
+    --muted: #8b9cb3;
+    --border: rgba(255,255,255,0.15);
+  }
+  [data-theme="light"] {
+    --bg: radial-gradient(circle at 30% 30%, #e0f7ff 0%, #b5d5ff 100%);
+    --card: rgba(255,255,255,0.55);
+    --accent: #008f8a;
+    --accent-glow: 0 0 15px rgba(0,143,138,.4);
+    --text: #1e293b;
+    --muted: #475569;
+  }
+
+  * { box-sizing:border-box; font-family: 'Segoe UI', Inter, system-ui, sans-serif; }
+  body {
+    margin:0;
+    min-height:100vh;
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    justify-content:center;
+    padding:28px;
+  }
+  .app {
+    width:100%;
+    max-width:1200px;
+    backdrop-filter:blur(30px);
+  }
+
+  header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+    padding:20px;
+    border-radius:18px;
+    background:var(--card);
+    box-shadow: var(--accent-glow);
+    margin-bottom:24px;
+  }
+
+  .header-left { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  .header-left img { height:70px; border-radius:14px; box-shadow:0 0 12px rgba(0,0,0,.5); }
+
+  .header-center { text-align:center; flex:1; }
+  .header-center h1 { margin:0; font-size:24px; color:var(--accent); text-shadow: var(--accent-glow); }
+  .header-center p { margin:4px 0 0; font-size:14px; color:var(--muted); }
+
+  .header-right { display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .right-images { display:flex; gap:12px; align-items:center; }
+  .right-images img { height:70px; border-radius:14px; box-shadow:0 0 12px rgba(0,0,0,.5); }
+  .datetime { font-weight:600; color:var(--accent); text-shadow: var(--accent-glow); font-size:15px; text-align:center; }
+
+  .main-container { display:flex; gap:24px; }
+  .tabs { display:flex; flex-direction:column; gap:12px; min-width:220px; }
+  .tab-button {
+    padding:12px 18px; border:none; border-radius:12px; background:var(--card);
+    color:var(--muted); font-weight:600; cursor:pointer; transition:all .25s ease; text-align:left;
+  }
+  .tab-button:hover { color:var(--accent); box-shadow: var(--accent-glow); transform:translateX(4px); }
+  .tab-button.active { background:var(--accent); color:#001; box-shadow: var(--accent-glow); }
+
+  .tab-content {
+    display:none; flex:1; padding:20px; border-radius:16px; background:var(--card);
+    backdrop-filter:blur(18px); box-shadow:0 0 20px rgba(0,0,0,.4); animation: fade .4s ease-in-out;
+  }
+  .tab-content.active { display:block; }
+  @keyframes fade { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+
+  /* ALT SEKMELER */
+  .sub-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .sub-tab-button {
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sub-tab-button:hover {
+    background: rgba(0,246,210,0.2);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .sub-tab-button.active {
+    background: var(--accent);
+    color: #001;
+    box-shadow: var(--accent-glow);
+  }
+
+  .sub-content {
+    display: none;
+  }
+  .sub-content.active {
+    display: block;
+    animation: fade .3s ease-in-out;
+  }
+
+  .link-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:20px;
+  }
+  .link-card{
+    background:var(--card); border-radius:12px; padding:18px; text-decoration:none; color:white;
+    box-shadow:0 0 12px rgba(0,0,0,0.4); backdrop-filter:blur(10px); transition:transform 0.25s, box-shadow 0.25s;
+    display:flex; align-items:center; gap:15px;
+  }
+  .link-card:hover{ transform:translateY(-4px) scale(1.02); box-shadow:0 0 20px var(--accent); }
+  .link-card h3{margin:0 0 6px;font-size:17px;color:var(--accent);}
+  .link-card p{margin:0;font-size:13px;color:var(--muted)}
+  .link-card img { width:40px; height:30px; border:1px solid rgba(255,255,255,0.2); border-radius:4px; box-shadow:0 2px 5px rgba(0,0,0,0.3); }
+
+  /* STATÜ ARAMA */
+  .search-container {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  .search-container input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    color: var(--text);
+    font-size: 15px;
+  }
+  .search-container input::placeholder { color: var(--muted); }
+  .search-container button {
+    padding: 12px 20px;
+    background: var(--accent);
+    color: #001;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--accent-glow);
+  }
+  .status-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+  }
+  .status-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    font-family: monospace;
+    font-size: 14px;
+  }
+  .status-item:last-child { border-bottom: none; }
+  .status-item.highlight {
+    background: rgba(0,246,210,0.15);
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+  }
+  .status-code { font-weight: 700; color: var(--accent); }
+  .no-results { color: #ff6b6b; font-style: italic; padding: 16px; text-align: center; }
+
+  /* FOTOĞRAF GALERİSİ */
+  .flow-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .flow-card {
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .flow-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px var(--accent);
+  }
+  .flow-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .flow-title {
+    padding: 12px 16px;
+    margin: 0;
+    font-size: 15px;
+    color: var(--accent);
+    text-align: center;
+  }
+
+  .modal { display:none; position:fixed; z-index:100; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(0,0,0,0.9); padding-top:20px; }
+  .modal-content { margin:auto; display:block; width:95%; max-width:1200px; max-height:95vh; }
+  .modal-content img { width:auto; height:auto; max-width:100%; max-height:90vh; display:block; margin:0 auto; }
+  .close { position:fixed; top:15px; right:35px; color:#f1f1f1; font-size:40px; font-weight:bold; transition:0.3s; cursor:pointer; }
+  .close:hover, .close:focus { color:#bbb; text-decoration:none; }
+
+  footer { 
+    margin-top:30px; 
+    display:flex; 
+    justify-content:space-between; 
+    align-items:center; 
+    font-size:14px; 
+    color:var(--muted); 
+    flex-wrap:wrap; 
+    gap:10px; 
+  }
+  .sig {
+    font-weight:700;
+    color: var(--accent) !important;
+    text-shadow: var(--accent-glow);
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: rgba(0, 246, 210, 0.1);
+    border: 1px solid rgba(0, 246, 210, 0.3);
+    box-shadow: 0 0 12px rgba(0, 246, 210, 0.2);
+  }
+  .sig a {
+    color: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sig:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(0, 246, 210, 0.4);
+    background: rgba(0, 246, 210, 0.15);
+  }
+  .sig::before {
+    content: "Diamond";
+    font-size: 12px;
+    opacity: 0.8;
+  }
+
+  .martyrs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 10px;
+  }
+  .martyr-link {
+    display: block;
+    padding: 12px 18px;
+    background: rgba(255, 0, 0, 0.1); 
+    color: var(--text);
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+  }
+  .martyr-link:hover {
+    background: rgba(255, 0, 0, 0.25);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    transform: translateX(3px);
+  }
+  .martyr-photo {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  @media(max-width:900px){
+    .main-container{flex-direction:column;}
+    .tabs{flex-direction:row;overflow-x:auto;}
+    .tab-button{flex:1;min-width:150px;text-align:center;}
+    .header-right{align-items:flex-end;}
+    .sub-tabs { justify-content: center; }
+  }
+
+  /* YENİ TRANSİT STİLLERİ */
+  .transit-container {
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 10px;
+  }
+  .sub-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 220px;
+  }
+  .sub-menu .sub-tab-button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    color: var(--muted);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .25s ease;
+    text-align: left;
+  }
+  .sub-menu .sub-tab-button:hover {
+    color: var(--accent);
+    box-shadow: var(--accent-glow);
+    transform: translateX(4px);
+  }
+  .sub-menu .sub-tab-button.active {
+    background: var(--accent);
+    color: #000;
+    box-shadow: var(--accent-glow);
+  }
+
+  .sub-menu-content {
+    flex: 1;
+    padding-left: 20px;
+  }
+  .sub-tab-content {
+    display: none;
+    animation: fade .4s ease-in-out;
+  }
+  .sub-tab-content.active { display: block; }
+
+  .search-box { margin-bottom: 16px; }
+  .search-box input {
+    width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.1); color: var(--text); font-size: 15px;
+  }
+  #transitList { list-style: none; padding: 0; margin: 0; }
+  #transitList li {
+    padding: 12px 15px; margin-bottom: 8px; background: rgba(255,255,255,0.05); border-radius: 8px;
+    display: flex; justify-content: space-between; align-items: center; transition: all 0.2s;
+  }
+  #transitList li:hover { background: rgba(255,255,255,0.12); }
+  #transitList .code { font-weight: 700; color: var(--accent); min-width: 100px; }
+  #transitList .description { color: var(--muted); margin-left: 20px; flex-grow: 1; }
+  #transitList .red-line { background: rgba(255, 0, 0, 0.4); }
+  #transitList .yellow-line { background: rgba(255, 255, 0, 0.4); color: black; }
+
+  /* ULAŞTIRMA & TAŞIT YOLCU STİLLERİ */
+  .tab-btn {
+    padding: 10px 20px; background: transparent; color: var(--muted); border: none;
+    font-size: 15px; cursor: pointer; border-radius: 8px 8px 0 0; transition: 0.2s;
+  }
+  .tab-btn.active {
+    background: rgba(0,246,210,0.15); color: var(--accent); font-weight: 600;
+  }
+  .link-grid-vertical { display: flex; flex-direction: column; gap: 8px; }
+  .link-card-vertical {
+    background: var(--card); border-radius: 8px; padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 6px;
+    text-decoration: none; color: var(--text); transition: 0.2s ease;
+  }
+  .link-card-vertical:hover {
+    background: rgba(255,255,255,0.14); box-shadow: 0 0 15px rgba(0,246,210,.3);
+  }
+  .link-card-vertical h3 { margin: 0; font-size: 16px; color: var(--text); font-weight: 600; }
+  .link-card-vertical p { margin: 0; font-size: 13px; color: var(--muted); }
+  .link-card-vertical .url { font-size: 12px; color: var(--accent); word-break: break-all; }
+
+  .ceza-info {
+    background: rgba(255,255,255,0.05); padding: 16px; border-radius: 8px; margin-bottom: 20px;
+    font-size: 14px; line-height: 1.6; color: var(--text);
+  }
+  .ceza-info p { margin: 8px 0; }
+  .ceza-info strong { color: var(--accent); }
+
+  table {
+    width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px;
+  }
+  th, td {
+    padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: rgba(255,255,255,0.05); color: var(--accent); font-weight: 600;
+    font-size: 13px; text-transform: uppercase;
+  }
+  td { vertical-align: top; }
+  .bent { font-weight: 600; color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .tab-btn { padding: 8px 12px; font-size: 14px; }
+    table { font-size: 13px; }
+    th, td { padding: 8px 6px; }
+  }
+</style>
+</head>
+<body data-theme="dark">
+  <div class="app">
+    <header>
+      <div class="header-left">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg" alt="Türk Bayrağı">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_the_Customs_Administration_of_Turkey.svg" alt="Gümrük Bayrağı">
+      </div>
+
+      <div class="header-center">
+        <h1>Gümrük Hızlı Erişim Paneli</h1>
+        <p>Gümrük işlemleri için modern kaynak</p>
+      </div>
+
+      <div class="header-right">
+        <div class="right-images">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/G%C3%9CMR%C3%9CK_%C4%B0LK_LOGOlogo.png" alt="Gümrük Logo">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/T.C._G%C3%9CMR%C3%9CKLER%C4%B0_TURKISH_CUSTOMS..png" alt="T.C. Gümrükleri">
+          <img src="https://i.pinimg.com/1200x/b7/3f/34/b73f34bfd2705436fb27183f5ad3d665.jpg" alt="Mustafa Kemal Atatürk">
+        </div>
+        <div class="datetime" id="datetime"></div>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <!-- ANA MENÜ -->
+      <nav class="tabs">
+        <button class="tab-button active" data-tab="anasayfa">Ana Sayfa</button>
+        <button class="tab-button" data-tab="sehitlerimiz">Şehitlerimiz</button>
+        <button class="tab-button" data-tab="mevzuat">Mevzuat</button>
+        <button class="tab-button" data-tab="tarife">Tarife</button>
+        <button class="tab-button" data-tab="personel">Personel</button>
+        <button class="tab-button" data-tab="transit">Transit</button>
+        <button class="tab-button" data-tab="tasit_yolcu">Taşıt Yolcu</button>
+        <button class="tab-button" data-tab="ulastirma">Ulaştırma</button>
+        <button class="tab-button" data-tab="mense_kontrol">Menşe Kontrol</button>
+      </nav>
+
+      <!-- ANA SAYFA -->
+      <section class="tab-content active" id="anasayfa">
+        <h2>Ana Sayfa</h2>
+        <div class="link-grid">
+          <a class="link-card" href="https://www.ticaret.gov.tr/gumruk-islemleri/gumruk-memurlari" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/G%C3%9CMR%C3%9CK_%C4%B0LK_LOGOlogo.png" alt="Gümrük Memuru">
+            <div>
+              <h3>Gümrük Memurları</h3>
+              <p>Gümrük ve Ticaret Bakanlığı</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_the_Customs_Administration_of_Turkey.svg" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_the_Customs_Administration_of_Turkey.svg" alt="Gümrük Bayrağı">
+            <div>
+              <h3>Gümrük Bayrağı</h3>
+              <p>Türkiye Gümrük Teşkilatı</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ŞEHİTLERİMİZ -->
+      <section class="tab-content" id="sehitlerimiz">
+        <h2>Şehitlerimiz</h2>
+        <div class="martyrs-container">
+          <a href="#" class="martyr-link" data-martyr="yarmoglu">Ahmet Serkan YARIMOĞLU</a>
+          <a href="#" class="martyr-link" data-martyr="turan">Ramazan TURAN</a>
+          <a href="#" class="martyr-link" data-martyr="kavastan">Özgür KAVASTAN</a>
+          <a href="#" class="martyr-link" data-martyr="turk">Mustafa TÜRK</a>
+          <a href="#" class="martyr-link" data-martyr="sakaoglu">Umut SAKAOĞLU</a>
+        </div>
+        <div id="martyr-photo-container"></div>
+      </section>
+
+      <!-- MEVZUAT -->
+      <section class="tab-content" id="mevzuat">
+        <h2>Mevzuat</h2>
+        <div class="link-grid">
+          <a class="link-card" href="#" target="_blank">
+            <div>
+              <h3>Gümrük Akıllı Mevzuat Sistemi</h3>
+              <p>Yapım Aşamasında</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://gumrukrehberi.gov.tr/anasayfa" target="_blank">
+            <div>
+              <h3>Gümrük Rehberi</h3>
+              <p>Ticaret Bakanlığı</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://kms.kaysis.gov.tr/Home/Kurum/24308261" target="_blank">
+            <div>
+              <h3>Ticaret Bakanlığı KAYSİS</h3>
+              <p>Kanunlar ve Yönetmelikler</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://www.mevzuat.gov.tr/" target="_blank">
+            <div>
+              <h3>Mevzuat Bilgi Sistemi</h3>
+              <p>Resmi Mevzuat Portalı</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://mevzuat.adalet.gov.tr/" target="_blank">
+            <div>
+              <h3>Mevzuat Adalet</h3>
+              <p>Adalet Bakanlığı</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://www.gumrukkulliyati.com/" target="_blank">
+            <div>
+              <h3>Gümrük Külliyatı</h3>
+              <p>Gümrük Mevzuatı</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://www.mevzuat.net/" target="_blank">
+            <div>
+              <h3>Mevzuat.net</h3>
+              <p>Güncel Mevzuat</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- TARİFE -->
+      <section class="tab-content" id="tarife">
+        <h2>Tarife</h2>
+        <div class="link-grid">
+          <a class="link-card" href="#" target="_blank">
+            <div>
+              <h3>Tarife Arama</h3>
+              <p>Yapım Aşamasında</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://uygulama.gtb.gov.tr/TARA" target="_blank">
+            <div>
+              <h3>Resmi TARA</h3>
+              <p>Gümrük Tarife Arama</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- PERSONEL -->
+      <section class="tab-content" id="personel">
+        <h2>Personel</h2>
+        <div class="link-grid">
+          <a class="link-card" href="https://ortakgiris.ticaret.gov.tr/realms/99333951-7fbd-4803-ac67-d5f7df3df99e/protocol/openid-connect/auth?client_id=c3b2b462-c4f7-4934-aaac-9b6ec5a8fcfd&redirect_uri=https%3A%2F%2Fweb.ticaret.gov.tr%2FSifreSifirla%2FHesap%2FCallback&response_type=code&scope=openid&code_challenge=zrS7g3MWYbhdSyWRnE2zgRf51ox1smT_u3hqehAg0BY&code_challenge_method=S256&state=OpenIdConnect.AuthenticationProperties%3DlsxDrmZ5CMXn6iTN9MZ22lCNPSbwDyUhbHf3B4NwpBX3RbPYxbZ-edrGCktj21bBWHwJLit_hDZmcsxQHacXo44LCR5e0-CzlwnGwp7qrgqQxRiqg9pq5uxRjKy5Deb0FVQ54hc_tJU8lkcswEQP7GCay-A_5X9sGAJfiJGF8J83mdaxW07G6c-4FLfYnKcSR_8wQ-C9PJCCUdsIAF588yk4Q1wgOrzDEcx9e1dKGLuBVWDwwRuzEmFlca9htXnAV6jZlTsgNacmd3kR9ojlpOpKQDUGC4IeBY6UfydOGfhfaDsYZjs1lphe7Tm_IIRYP_OdUEvfVB6SQJNEY9ezwTyHQ8n7jBARfJFN39GQMO23Q&response_mode=form_post&nonce=638936261255466554.NzcxMDQyNmQtNWI3NC00MjUyLTllM2EtZjhhODBmNTEwN2ZlNzIxZGIzMzAtYjNlZC00OTQxLTljNDgtNTg4M2YwYTQ1NDc0&x-client-SKU=ID_NET461&x-client-ver=5.3.0.0" target="_blank">
+            <div>
+              <h3>Kullanıcı Şifre Sıfırlama Ortak Giriş Noktası</h3>
+              <p>ADFS Şifre Yenileme</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://uygulama.gtb.gov.tr/BilgeSifreIslemleri/" target="_blank">
+            <div>
+              <h3>Merkezi Bilge Sıfırlama</h3>
+              <p>BİLGE Sistemi</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://adfs.ticaret.gov.tr/adfs/ls/?wa=wsignin1.0&wtrealm=https%3a%2f%2fe-posta.ticaret.gov.tr%2fowa%2f" target="_blank">
+            <div>
+              <h3>Ticaret Bakanlığı E posta Giriş</h3>
+              <p>Kurumsal E-Posta</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://ebys.ticaret.gov.tr/Ebys/Seneka.Ebdys.Tools.EbdysReinstaller.exe" target="_blank">
+            <div>
+              <h3>Elektronik Belge Yönetim Sistemi (EBYS)</h3>
+              <p>Elektronik Belge Yönetim Sistemi</p>
+            </div>
+          </a>
+          <a class="link-card" href="http://bilgev2.gtb.gov.tr/BilgeV2Kurulum/publish.htm" target="_blank">
+            <div>
+              <h3>Merkezi Bilge V2 Kurulum</h3>
+              <p>BİLGE V2 İstemci</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://bilgev3test.gtb.gov.tr/Kurulum/" target="_blank">
+            <div>
+              <h3>Merkezi BİLGE v3 Kurulum</h3>
+              <p>BİLGE V3 İstemci</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://ikbs.ticaret.gov.tr/GirisSso.aspx" target="_blank">
+            <div>
+              <h3>Personel Bilgi Sistemi (İKBS)</h3>
+              <p>İnsan Kaynakları</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://www.turkiye.gov.tr/sosyal-guvenlik-hitap-hizmet-dokumu" target="_blank">
+            <div>
+              <h3>Hitap Hizmet Dökümü (E-Devlet)</h3>
+              <p>Personel Bilgi Sistemi</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://www.turkiye.gov.tr/maliye-bakanligi-kamu-personeli-aile-bilgileri-bildirim-sistemi" target="_blank">
+            <div>
+              <h3>Kamu Personeli Aile Bilgileri Bildirim Sistemi</h3>
+              <p>Aile Durumu Bildirimi</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://www.turkiye.gov.tr/e-bordro-sorgulama" target="_blank">
+            <div>
+              <h3>Hazine ve Maliye Bakanlığı e-Bordro</h3>
+              <p>Maaş Bordrosu</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://uyg.sgk.gov.tr/RaporGoruntuleme4C/login.xhtml" target="_blank">
+            <div>
+              <h3>İstirahat Raporu Görüntüleme</h3>
+              <p>Sosyal Güvenlik</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://uyg.sgk.gov.tr/IsKazasiBildirimISV4C/" target="_blank">
+            <div>
+              <h3>İş Kazası Bildirim Formu</h3>
+              <p>İş Kazası Sistemi</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://eys.ticaret.gov.tr/cms/Index" target="_blank">
+            <div>
+              <h3>Eğitim Yönetim Sistemi</h3>
+              <p>EYS Giriş</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://panel.uzaktanegitimkapisi.gov.tr/Sistem-Giris" target="_blank">
+            <div>
+              <h3>Uzaktan Eğitim Kapısı</h3>
+              <p>Online Eğitim</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- TRANSIT -->
+      <section class="tab-content" id="transit">
+        <h2>Transit</h2>
+        <div class="sub-menu">
+          <button class="sub-tab-button active" data-tab="platform">Platform</button>
+          <button class="sub-tab-button" data-tab="kodlar">Statü Kodları</button>
+          <button class="sub-tab-button" data-tab="hareket">Hareket İdaresi</button>
+          <button class="sub-tab-button" data-tab="transit_idaresi">Transit İdaresi</button>
+          <button class="sub-tab-button" data-tab="varis">Varış İdaresi</button>
+          <button class="sub-tab-button" data-tab="uyusmazlik">Uyuşmazlık</button>
+          <button class="sub-tab-button" data-tab="arastirma">Araştırma</button>
+          <button class="sub-tab-button" data-tab="tahsilat">Tahsilat</button>
+          <button class="sub-tab-button" data-tab="sorgulama">Sorgulama</button>
+        </div>
+
+        <div class="sub-menu-content">
+          <div class="sub-tab-content active" id="platform">
+            <h3>NCTS Platform</h3>
+            <a href="https://giris.ticaret.gov.tr" target="_blank" class="link-card">
+              <div>
+                <h3>NCTS Giriş</h3>
+                <p>Transit İşlem Platformu</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="sub-tab-content" id="kodlar">
+            <h3>NCTS Statü Kodları</h3>
+            <div class="search-container">
+              <input type="text" id="searchInput" placeholder="Kod veya açıklama ara...">
+            </div>
+            <ul id="transitList" class="status-list">
+              <li><span class="code">IE001 - GDS_REG</span> <span class="description">Beyanname Tescil İçin Gönderildi</span></li>
+              <li><span class="code">IE002 - GDS_REJ</span> <span class="description">Beyanname Reddedildi</span></li>
+              <li><span class="code">IE003 - GDS_ACC</span> <span class="description">Beyanname Kabul Edildi</span></li>
+              <li><span class="code">IE004 - GDS_AMD</span> <span class="description">Beyanname Değiştirildi</span></li>
+              <li><span class="code">IE007 - GDS_INV</span> <span class="description">Beyanname Geçersiz Kılındı</span></li>
+              <li><span class="code">IE009 - GDS_CAN</span> <span class="description">Beyanname İptal Edildi</span></li>
+              <li><span class="code">IE013 - GDS_REL</span> <span class="description">Eşyanın Serbest Bırakılması</span></li>
+              <li><span class="code">IE014 - GDS_REL_NOT</span> <span class="description">Serbest Bırakılmadı</span></li>
+              <li><span class="code">IE015 - GDS_REG_DEP</span> <span class="description">Hareket İdaresinde Tescil</span></li>
+              <li><span class="code">IE017 - GDS_REG_DES</span> <span class="description">Varış İdaresinde Tescil</span></li>
+              <li><span class="code">IE019 - GDS_REL_DEP</span> <span class="description">Hareket İdaresinde Serbest Bırakma</span></li>
+              <li><span class="code">IE022 - GDS_REL_DES</span> <span class="description">Varış İdaresinde Serbest Bırakma</span></li>
+              <li><span class="code">IE025 - GDS_REL</span> <span class="description">Eşyanın Serbest Bırakılması Bildirimi</span></li>
+              <li><span class="code">IE055 - GUA_INV</span> <span class="description">Geçersiz Teminat</span></li>
+              <li><span class="code">IE200 - GUA_CHE</span> <span class="description">Teminat Kontrolü</span></li>
+              <li><span class="code">IE036 - GUA_REQ</span> <span class="description">Teminat (Güncellemesi) Talebi</span></li>
+              <li><span class="code">IE037 - GUA_RSP</span> <span class="description">Teminatın Güncellendiğine Dair Bildirim</span></li>
+              <li><span class="code">IE203 - GUA_USE</span> <span class="description">Teminat Kullanıldı (Tescil Edildi)</span></li>
+              <li><span class="code">IE141 - MOV_RSP</span> <span class="description">Yerine Ulaşmamış Taşıma İle İlgili Cevap</span></li>
+              <li><span class="code">IE038 - MVT_RSP</span> <span class="description">Yerine Ulaşmış Taşıma İle İlgili Cevap</span></li>
+              <li><span class="code">IE028 - MRN_ALL</span> <span class="description">Beyanname Tescil Edildi</span></li>
+              <li><span class="code">IE118 - NCF_NOT</span> <span class="description">Transit İdaresinde Sınır Geçişi Bildirimi</span></li>
+              <li><span class="code">IE151 - REC_ACC</span> <span class="description">Tahsilat Onayı Bilgisi</span></li>
+              <li><span class="code">IE151 - REC_ACC_POZ</span> <span class="description">Tahsilat Erişimi Diğer Gümrük İdaresine Verildi</span></li>
+              <li><span class="code">IE063 - REC_COM</span> <span class="description">Tahsilat Usulüne Geçildi</span></li>
+              <li><span class="code">IE063 - REC_COM_DEP</span> <span class="description">Hareket İdaresinde Tahsilat Onaylandı</span></li>
+              <li><span class="code">IE063 - REC_COM_DES</span> <span class="description">Varış İdaresinde Tahsilat Onaylandı</span></li>
+              <li><span class="code">IE152 - REC_DIS</span> <span class="description">Tahsilat Dağıtıldı</span></li>
+              <li><span class="code">IE035 - REC_NOT</span> <span class="description">Tahsilat Tebliğ Edildi</span></li>
+              <li><span class="code">IE150 - REC_REQ</span> <span class="description">Tahsilat İsteği</span></li>
+              <li class="red-line"><span class="code">RED_LINE</span> <span class="description">Kırmızı Hat</span></li>
+              <li><span class="code">IE051 - REL_NOT</span> <span class="description">Transit Tescil Memuru Tarafından Serbest Bırakılmadı</span></li>
+              <li><span class="code">IE029 - REL_TRA</span> <span class="description">Transit Serbest Bırakıldı</span></li>
+              <li><span class="code">IE040 - REQ_MOV</span> <span class="description">Yerine Ulaşmamış Taşıma İle İlgili Bilgi Talebi</span></li>
+              <li><span class="code">IE045 - WRT_NOT</span> <span class="description">Transit Kapandı</span></li>
+              <li class="yellow-line"><span class="code">YEL_LINE</span> <span class="description">Sarı Hat</span></li>
+              <li><span class="code">YGM_NOT</span> <span class="description">YGM Tarafından Aracın Antrepoya Varışı Bildirimi</span></li>
+            </ul>
+          </div>
+
+          <div class="sub-tab-content" id="hareket">
+            <h3>Hareket Gümrük İdaresi NCTS İş Akışı</h3>
+            <div class="flow-gallery">
+              <div class="flow-card" onclick="showModal('https://i.imgur.com/RAXECS0.png')">
+                <img src="https://i.imgur.com/RAXECS0.png" alt="Hareket">
+                <p class="flow-title">Hareket İdaresi</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-tab-content" id="transit_idaresi">
+            <h3>Transit Gümrük İdaresi NCTS İş Akışı</h3>
+            <div class="flow-gallery">
+              <div class="flow-card" onclick="showModal('https://i.imgur.com/xhFsRLL.png')">
+                <img src="https://i.imgur.com/xhFsRLL.png" alt="Transit">
+                <p class="flow-title">Transit İdaresi</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-tab-content" id="varis">
+            <h3>Varış Gümrük İdaresi NCTS İş Akışı</h3>
+            <div class="flow-gallery">
+              <div class="flow-card" onclick="showModal('https://i.imgur.com/N7OLQXS.png')">
+                <img src="https://i.imgur.com/N7OLQXS.png" alt="Varış">
+                <p class="flow-title">Varış İdaresi</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-tab-content" id="uyusmazlik">
+            <h3>Uyuşmazlık İşlemleri</h3>
+            <div class="flow-gallery">
+              <div class="flow-card" onclick="showModal('https://i.imgur.com/WUO2hxI.png')">
+                <img src="https://i.imgur.com/WUO2hxI.png" alt="Uyuşmazlık">
+                <p class="flow-title">Uyuşmazlık</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-tab-content" id="arastirma">
+            <h3>Araştırma İşlemleri</h3>
+            <div class="flow-gallery">
+              <div class="flow-card" onclick="showModal('https://i.imgur.com/PFpCV72.png')">
+                <img src="https://i.imgur.com/PFpCV72.png" alt="Araştırma 1">
+                <p class="flow-title">Araştırma 1</p>
+              </div>
+              <div class="flow-card" onclick="showModal('https://i.imgur.com/mclDdon.png')">
+                <img src="https://i.imgur.com/mclDdon.png" alt="Araştırma 2">
+                <p class="flow-title">Araştırma 2</p>
+              </div>
+              <div class="flow-card" onclick="showModal('https://i.imgur.com/mclDdon.png')">
+                <img src="https://i.imgur.com/mclDdon.png" alt="Araştırma 3">
+                <p class="flow-title">Araştırma 3</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-tab-content" id="tahsilat">
+            <h3>Hareket/Varış Tahsilat İşlemleri</h3>
+            <div class="flow-gallery">
+              <div class="flow-card" onclick="showModal('https://i.imgur.com/4safllv.png')">
+                <img src="https://i.imgur.com/4safllv.png" alt="Tahsilat 1">
+                <p class="flow-title">Hareket Tahsilatı</p>
+              </div>
+              <div class="flow-card" onclick="showModal('https://i.imgur.com/HBvIKYb.png')">
+                <img src="https://i.imgur.com/HBvIKYb.png" alt="Tahsilat 2">
+                <p class="flow-title">Varış Tahsilatı</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-tab-content" id="sorgulama">
+            <h3>Gümrük İdaresi Sorgulama</h3>
+            <div class="link-grid">
+              <a href="https://taxation-customs.ec.europa.eu/document/download/314c75bf-436d-4a6e-b702-7bab0879d3c3_en?filename=taxud-978-98.pdf" target="_blank" class="link-card">
+                <h3>Transit Ağı Defteri (PDF)</h3>
+                <p>AB Transit Ağı Rehberi</p>
+              </a>
+              <a href="https://ec.europa.eu/taxation_customs/dds2/mrn/mrn_home.jsp" target="_blank" class="link-card">
+                <h3>MRN Takibi (İhracat ve Transit)</h3>
+                <p>AB MRN Sorgulama</p>
+              </a>
+              <a href="https://ec.europa.eu/taxation_customs/dds2/rd/rd_consultation_location.jsp?Lang=en" target="_blank" class="link-card">
+                <h3>1. Ülke, Bölge, Şehir ve Duruma Göre</h3>
+                <p>Gümrük İdaresi Arama</p>
+              </a>
+              <a href="https://ec.europa.eu/taxation_customs/dds2/rd/rd_consultation_name.jsp?Lang=en" target="_blank" class="link-card">
+                <h3>2. Olağan Adı Üzerinden Arama</h3>
+                <p>Gümrük İdaresi Arama</p>
+              </a>
+              <a href="https://ec.europa.eu/taxation_customs/dds2/rd/rd_consultation_reference.jsp?Lang=en" target="_blank" class="link-card">
+                <h3>3. Referans Numarası ile Arama</h3>
+                <p>Gümrük İdaresi Arama</p>
+              </a>
+              <a href="https://ec.europa.eu/taxation_customs/dds2/rd/publicholidays_consultation.jsp?Lang=en" target="_blank" class="link-card">
+                <h3>4. Resmi Tatiller</h3>
+                <p>Tatil Günleri Sorgulama</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAŞIT YOLCU -->
+      <section class="tab-content" id="tasit_yolcu">
+        <h2>Taşıt-Yolcu</h2>
+        <div class="search-box">
+          <input type="text" id="tasitSearch" placeholder="Sorgulama, taşıt, yolcu, yat, liman ara...">
+        </div>
+        <div class="link-grid-vertical">
+          <a href="https://online.gtb.gov.tr/EGMYolcuSorgulama/Default.aspx?ReturnUrl=%2fEGMYolcuBilgileriSorgula.aspx" target="_blank" class="link-card-vertical">
+            <h3>EGM Yolcu Sorgulama</h3>
+            <p>Emniyet Genel Müdürlüğü yolcu sorgulama sistemi</p>
+            <div class="url">https://online.gtb.gov.tr/EGMYolcuSorgulama/...</div>
+          </a>
+          <a href="https://uygulama.gtb.gov.tr/TasitSorgu/Account/Login_2?ReturnUrl=%2fTasitSorgu%2f" target="_blank" class="link-card-vertical">
+            <h3>Taşıt Tescil Sorgulama - Kara Taşıtları</h3>
+            <p>Kara taşıtları tescil ve sorgulama</p>
+            <div class="url">https://uygulama.gtb.gov.tr/TasitSorgu/...</div>
+          </a>
+          <a href="http://pts.gtb.gov.tr/" target="_blank" class="link-card-vertical">
+            <h3>Plaka Tanıma Sistemi - Kara Kapıları</h3>
+            <p>Kara kapılarında plaka tanıma sistemi</p>
+            <div class="url">http://pts.gtb.gov.tr/</div>
+          </a>
+          <a href="https://online.gtb.gov.tr/MobilUygulamalar" target="_blank" class="link-card-vertical">
+            <h3>Mobil Uygulamalar</h3>
+            <p>Gümrük mobil uygulamaları</p>
+            <div class="url">https://online.gtb.gov.tr/MobilUygulamalar</div>
+          </a>
+          <a href="https://uygulama.gtb.gov.tr/LimanTekPencere/Account/Login?ReturnUrl=%2fLimanTekPencere%2fGumruk%2fGumrukAnaSayfa" target="_blank" class="link-card-vertical">
+            <h3>Liman Tek Pencere - Gemi</h3>
+            <p>Limanlarda tek pencere sistemi</p>
+            <div class="url">https://uygulama.gtb.gov.tr/LimanTekPencere/...</div>
+          </a>
+          <a href="https://voy.ticaret.gov.tr/auth/login" target="_blank" class="link-card-vertical">
+            <h3>Varış Öncesi Yolcu İzleme - Uçak</h3>
+            <p>Uçak yolcuları ön izleme sistemi</p>
+            <div class="url">https://voy.ticaret.gov.tr/auth/login</div>
+          </a>
+          <a href="https://online.gtb.gov.tr/YatTakip/Giris" target="_blank" class="link-card-vertical">
+            <h3>Yat Takip - Yat</h3>
+            <p>Yat giriş-çıkış takip sistemi</p>
+            <div class="url">https://online.gtb.gov.tr/YatTakip/Giris</div>
+          </a>
+          <a href="https://e-denizcilik.uab.gov.tr/login" target="_blank" class="link-card-vertical">
+            <h3>Seyir İzin Belgesi (Transitlog) - Yat</h3>
+            <p>Yatlar için seyir izin belgesi</p>
+            <div class="url">https://e-denizcilik.uab.gov.tr/login</div>
+          </a>
+          <a href="https://uygulama.gtb.gov.tr/GumrukAGC/" target="_blank" class="link-card-vertical">
+            <h3>Serbest Bölgeler Bilgi Sistemi</h3>
+            <p>Serbest bölgeler bilgi ve işlem sistemi</p>
+            <div class="url">https://uygulama.gtb.gov.tr/GumrukAGC/</div>
+          </a>
+          <a href="https://online.gtb.gov.tr/WebTax/Login.aspx?ReturnUrl=%2fWebTax" target="_blank" class="link-card-vertical">
+            <h3>Vergi Transfer Programı</h3>
+            <p>Vergi transfer işlemleri</p>
+            <div class="url">https://online.gtb.gov.tr/WebTax/...</div>
+          </a>
+          <a href="https://online.gtb.gov.tr/MuhafazaEntegrasyon/" target="_blank" class="link-card-vertical">
+            <h3>IMI Kayıt - Noter / PTS / EGM</h3>
+            <p>Entegre muhafaza bilgi sistemi</p>
+            <div class="url">https://online.gtb.gov.tr/MuhafazaEntegrasyon/</div>
+          </a>
+          <a href="https://uygulama.gtb.gov.tr/NakitBeyan" target="_blank" class="link-card-vertical">
+            <h3>Nakit Beyan</h3>
+            <p>Giriş-çıkışta nakit beyan sistemi</p>
+            <div class="url">https://uygulama.gtb.gov.tr/NakitBeyan</div>
+          </a>
+          <a href="https://uygulama.gtb.gov.tr/MuafiyetLimitKontrol/" target="_blank" class="link-card-vertical">
+            <h3>Muafiyet Limit Kontrol - Free Shop</h3>
+            <p>Free shop muafiyet limit kontrolü</p>
+            <div class="url">https://uygulama.gtb.gov.tr/MuafiyetLimitKontrol/</div>
+          </a>
+          <a href="https://uygulama.gtb.gov.tr/NakitBeyan" target="_blank" class="link-card-vertical">
+            <h3>Yolcu Beraberi Numune, Sergi ve Fuar Eşyası</h3>
+            <p>Yolcu beraberinde numune ve fuar eşyası beyanı</p>
+            <div class="url">https://uygulama.gtb.gov.tr/NakitBeyan</div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ULAŞTIRMA -->
+      <section class="tab-content" id="ulastirma">
+        <h2>Ulaştırma</h2>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="openTab('sorgulamalar')">Sorgulamalar</button>
+          <button class="tab-btn" onclick="openTab('cezalar')">Cezalar</button>
+        </div>
+
+        <div id="sorgulamalar" class="tab-content active">
+          <div class="search-box">
+            <input type="text" id="sorguSearch" placeholder="Araç, yetki belgesi, lisans ara...">
+          </div>
+          <div class="link-grid-vertical">
+            <a href="https://www.turkiye.gov.tr/ulastirma-ticari-arac-sorgulama" target="_blank" class="link-card-vertical">
+              <h3>Araç Yetki Belgesi Sorgulama</h3>
+              <p>Ticari araç yetki belgesi sorgulama (e-Devlet)</p>
+              <div class="url">https://www.turkiye.gov.tr/ulastirma-ticari-arac-sorgulama</div>
+            </a>
+            <a href="http://portaleski.gumruk.gov.tr/UNET/Default.aspx" target="_blank" class="link-card-vertical">
+              <h3>Araç Yetki Belgesi Sorgulama (Bakanlık Sistemi)</h3>
+              <p>Bakanlık sistemi çökmüş</p>
+              <div class="url">http://portaleski.gumruk.gov.tr/UNET/Default.aspx</div>
+            </a>
+            <a href="https://www.turkiye.gov.tr/belge-dogrulama" target="_blank" class="link-card-vertical">
+              <h3>Özel Yük Taşıma Belgesi Sorgulama</h3>
+              <p>Özel yük taşıma izin belgesi doğrulama</p>
+              <div class="url">https://www.turkiye.gov.tr/belge-dogrulama</div>
+            </a>
+            <a href="https://online.gtb.gov.tr/MuhafazaEntegrasyon/" target="_blank" class="link-card-vertical">
+              <h3>T.C./Vergi No Araç Sorgulama</h3>
+              <p>Gümrük entegrasyon sistemi üzerinden araç sorgulama</p>
+              <div class="url">https://online.gtb.gov.tr/MuhafazaEntegrasyon/</div>
+            </a>
+            <a href="https://online.gtb.gov.tr/MuhafazaEntegrasyon/" target="_blank" class="link-card-vertical">
+              <h3>ECMT (Ubak) Ülke Lisansları</h3>
+              <p>ECMT çok taraflı taşıma lisansları</p>
+              <div class="url">https://online.gtb.gov.tr/MuhafazaEntegrasyon/</div>
+            </a>
+            <a href="https://countrylicences.itf-oecd.org/edi/report-license" target="_blank" class="link-card-vertical">
+              <h3>Ubak Sorgulama</h3>
+              <p>Uluslararası taşımacılık lisansları (ITF-OECD)</p>
+              <div class="url">https://countrylicences.itf-oecd.org/edi/report-license</div>
+            </a>
+          </div>
+        </div>
+
+        <div id="cezalar" class="tab-content">
+          <div class="search-box">
+            <input type="text" id="cezaSearch" placeholder="Bent, kabahat, ceza miktarı ara...">
+          </div>
+          <div class="ceza-info">
+            <p><strong>4925 sayılı Karayolu Taşıma Kanunu (KTK), 655 sayılı KHK ve ilgili Yönetmeliklere göre</strong> Gümrük Memurları, Muhafaza ve Muayene Memurları ile Amirlerinin ceza kesme yetkisi ve uyguladıkları idari para cezaları tablosu aşağıdadır.</p>
+            <p>Bu yetki, <strong>KTK'nın 27. maddesi</strong> ve <strong>655 sayılı Ulaştırma ve Altyapı Alanına İlişkin Bazı Düzenlemeler Hakkında KHK'nın 28. maddesi</strong> ile belirlenmiştir. Gümrük teşkilatı, özellikle sınır kapılarındaki (kara, deniz, hava, demiryolu) uluslararası taşımacılık denetiminde önemli rol oynar.</p>
+            <p>Aşağıdaki tablo, gümrük idarelerince en sık kesilen ve <strong>KTK 26. maddesinde yer alan idari para cezalarının özetini</strong> içermektedir.</p>
+            <p class="text-warning"><strong>NOT:</strong> Ceza miktarları her yıl yeniden değerleme oranı ile güncellenir. Güncel kesin tutarlar için <strong>Ticaret Bakanlığı</strong> ve <strong>Ulaştırma ve Altyapı Bakanlığı</strong> duyurularını kontrol ediniz.</p>
+          </div>
+          <table id="cezaTable">
+            <thead>
+              <tr>
+                <th>Bent</th>
+                <th>Kabahat</th>
+                <th>Ceza Miktarı (Türk Lirası)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="bent">a</td><td>Yetki belgesi almadan veya kapsam dışı faaliyet.</td><td>17.000 TL - 170.000 TL</td></tr>
+              <tr><td class="bent">a</td><td>Yetki belgesi olduğu halde taşıtını belgeye kaydettirmeden kullanma.</td><td>8.500 TL - 85.000 TL</td></tr>
+              <tr><td class="bent">b</td><td>5. maddenin 5. fıkrasına aykırı davranan taşımacılar.</td><td>8.500 TL - 85.000 TL</td></tr>
+              <tr><td class="bent">c</td><td>Taşıma hizmetini yapmaktan kaçınma (5/6. fıkra aykırılığı).</td><td>8.500 TL - 85.000 TL</td></tr>
+              <tr><td class="bent">ç</td><td>Bir taşımacının diğerinin taşıma faaliyetini engellemesi (5/7. fıkra aykırılığı).</td><td>25.000 TL - 250.000 TL</td></tr>
+              <tr><td class="bent">d</td><td>6. maddenin 1. fıkrasına aykırı davranma.</td><td>8.500 TL - 85.000 TL</td></tr>
+              <tr><td class="bent">d</td><td>6. maddenin 3. ve 4. fıkralarına aykırı davranma.</td><td>5.000 TL - 50.000 TL</td></tr>
+              <tr><td class="bent">e</td><td>7. maddenin 1. fıkrasına aykırı davranan yolcu taşımacıları.</td><td>17.000 TL - 170.000 TL</td></tr>
+              <tr><td class="bent">e</td><td>7. maddenin 2. fıkrasına aykırı davranan taşımacılar.</td><td>8.500 TL - 85.000 TL</td></tr>
+              <tr><td class="bent">e</td><td>7. maddenin 6. fıkrasına aykırı davranan taşımacılar.</td><td>5.000 TL - 50.000 TL</td></tr>
+              <tr><td class="bent">f</td><td>10. maddeye aykırı davranan acente ve taşıma işleri komisyoncuları.</td><td>25.000 TL - 250.000 TL</td></tr>
+              <tr><td class="bent">g</td><td>Ücret ve zaman tarifesi düzenlememe veya tarifeye uymama (11. madde).</td><td>8.500 TL - 85.000 TL</td></tr>
+              <tr><td class="bent">ğ</td><td>Değişik ücret ve zaman tarifeleri uygulama (11. madde).</td><td>8.500 TL - 85.000 TL</td></tr>
+              <tr><td class="bent">h</td><td>Ücret ve zaman tarifelerini görülebilecek şekilde bulundurmama (11. madde).</td><td>3.500 TL - 35.000 TL</td></tr>
+              <tr><td class="bent">ı</td><td>Yabancı plakalı taşıtların kural dışı taşıma yapmaları (4 alt bent dahil).</td><td>5.000 TL - 500.000 TL</td></tr>
+              <tr><td class="bent">i</td><td>14. maddeye aykırı davranma.</td><td>8.500 TL - 85.000 TL</td></tr>
+              <tr><td class="bent">j</td><td>Terminal/ara duraktan yolcu indirip bindirme (32. madde).</td><td>5.000 TL - 50.000 TL</td></tr>
+              <tr><td class="bent">k</td><td>Mesleki yeterlilik belgesi olmadan faaliyet gösteren işletmeciler (5. madde).</td><td>8.500 TL - 85.000 TL</td></tr>
+              <tr><td class="bent">l</td><td>Belgesiz taşıt kullanan şoförler (5. madde).</td><td>3.500 TL - 35.000 TL</td></tr>
+              <tr><td class="bent">l</td><td>Belgesiz şoför çalıştıran işletmeciler (5. madde).</td><td>8.500 TL - 85.000 TL</td></tr>
+              <tr><td class="bent">m</td><td>Denetim için gereken bilgi/belgeleri ibraz etmeme (27. madde).</td><td>3.000 TL - 30.000 TL</td></tr>
+            </tbody>
+          </table>
+          <div class="ceza-info" style="margin-top: 20px;">
+            <p><strong>Uygulamaya Dair Önemli Hükümler</strong></p>
+            <p>· <strong>Tekrar Cezası Sınırlaması (48 Saat / 3 Ay):</strong> (a), (b), (f), (h) ve (l) bentlerine göre ceza verilenler hakkında 48 saat geçmeden; (k) bendine göre ceza verilenler hakkında 3 ay geçmeden aynı kabahat için tekrar ceza verilmez.</p>
+            <p>· <strong>Mükerrerlik Artırımı:</strong> (b), (c), (ç), (f), (g), (h) ve (k) bentlerinde belirtilen fiillerin, aynı takvim yılı içinde üçüncü ve müteakip tekrarında ceza bir kat artırılarak verilir.</p>
+            <p>· <strong>Yabancı Plakalı Taşıtlar:</strong> Cezalar, tebligat şartı aranmaksızın sürücü bilgilendirilerek tahsil edilir ve ceza ödenmeden taşıtın ülkeyi terk etmesine izin verilmez.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- MENŞE KONTROL -->
+      <section class="tab-content" id="mense_kontrol"><h2>Menşe Kontrol</h2><p>İçerik eklenecek...</p></section>
+    </div>
+
+    <footer>
+      <div class="sig">
+        <a href="https://www.linkedin.com/in/serhansaygin/" target="_blank">
+          Serhan SAYGIN — Gümrük Memuru
+        </a>
+      </div>
+      <div>Oluşturuldu: <span id="created"></span></div>
+    </footer>
+  </div>
+
+  <!-- MODAL -->
+  <div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">X</span>
+    <img class="modal-content" id="modalImage">
+  </div>
+
+<script>
+  // Tarih ve Saat
+  const created = new Date().toLocaleDateString('tr-TR', { year:'numeric', month:'long', day:'numeric' });
+  document.getElementById('created').textContent = created;
+
+  function updateDateTime(){
+    const now = new Date();
+    const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric',
+                   hour:'2-digit', minute:'2-digit', second:'2-digit' };
+    document.getElementById('datetime').textContent = now.toLocaleDateString('tr-TR', opts);
+  }
+  setInterval(updateDateTime, 1000); updateDateTime();
+
+  // ANA TAB GEÇİŞİ
+  function loadPage(pageName) {
+    document.querySelectorAll('.tabs .tab-button').forEach(b => {
+      b.classList.remove('active');
+      if (b.dataset.tab === pageName) b.classList.add('active');
+    });
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.getElementById(pageName).classList.add('active');
+
+    if (pageName === 'transit') {
+      document.querySelectorAll('#transit .sub-tab-button').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.tab === 'platform') btn.classList.add('active');
+      });
+      document.querySelectorAll('#transit .sub-tab-content').forEach(c => {
+        c.classList.remove('active');
+        if (c.id === 'platform') c.classList.add('active');
+      });
+    }
+  }
+  document.querySelectorAll('.tabs .tab-button').forEach(btn => {
+    btn.addEventListener('click', () => loadPage(btn.dataset.tab));
+  });
+
+  // TRANSİT ALT TAB GEÇİŞİ
+  document.querySelectorAll('#transit .sub-tab-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#transit .sub-tab-button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#transit .sub-tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ŞEHİTLER FOTOĞRAFI
+  const martyrPhotos = {
+    yarmoglu: 'https://i.imgur.com/HxfRgwP.png',
+    turan: 'https://i.imgur.com/dGvKbRY.png',
+    kavastan: 'https://i.imgur.com/QjzhFdd.png',
+    turk: 'https://i.imgur.com/YbRWnSw.png',
+    sakaoglu: 'https://i.imgur.com/YxRCH3g.png'
+  };
+
+  document.querySelectorAll('.martyr-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const key = link.dataset.martyr;
+      const container = document.getElementById('martyr-photo-container');
+      container.innerHTML = `<img src="${martyrPhotos[key]}" alt="${link.textContent}" class="martyr-photo" onclick="showModal(this.src)">`;
+    });
+  });
+
+  // STATÜ ARAMA (Transit)
+  document.getElementById('searchInput').addEventListener('keyup', function() {
+    const query = this.value.toLowerCase();
+    document.querySelectorAll('#transitList li').forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.style.display = text.includes(query) ? 'flex' : 'none';
+    });
+  });
+
+  // TAŞIT YOLCU ARAMA
+  document.getElementById('tasitSearch').addEventListener('keyup', function() {
+    const query = this.value.toLowerCase();
+    document.querySelectorAll('#tasit_yolcu .link-card-vertical').forEach(card => {
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(query) ? 'flex' : 'none';
+    });
+  });
+
+  // ULAŞTIRMA - Sorgulamalar Arama
+  document.getElementById('sorguSearch').addEventListener('keyup', function() {
+    const query = this.value.toLowerCase();
+    document.querySelectorAll('#sorgulamalar .link-card-vertical').forEach(card => {
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(query) ? 'flex' : 'none';
+    });
+  });
+
+  // ULAŞTIRMA - Cezalar Arama
+  document.getElementById('cezaSearch').addEventListener('keyup', function() {
+    const query = this.value.toLowerCase();
+    document.querySelectorAll('#cezaTable tbody tr').forEach(row => {
+      const text = row.textContent.toLowerCase();
+      row.style.display = text.includes(query) ? '' : 'none';
+    });
+  });
+
+  // ULAŞTIRMA TAB GEÇİŞİ
+  function openTab(tabName) {
+    document.querySelectorAll('#ulastirma .tab-content').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('#ulastirma .tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+    document.querySelector(`#ulastirma button[onclick="openTab('${tabName}')"]`).classList.add('active');
+  }
+
+  // MODAL
+  function showModal(src) {
+    const modal = document.getElementById('imageModal');
+    const img = document.getElementById('modalImage');
+    modal.style.display = 'block';
+    img.src = src;
+  }
+  function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+  }
+
+  window.onclick = function(e) {
+    const modal = document.getElementById('imageModal');
+    if (e.target === modal) modal.style.display = 'none';
+  };
+</script>
+</body>
+</html>
