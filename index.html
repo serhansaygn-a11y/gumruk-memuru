@@ -214,9 +214,21 @@
     text-align: center;
   }
 
+  /* MODAL STİLLERİ (GÜNCELLENDİ) */
   .modal { display:none; position:fixed; z-index:100; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(0,0,0,0.9); padding-top:20px; }
-  .modal-content { margin:auto; display:block; width:95%; max-width:1200px; max-height:95vh; }
-  .modal-content img { width:auto; height:auto; max-width:100%; max-height:90vh; display:block; margin:0 auto; }
+  .modal-content {
+      margin: auto; 
+      display: block; 
+      width: 95%; 
+      max-width: 1200px; 
+      max-height: 95vh; 
+      background: var(--card); /* İçerik rengi */
+      border-radius: 16px;
+      padding: 30px;
+      overflow-y: auto; /* İçerik için scrollbar */
+  }
+  .modal-content h3 { color: var(--accent); }
+  
   .close { position:fixed; top:15px; right:35px; color:#f1f1f1; font-size:40px; font-weight:bold; transition:0.3s; cursor:pointer; }
   .close:hover, .close:focus { color:#bbb; text-decoration:none; }
 
@@ -434,7 +446,6 @@
     </header>
 
     <div class="main-container">
-      <!-- ANA MENÜ -->
       <nav class="tabs">
         <button class="tab-button active" data-tab="anasayfa">Ana Sayfa</button>
         <button class="tab-button" data-tab="sehitlerimiz">Şehitlerimiz</button>
@@ -447,28 +458,32 @@
         <button class="tab-button" data-tab="mense_kontrol">Menşe Kontrol</button>
       </nav>
 
-      <!-- ANA SAYFA -->
       <section class="tab-content active" id="anasayfa">
         <h2>Ana Sayfa</h2>
         <div class="link-grid">
-          <a class="link-card" href="https://www.ticaret.gov.tr/gumruk-islemleri/gumruk-memurlari" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/G%C3%9CMR%C3%9CK_%C4%B0LK_LOGOlogo.png" alt="Gümrük Memuru">
+          <a class="link-card" href="#" onclick="showMemurDetail(event)"> <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/G%C3%9CMR%C3%9CK_%C4%B0LK_LOGOlogo.png" alt="Gümrük Memuru">
             <div>
               <h3>Gümrük Memurları</h3>
-              <p>Gümrük ve Ticaret Bakanlığı</p>
+              <p>Talepler ve Mesleki Gelişim (Tıklayınız)</p> </div>
+          </a>
+          
+          <a class="link-card" href="https://web.archive.org/web/20050413183512/http://www.gumruk.gov.tr/Content.aspx?cT=0&cId=0_0_0_2&umM1B=Item3" target="_blank">
+            <img src="https://i.imgur.com/kS5xP30.png" alt="Tarihçe Dokümanı" style="height:40px; width:40px;">
+            <div>
+              <h3>Gümrükler Genel Müdürlüğü Tarihçe</h3>
+              <p>Orijinal Kaynak (2005 Arşivi)</p>
             </div>
           </a>
-          <a class="link-card" href="https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_the_Customs_Administration_of_Turkey.svg" target="_blank">
+          <a class="link-card" href="#" onclick="showFlagDetail(event)">
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_the_Customs_Administration_of_Turkey.svg" alt="Gümrük Bayrağı">
             <div>
               <h3>Gümrük Bayrağı</h3>
-              <p>Türkiye Gümrük Teşkilatı</p>
+              <p>Tarihçe ve Şekli (Açmak İçin Tıklayın)</p>
             </div>
           </a>
         </div>
       </section>
 
-      <!-- ŞEHİTLERİMİZ -->
       <section class="tab-content" id="sehitlerimiz">
         <h2>Şehitlerimiz</h2>
         <div class="martyrs-container">
@@ -481,7 +496,6 @@
         <div id="martyr-photo-container"></div>
       </section>
 
-      <!-- MEVZUAT -->
       <section class="tab-content" id="mevzuat">
         <h2>Mevzuat</h2>
         <div class="link-grid">
@@ -530,7 +544,6 @@
         </div>
       </section>
 
-      <!-- TARİFE -->
       <section class="tab-content" id="tarife">
         <h2>Tarife</h2>
         <div class="link-grid">
@@ -549,7 +562,6 @@
         </div>
       </section>
 
-      <!-- PERSONEL -->
       <section class="tab-content" id="personel">
         <h2>Personel</h2>
         <div class="link-grid">
@@ -640,7 +652,6 @@
         </div>
       </section>
 
-      <!-- TRANSIT -->
       <section class="tab-content" id="transit">
         <h2>Transit</h2>
         <div class="sub-menu">
@@ -823,11 +834,11 @@
                 <h3>2. Olağan Adı Üzerinden Arama</h3>
                 <p>Gümrük İdaresi Arama</p>
               </a>
-              <a href="https://ec.europa.eu/taxation_customs/dds2/rd/rd_consultation_reference.jsp?Lang=en" target="_blank" class="link-card">
+              <a class="link-card" href="https://ec.europa.eu/taxation_customs/dds2/rd/rd_consultation_reference.jsp?Lang=en" target="_blank">
                 <h3>3. Referans Numarası ile Arama</h3>
                 <p>Gümrük İdaresi Arama</p>
               </a>
-              <a href="https://ec.europa.eu/taxation_customs/dds2/rd/publicholidays_consultation.jsp?Lang=en" target="_blank" class="link-card">
+              <a class="link-card" href="https://ec.europa.eu/taxation_customs/dds2/rd/publicholidays_consultation.jsp?Lang=en" target="_blank">
                 <h3>4. Resmi Tatiller</h3>
                 <p>Tatil Günleri Sorgulama</p>
               </a>
@@ -836,7 +847,6 @@
         </div>
       </section>
 
-      <!-- TAŞIT YOLCU -->
       <section class="tab-content" id="tasit_yolcu">
         <h2>Taşıt-Yolcu</h2>
         <div class="search-box">
@@ -916,7 +926,6 @@
         </div>
       </section>
 
-      <!-- ULAŞTIRMA -->
       <section class="tab-content" id="ulastirma">
         <h2>Ulaştırma</h2>
         <div class="tabs">
@@ -1013,8 +1022,287 @@
         </div>
       </section>
 
-      <!-- MENŞE KONTROL -->
-      <section class="tab-content" id="mense_kontrol"><h2>Menşe Kontrol</h2><p>İçerik eklenecek...</p></section>
+      <section class="tab-content" id="mense_kontrol">
+        <h2>Menşe Kontrol</h2>
+        <div style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
+          <input type="text" id="menseSearchInput" placeholder="Ülke Ara..." onkeyup="performSearch()" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--muted); background: rgba(255,255,255,0.05); color: white;">
+        </div>
+        <div class="link-grid">
+          <a class="link-card" href="https://certificates.iccwbo.org/Certificate-of-Origin/Verify-the-non-preferential-Certificate-of-Origin" target="_blank">
+            <div class="mense-logo">UTO</div>
+            <div>
+              <h3>Uluslararası Ticaret Odası</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://certificateoforigin.com" target="_blank">
+            <div class="mense-logo">ESSC</div>
+            <div>
+              <h3>ESS Cert</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://www.tax.service.gov.uk/check-eori-number" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/gb.svg" alt="Birleşik Krallık Bayrağı">
+            <div>
+              <h3>Birleşik Krallık</h3>
+              <p>EORI Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://cert.ihk.de/#/home" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/de.svg" alt="Almanya Bayrağı">
+            <div>
+              <h3>Almanya</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://certificates.iccwbo.org/Certificate-of-Origin/Verify-the-non-preferential-Certificate-of-Origin" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/fr.svg" alt="Fransa Bayrağı">
+            <div>
+              <h3>Fransa</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://co.camcom.infocamere.it/gbdnfe/#!/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/it.svg" alt="İtalya Bayrağı">
+            <div>
+              <h3>İtalya</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://www.docuexport.com/verify/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/es.svg" alt="İspanya Bayrağı">
+            <div>
+              <h3>İspanya</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://etramites-pre.camaras.es/verify/search" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/es.svg" alt="İspanya Bayrağı">
+            <div>
+              <h3>İspanya (Ek Bağlantı)</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://www.digichambers.be/verify/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/be.svg" alt="Belçika Bayrağı">
+            <div>
+              <h3>Belçika</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://www.digichambers.be/en/Verify" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/lu.svg" alt="Lüksemburg Bayrağı">
+            <div>
+              <h3>Lüksemburg</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://ecert.sgs.com/community/certificate-validation" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/mt.svg" alt="Malta Bayrağı">
+            <div>
+              <h3>Malta</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://eur1.toll.no/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/no.svg" alt="Norveç Bayrağı">
+            <div>
+              <h3>Norveç</h3>
+              <p>EUR.1 Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://digitalnakomora.hr/e-javne-ovlasti/dokumenti-potvrde/potvrda-o-podrijetlu-robe/provjera-potvrde-o-podrijetlu-robe" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/hr.svg" alt="Hırvatistan Bayrağı">
+            <div>
+              <h3>Hırvatistan</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="http://isco.bg/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/bg.svg" alt="Bulgaristan Bayrağı">
+            <div>
+              <h3>Bulgaristan</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://essdocs.com/esscert-certificate-of-origin-verification" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/lt.svg" alt="Litvanya Bayrağı">
+            <div>
+              <h3>Litvanya</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://verification.tpprf.ru/search/generalForm?langData=en" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/ru.svg" alt="Rusya Bayrağı">
+            <div>
+              <h3>Rusya</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://verify.ucci.org.ua/en" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/ua.svg" alt="Ukrayna Bayrağı">
+            <div>
+              <h3>Ukrayna</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://certs.cci.by/verify/check.do?lang=eng&ncert=&nblanka=&datecert" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/by.svg" alt="Belarus Bayrağı">
+            <div>
+              <h3>Belarus</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="http://verification.expertiza.uz/expertiza/#/verification" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/uz.svg" alt="Özbekistan Bayrağı">
+            <div>
+              <h3>Özbekistan</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://cscs.chambertrust.ir/jsp/cooCheckEN.jsp" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/ir.svg" alt="İran Bayrağı">
+            <div>
+              <h3>İran</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://veco.moci.gov.kw/ECO/WebPages/ECO CERT DATA.aspx" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/kw.svg" alt="Kuveyt Bayrağı">
+            <div>
+              <h3>Kuveyt</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://eservices.chamberoman.om/coo-verify" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/om.svg" alt="Umman Bayrağı">
+            <div>
+              <h3>Umman</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://coo.bombaychamber.online/verifycertificate.aspx" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/in.svg" alt="Hindistan Bayrağı">
+            <div>
+              <h3>Hindistan</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="http://www.coobd.org/index.php/coos/exproterview1" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/bd.svg" alt="Bangladeş Bayrağı">
+            <div>
+              <h3>Bangladeş</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="http://origin.customs.gov.cn/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/cn.svg" alt="Çin Bayrağı">
+            <div>
+              <h3>Çin</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="http://check.ccpiteco.net/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/cn.svg" alt="Çin Bayrağı">
+            <div>
+              <h3>Çin (Ek Bağlantı)</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://www.verifyco.tid.gov.hk/enquiry" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/hk.svg" alt="Hong Kong Bayrağı">
+            <div>
+              <h3>Hong Kong</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://cocp.trade.gov.tw/tbmc/public/coe0160.jsp" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/tw.svg" alt="Tayvan Bayrağı">
+            <div>
+              <h3>Tayvan</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://ref.jcci.or.jp/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/jp.svg" alt="Japonya Bayrağı">
+            <div>
+              <h3>Japonya</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://cert.korcham.net/search/index.htm" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/kr.svg" alt="Güney Kore Bayrağı">
+            <div>
+              <h3>Güney Kore</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://ska.kemendag.go.id/verification-coo" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/id.svg" alt="Endonezya Bayrağı">
+            <div>
+              <h3>Endonezya</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://smarteco.vcargocloud.com/SmartECO/verify/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/sg.svg" alt="Singapur Bayrağı">
+            <div>
+              <h3>Singapur</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://newepco.dagangnet.com/home/ecolookup" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/my.svg" alt="Malezya Bayrağı">
+            <div>
+              <h3>Malezya</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://smartco.dft.gov.th/authorization/login?callbackUrl=%2F" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/th.svg" alt="Tayland Bayrağı">
+            <div>
+              <h3>Tayland</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="http://www2.douane.gov.ma/certificat/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/ma.svg" alt="Fas Bayrağı">
+            <div>
+              <h3>Fas</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://portal.ccmoz.org.mz/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/mz.svg" alt="Mozambik Bayrağı">
+            <div>
+              <h3>Mozambik</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://cmis.kenyachamber.or.ke/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/ke.svg" alt="Kenya Bayrağı">
+            <div>
+              <h3>Kenya</h3>
+              <p>Menşe Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://web.ticaret.gov.tr/rex" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/tr.svg" alt="Türk Bayrağı">
+            <div>
+              <h3>REX-Beyanı Kayıtlı İhracatçı Sistemi</h3>
+              <p>REX No Sorgulama</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://medos.tobb.org.tr/" target="_blank">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/flags/1x1/tr.svg" alt="Türk Bayrağı">
+            <div>
+              <h3>Elektronik ortamda düzenlenecek A.TR Dolaşım Belgeleri</h3>
+              <p>TOBB MEDOS sayfasına yönlendirir.</p>
+            </div>
+          </a>
+        </div>
+      </section>
     </div>
 
     <footer>
@@ -1027,10 +1315,10 @@
     </footer>
   </div>
 
-  <!-- MODAL -->
   <div id="imageModal" class="modal">
-    <span class="close" onclick="closeModal()">X</span>
-    <img class="modal-content" id="modalImage">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal-content" id="modalInnerContent">
+        </div>
   </div>
 
 <script>
@@ -1141,22 +1429,139 @@
     document.getElementById(tabName).classList.add('active');
     document.querySelector(`#ulastirma button[onclick="openTab('${tabName}')"]`).classList.add('active');
   }
-
-  // MODAL
-  function showModal(src) {
-    const modal = document.getElementById('imageModal');
-    const img = document.getElementById('modalImage');
-    modal.style.display = 'block';
-    img.src = src;
+  
+  // MENŞE KONTROL ARAMA FONKSİYONU
+  function performSearch() {
+    const query = document.getElementById('menseSearchInput').value.toLowerCase();
+    const items = document.querySelectorAll('#mense_kontrol .link-card');
+    items.forEach(item => {
+      // Hem başlık (h3) hem de açıklama (p) içeriğini al
+      const text = item.querySelector('div').textContent.toLowerCase(); 
+      item.style.display = text.includes(query) ? 'flex' : 'none';
+    });
   }
+
+  // MODAL KAPATMA
   function closeModal() {
     document.getElementById('imageModal').style.display = 'none';
+    // İçerik temizleniyor, bir sonraki açılışa hazırlanıyor
+    document.getElementById('modalInnerContent').innerHTML = '';
   }
 
-  window.onclick = function(e) {
+  // MODAL - SADECE GÖRSEL GÖSTERME (Transit şemaları gibi yerler için)
+  function showModal(src) {
     const modal = document.getElementById('imageModal');
-    if (e.target === modal) modal.style.display = 'none';
-  };
+    const innerContent = document.getElementById('modalInnerContent');
+
+    // Metin içeriğini temizle ve sadece resmi göster
+    innerContent.innerHTML = `
+      <img src="${src}" alt="Büyütülmüş Görsel" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+    `;
+    modal.style.display = 'block';
+  }
+
+  // GÜMRÜK BAYRAĞI DETAY MODALI (METİN VE GÖRSEL)
+  function showFlagDetail(event) {
+    event.preventDefault(); // Sayfanın üste kaymasını engeller.
+    
+    const innerContent = document.getElementById('modalInnerContent');
+    const modal = document.getElementById('imageModal');
+
+    // İçeriği temizle
+    innerContent.innerHTML = ''; 
+
+    const title = "Gümrük Bayrağı Tarihçe ve Şekli";
+    const content = `
+      <h3 style="color: var(--accent); margin-bottom: 15px;">${title}</h3>
+      <p style="text-align: left; margin-bottom: 20px;">
+        Hukuki Dayanak ve Kurucu İradenin Tespiti: Gümrük idarelerinde kullanılan Gümrük İdaresi Bayrakları, 
+        28.07.1937 tarihli ve 2/7175 sayılı İcra Vekilleri Heyeti (Bakanlar Kurulu) Kararnamesi ile kabul edilen 
+        ve 14.09.1937 tarihli ve 3708 sayılı Resmî Gazete'de yayımlanan Türk Bayrağı Nizamnamesi'nin 36 ncı maddesinde 
+        belirtilen (2) numaralı Levha ile tespit edilmiştir. Bu Kararname, Türkiye Cumhuriyeti'nin kurucusu 
+        Mustafa Kemal ATATÜRK'ün (Reisicumhur) ve dönemin Başvekili İsmet İNÖNÜ'nün imzalarını taşımaktadır.
+      </p>
+      <p style="text-align: left; margin-bottom: 20px;">
+        Bayrak Çeşitleri: Anılan Nizamnamenin eki (2) numaralı Levhada gümrük idareleri için iki adet özel bayrak bulunmaktadır:
+        <br>
+        1. **Gümrük Dairesi Bayrağı (Gümrük Teşkilatı Bayrağı):** Türk Bayrağının şekil ve ölçüleriyle aynı olup, ay ve yıldızı levhada belirtilen ölçülerde yeşil renkli dikdörtgen bir şerit çerçevelemektedir. Yeşil şeridin genişliği $1/25 G$ (Bayrak Genişliği) olup, yeşilin dış kenarlarının bayrağın dört dış kenarından açıklığı ise $1/-5 G$ olarak belirlenmiştir. Gümrük Müsteşarlığının (şimdiki T.C. Ticaret Bakanlığı) resmi web sitesinin sağ üst köşesinde kullanılan bayrak bu bayraktır.
+        <br>
+        2. **Gümrük Kontrolünü Simgeleyen Bayrak:** Yeşil zemin üzerinde, levhada belirtilen ölçülerde kırmızı ve beyaz dikdörtgen şeklindeki bayraktır.
+      </p>
+      <p style="text-align: left; margin-bottom: 20px;">
+        Kullanım Süresi: Bu özel bayraklar, 1937 yılından bu yana bütün gümrük idarelerinde ve kara sınır kapılarında kullanılmaktadır.
+      </p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Gumruk-Bayragi-Sinir-Kapisi-Bayragi-yonetmelik.jpg" 
+           alt="Gümrük Bayrağı Yönetmelik Görseli" 
+           style="max-width: 100%; height: auto; border-radius: 8px; cursor: pointer;"
+           onclick="showModal('https://upload.wikimedia.org/wikipedia/commons/2/20/Gumruk-Bayragi-Sinir-Kapisi-Bayragi-yonetmelik.jpg')"> 
+      <p style="font-size: 0.8em; color: var(--muted); margin-top: 10px;">
+        Görseli büyütmek için üzerine tıklayın.
+      </p>
+    `;
+
+    // İçeriği innerHTML ile tek seferde yerleştiriyoruz.
+    innerContent.innerHTML = content;
+    
+    // Ana modal pencereyi göster
+    modal.style.display = 'block';
+  }
+
+  // GÜMRÜK MEMURLARI DETAY MODALI (YENİ)
+  function showMemurDetail(event) {
+    event.preventDefault(); // Sayfanın üste kaymasını engeller.
+    
+    const innerContent = document.getElementById('modalInnerContent');
+    const modal = document.getElementById('imageModal');
+
+    // İçeriği temizle
+    innerContent.innerHTML = ''; 
+
+    const title = "GÜMRÜK MEMURLARI TALEPLERİ";
+    const content = `
+      <h3 style="color: var(--accent); margin-bottom: 15px; text-align: center;">${title}</h3>
+      
+      <h4 style="color: var(--text); margin-top: 25px; margin-bottom: 5px;">Gümrük Memuru Mesleki İtibar İstiyor:</h4>
+      <p>Gümrük memurları; gümrük ve dış ticaret mevzuatının sahadaki doğrudan uygulayıcıları olup, dış ticaret işlemlerinin mevzuata uygun şekilde yürütülmesini, ülke ekonomisinin korunmasını, kamu gelirlerinin tahsilini ve kaçakçılıkla mücadelenin etkin biçimde yapılmasını sağlamaktadır. Bu kapsamda; Memur ve Veri Hazırlama ve Kontrol İşletmeni kadrolarında görev yapan personele teşkilatımız içinde “Gümrük Memuru” unvanı verilmesi, Gümrük hizmetlerinin uzmanlık gerektiren bir alan olduğu dikkate alınarak, diğer kamu kurum ve kuruluşlarından naklen atamalar veya açıktan alımlar yoluyla “Gümrük Memuru” unvanına atama yapılmasının önüne geçilmesi talep edilmektedir.</p>
+
+      <h4 style="color: var(--text); margin-top: 25px; margin-bottom: 5px;">Gümrük Memurlarına Mahrum Hak Talebi:</h4>
+      <p>Gümrük Memuru unvanının ihdası halinde, Devlet Memurlarına Ödenecek Zam ve Tazminatlara İlişkin Karar’ın 1 sayılı cetvelinin 17. sırasında yer alan personelin dışına çıkılacağı için; mevcut olarak ödenen 750 puan İş Güçlüğü Zammı, 250 puana kadar Temininde Güçlük Zammı ile ilave 750 puana kadar Temininde Güçlük Zammı, 500 puana kadar İş Riski Zammı haklarından mahrum kalınabilecektir. Bu nedenle, Gümrük Müsteşarlığı bölümü kapsamında H cetveline eklenerek, Gümrük Memurlarına toplam **2.250 puan** ek ödeme yapılması talep edilmektedir.</p>
+      
+      <h4 style="color: var(--text); margin-top: 25px; margin-bottom: 5px;">Kademe/Derece Düzenlemesi:</h4>
+      <p>Gümrük Memurlarının kademe ve derecelerinin, mesleğin risk ve sorumluluk yapısı dikkate alınarak **1 ila 12** arasında düzenlenmesi talep edilmektedir. (Örnek: Sağlık Memuru, Ayniyat Saymanı vb.)</p>
+      
+      <h4 style="color: var(--text); margin-top: 25px; margin-bottom: 5px;">Fazla Mesai ve Ek Ödemeler:</h4>
+      <p>Gümrük memurları; 24 saat esasına dayalı vardiya sistemiyle, resmi ve dini bayramlar ile hafta sonu tatilleri olmaksızın görev yapmakta, yüksek iş yükü ve ağır sorumluluk altında hizmet vermektedir. Bu çerçevede, fazla mesai ücretlerinden gelir vergisi kesintisinin kaldırılması, görevin barındırdığı tehlikeler nedeniyle personele risk tazminatı ödenmesi, fiili hizmet süresi zammı kapsamında yıpranma payı hakkının tanınması ve devlet memurlarına ödenen zam ve tazminatlara ilave olarak gümrük memurlarına da ek hak sağlanması talep edilmektedir.</p>
+      
+      <h4 style="color: var(--text); margin-top: 25px; margin-bottom: 5px;">Gümrük Uzlaşma Yönetmeliği:</h4>
+      <p>Gümrük ve Dış Ticaret Bölge Müdürlükleri Uzlaşma Komisyonlarında, gümrük ve dış ticaret mevzuatını fiilen uygulayan ve komisyonun tüm sekreterya işlemlerini yürüten Gümrük Memurlarının unvanlarının da komisyon yapısına eklenmesi; bu doğrultuda ‘Gümrük Uzlaşma Komisyonu Üyelerine Ödenecek Ücrete İlişkin Esaslar’da belirtilen cetvelin yeniden düzenlenmesi talep edilmektedir.</p>
+
+      <h4 style="color: var(--text); margin-top: 25px; margin-bottom: 5px;">Kariyer - Gümrük Müşavirliği Hakkı:</h4>
+      <ul>
+        <li>Gümrük idaresinde en az 10 yıl çalışmış olup, bunun üç yılını şube müdürü, gümrük müdürü, gümrük muhafaza müdürü, Bölge Müdürlüklerinde bölge müdür yardımcısı görevlerinde geçirenlerden, görevlerinden istifa eden veya emekliye ayrılanlara sınav şartı aranmaksızın Gümrük Müşavirliği verilmesi.</li>
+        <li>Gümrük ve dış ticaret mevzuatının uygulayıcıları arasında yer alan gümrük memurlarının mesleki deneyim ve kazanımlarının değerlendirilmesi amacıyla; 15 yıl görev yapan gümrük memurlarına Gümrük Müşavir Yardımcılığı, 25 yıl görev yapan gümrük memurlarına ise sınavsız Gümrük Müşavirliğinin eğitim, staj ve sınav şartı aranmaksızın verilmesi talep edilmektedir.</li>
+      </ul>
+
+      <h4 style="color: var(--text); margin-top: 25px; margin-bottom: 5px;">Silah Talebi:</h4>
+      <p>Gümrük memurları; gümrük ve dış ticaret mevzuatının sahadaki uygulayıcıları olarak kamu gelirlerinin tahsili, dış ticaretin düzenlenmesi ve kaçakçılıkla mücadelenin yürütülmesinde kritik görev üstlenmektedir. Bu görevler çoğu zaman sınır kapılarında, limanlarda, serbest bölgelerde, geçici depolama yerlerinde, antrepoda ve riskli sahalarda, 24 saat esasına dayalı vardiya sistemiyle yerine getirilmektedir.</p>
+      <p>Görev esnasında gümrük memurları sıkça tehdit, şiddet ve hakaret gibi saldırılara maruz kalmakta, hatta geçmişte terör örgütü tarafından kaçırılma ve silahlı saldırı gibi ağır olaylar yaşanmıştır. Buna rağmen 640 sayılı KHK’nın 39. maddesi yalnızca bazı personel gruplarına silah taşıma yetkisi tanımış, doğrudan sahada görev yapan gümrük memurlarını kapsam dışında bırakmıştır. Bu durum, görev riskleri ile mevcut hukuki düzenleme arasında ciddi bir çelişki oluşturmaktadır.</p>
+      <p>Gümrük hizmetlerinin bütünlüğü ve taşra teşkilatının güvenliği gözetilerek, 640 sayılı KHK’nın 39. maddesinde gerekli değişikliğin yapılması ve gümrük memurlarına da silah taşıma hakkının tanınması elzemdir.</p>
+      
+      <h4 style="color: var(--text); margin-top: 25px; margin-bottom: 5px;">Ek Zam ve Tazminat Talebi (Depo/Ambar Görevleri):</h4>
+      <p>Devlet Memurlarına Ödenecek Zam ve Tazminatlara İlişkin Karar ile Tasfiye Yönetmeliği kapsamında, gümrük idarelerinin kontrolü altında bulunan geçici depolama yerleri, antrepo ve ambarlarda eşya alınması, muhafazası ve teslimi işlemlerinde görev yapan personele, mevcut olarak ödenen; **500 puan** iş güçlüğü zammı, **575 puan** teminde güçlük zammı, Ambar ve sundurmalarda görev yapan personele **600 puan** iş güçlüğü zammı, ek olarak yapılan işlemlerin riski ve eşyaya zarar ziyan durumunda memura rücu edilmesinden mütevelli **1.000 puan** mali sorumluluk zammı verilmesi talep edilmektedir.</p>
+
+      <h4 style="color: var(--text); margin-top: 25px; margin-bottom: 5px;">Lisanslı Yediemin Depoları Lisans Talebi:</h4>
+      <p>Lisanslı Yediemin Depoları Yönetmeliği kapsamında, gümrük idarelerinin kontrolü altında bulunan geçici depolama yerleri, antrepo ve ambarlara eşya alınması, muhafazası ve teslimi işlemlerinde görev yapan gümrük memurlarının, görevlerinden istifa eden veya emekliye ayrılanlara ilgili yönetmelik kapsamında lisans verilmesi talep edilmektedir.</p>
+
+      <h4 style="color: var(--text); margin-top: 25px; margin-bottom: 5px;">Bilirkişilik Hakkında Düzenleme Talebi:</h4>
+      <p>6754 sayılı Bilirkişilik Kanunu kapsamında, bilirkişi olma şartlarında yer alan “2-Gümrük müşaviri olmak veya kamu kurum ve kuruluşlarının merkez ve taşra teşkilatlarının gümrük ve dış ticaret ile ilgili birimlerinde muayene memuru, müdür, başmüdür, uzman, kontrolör, müfettiş olarak çalışıyor veya çalışmış olmak.” cümlesine muayene memurundan önce gelmek üzere **Gümrük Memurunun** eklenmesi talep edilmektedir.</p>
+    `;
+
+    // İçeriği innerHTML ile tek seferde yerleştiriyoruz.
+    innerContent.innerHTML = content;
+    
+    // Ana modal pencereyi göster
+    modal.style.display = 'block';
+  }
 </script>
 </body>
 
