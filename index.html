@@ -371,8 +371,8 @@
   #transitList li:hover { background: rgba(255,255,255,0.12); }
   #transitList .code { font-weight: 700; color: var(--accent); min-width: 100px; }
   #transitList .description { color: var(--muted); margin-left: 20px; flex-grow: 1; }
-  #transitList .red-line { background: rgba(255, 0, 0, 0.4); }
-  #transitList .yellow-line { background: rgba(255, 255, 0, 0.4); color: black; }
+  .red-line { background: rgba(255, 0, 0, 0.4); }
+  .yellow-line { background: rgba(255, 255, 0, 0.4); color: black; }
 
   /* ULAŞTIRMA & TAŞIT YOLCU STİLLERİ */
   .tab-btn {
@@ -431,7 +431,7 @@
       </div>
 
       <div class="header-center">
-        <h1>Gümrük Hızlı Erişim Paneli</h1>
+        <h1>Gümrük – Hızlı Erişim Paneli</h1>
         <p>Gümrük işlemleri için modern kaynak</p>
       </div>
 
@@ -456,15 +456,17 @@
         <button class="tab-button" data-tab="tasit_yolcu">Taşıt Yolcu</button>
         <button class="tab-button" data-tab="ulastirma">Ulaştırma</button>
         <button class="tab-button" data-tab="mense_kontrol">Menşe Kontrol</button>
-      </nav>
+        <button class="tab-button" data-tab="referanslar">Referans Mesajları</button> </nav>
 
       <section class="tab-content active" id="anasayfa">
         <h2>Ana Sayfa</h2>
         <div class="link-grid">
-          <a class="link-card" href="#" onclick="showMemurDetail(event)"> <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/G%C3%9CMR%C3%9CK_%C4%B0LK_LOGOlogo.png" alt="Gümrük Memuru">
+          <a class="link-card" href="#" onclick="showMemurDetail(event)"> 
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/G%C3%9CMR%C3%9CK_%C4%B0LK_LOGOlogo.png" alt="Gümrük Memuru">
             <div>
               <h3>Gümrük Memurları</h3>
-              <p>Talepler ve Mesleki Gelişim (Tıklayınız)</p> </div>
+              <p>Talepler ve Mesleki Gelişim (Tıklayınız)</p>
+            </div>
           </a>
           
           <a class="link-card" href="https://web.archive.org/web/20050413183512/http://www.gumruk.gov.tr/Content.aspx?cT=0&cId=0_0_0_2&umM1B=Item3" target="_blank">
@@ -474,6 +476,7 @@
               <p>Orijinal Kaynak (2005 Arşivi)</p>
             </div>
           </a>
+          
           <a class="link-card" href="#" onclick="showFlagDetail(event)">
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_the_Customs_Administration_of_Turkey.svg" alt="Gümrük Bayrağı">
             <div>
@@ -1303,6 +1306,93 @@
           </a>
         </div>
       </section>
+      
+      <section class="tab-content" id="referanslar">
+        <h2>EDI / XML Referans Mesajları</h2>
+        <div class="link-grid" id="referans-link-grid">
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/stm-bagli-il-kodlari" target="_blank">
+            <div><h3>STM Bağlı İl Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/islem-niteligi-kodlari" target="_blank">
+            <div><h3>İşlem Niteliği Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/uluslararasi-liman-kodlari" target="_blank">
+            <div><h3>Uluslararası Liman Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/odeme-sekli-kodlari" target="_blank">
+            <div><h3>Ödeme Şekli Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/tamamlayici-bilgi-kodlari" target="_blank">
+            <div><h3>Tamamlayıcı Bilgi Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/anti-damping-vergisi-ureticisi-gonderici-firma-kodlari" target="_blank">
+            <div><h3>Anti Damping Vergisi Üreticisi / Gönderici Firma Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/gumruk-idareleri-ve-saymanlik-kodlari" target="_blank">
+            <div><h3>Gümrük İdareleri ve Saymanlık Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/tasima-araci-kodlari" target="_blank">
+            <div><h3>Taşıma Aracı Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/uluslararasi-anlasma-kodlari" target="_blank">
+            <div><h3>Uluslararası Anlaşma Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/basitlestirilmis-usul-kodlari" target="_blank">
+            <div><h3>Basitleştirilmiş Usul Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/liman-kodlariturkiye-limanlari" target="_blank">
+            <div><h3>Liman Kodları (Türkiye Limanları)</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/olcu-birimleri-kodlari" target="_blank">
+            <div><h3>Ölçü Birimleri Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/muafiyet-kodlari" target="_blank">
+            <div><h3>Muafiyet Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/istenen-dokuman-kodlari" target="_blank">
+            <div><h3>İstenen Doküman Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/havalimani-kodlari" target="_blank">
+            <div><h3>Havalimanı Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/havalimani-kodlari" target="_blank">
+            <div><h3>Uçak Şirketi Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/havalimani-kodlari" target="_blank">
+            <div><h3>Teslim Şekli Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/guncel-vergi-kodlari" target="_blank">
+            <div><h3>Güncel Vergi Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/tasima-turleri-kodlari" target="_blank">
+            <div><h3>Taşıma Türleri Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/kap-kodlari" target="_blank">
+            <div><h3>Kap Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/doviz-cinsi-kodlari" target="_blank">
+            <div><h3>Döviz Cinsi Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/ulke-kodlari" target="_blank">
+            <div><h3>Ülke Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/rejim-kodlari" target="_blank">
+            <div><h3>Rejim Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/ambar-kodlari" target="_blank">
+            <div><h3>Ambar Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/antrepo-kodlari" target="_blank">
+            <div><h3>Antrepo Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/banka-kodlari" target="_blank">
+            <div><h3>Banka Kodları</h3></div>
+          </a>
+          <a class="link-card" href="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/web-servisler-ve-entegrasyon-bilgileri" target="_blank">
+            <div><h3>Web Servisler ve Entegrasyon Bilgileri</h3></div>
+          </a>
+        </div>
+      </section>
     </div>
 
     <footer>
@@ -1460,7 +1550,7 @@
     modal.style.display = 'block';
   }
 
-  // GÜMRÜK BAYRAĞI DETAY MODALI (METİN VE GÖRSEL)
+  // GÜMRÜK BAYRAĞI DETAY MODALI
   function showFlagDetail(event) {
     event.preventDefault(); // Sayfanın üste kaymasını engeller.
     
@@ -1472,7 +1562,7 @@
 
     const title = "Gümrük Bayrağı Tarihçe ve Şekli";
     const content = `
-      <h3 style="color: var(--accent); margin-bottom: 15px;">${title}</h3>
+      <h3 style="color: var(--accent); margin-bottom: 15px; text-align: center;">${title}</h3>
       <p style="text-align: left; margin-bottom: 20px;">
         Hukuki Dayanak ve Kurucu İradenin Tespiti: Gümrük idarelerinde kullanılan Gümrük İdaresi Bayrakları, 
         28.07.1937 tarihli ve 2/7175 sayılı İcra Vekilleri Heyeti (Bakanlar Kurulu) Kararnamesi ile kabul edilen 
@@ -1562,6 +1652,11 @@
     // Ana modal pencereyi göster
     modal.style.display = 'block';
   }
+
+  window.onclick = function(e) {
+    const modal = document.getElementById('imageModal');
+    if (e.target === modal) modal.style.display = 'none';
+  };
 </script>
 </body>
 
