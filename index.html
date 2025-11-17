@@ -456,11 +456,49 @@
         <button class="tab-button" data-tab="tasit_yolcu">Taşıt Yolcu</button>
         <button class="tab-button" data-tab="ulastirma">Ulaştırma</button>
         <button class="tab-button" data-tab="mense_kontrol">Menşe Kontrol</button>
-        <button class="tab-button" data-tab="referanslar">Referans Mesajları</button> </nav>
+        <button class="tab-button" data-tab="referanslar">Referans Mesajları</button>
+        <button class="tab-button" data-tab="istatistikler">İSTATİSTİKLER VE VERİTABANLARI</button>
+      </nav>
 
       <section class="tab-content active" id="anasayfa">
         <h2>Ana Sayfa</h2>
         <div class="link-grid">
+          <a class="link-card" href="https://ticaret.gov.tr/" target="_blank">
+            <div>
+              <h3>Ticaret Bakanlığı</h3>
+              <p>Resmi Ana Sayfa</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://portal.ticaret.gov.tr/" target="_blank">
+            <div>
+              <h3>Ticaret Bakanlığı Portal</h3>
+              <p>Hizmet Portalı</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://healinturkiye.gov.tr/" target="_blank">
+            <div>
+              <h3>Türkiye'nin Sağlık Turizm Portalı</h3>
+              <p>Heal in Türkiye</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://tga.gov.tr/" target="_blank">
+            <div>
+              <h3>Türkiye Turizm Tanıtım Geliştirme Ajansı</h3>
+              <p>TGA</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://dtybs.ticaret.gov.tr/blog/" target="_blank">
+            <div>
+              <h3>Ticaret Müşavirlerimizden</h3>
+              <p>Dış Temsilcilikler Blog</p>
+            </div>
+          </a>
+          <a class="link-card" href="https://dtybs.ticaret.gov.tr/login/?next=/" target="_blank">
+            <div>
+              <h3>Dış Temsilcilikler Yönetim Bilgi Sistemi</h3>
+              <p>DTYBS Giriş</p>
+            </div>
+          </a>
           <a class="link-card" href="#" onclick="showMemurDetail(event)"> 
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/G%C3%9CMR%C3%9CK_%C4%B0LK_LOGOlogo.png" alt="Gümrük Memuru">
             <div>
@@ -1393,6 +1431,201 @@
           </a>
         </div>
       </section>
+
+      <section class="tab-content" id="istatistikler">
+        <h2>İSTATİSTİKLER VE VERİTABANLARI</h2>
+        
+        <div class="sub-tabs">
+          <button class="sub-tab-button active" onclick="loadSubTab('uluslararasi_ticaret')">Uluslararası Ticaret</button>
+          <button class="sub-tab-button" onclick="loadSubTab('ekonomik_gostergeler')">Ekonomik Göstergeler</button>
+          <button class="sub-tab-button" onclick="loadSubTab('turkiye_verileri')">Türkiye</button>
+          <button class="sub-tab-button" onclick="loadSubTab('pazara_giris')">Pazara Giriş Veritabanları</button>
+        </div>
+
+        <div class="sub-menu-content">
+          
+          <div class="sub-tab-content active" id="uluslararasi_ticaret">
+            <h3>Uluslararası Ticaret İstatistikleri</h3>
+            <div class="link-grid">
+              <a class="link-card" href="http://www.intracen.org/itc/market-info-tools/trade-statistics" target="_blank">
+                <div><h3>Uluslararası Ticaret Merkezi (ITC) İstatistikleri</h3></div>
+              </a>
+              <a class="link-card" href="https://comtrade.un.org/data" target="_blank">
+                <div><h3>Birleşmiş Milletler Ticaret İstatistikleri (UN Comtrade)</h3></div>
+              </a>
+              <a class="link-card" href="https://www.trademap.org" target="_blank">
+                <div><h3>TradeMap Veritabanı</h3></div>
+              </a>
+              <a class="link-card" href="https://unctad.org/en/Pages/statistics.aspx" target="_blank">
+                <div><h3>UNCTAD Veritabanı</h3></div>
+              </a>
+              <a class="link-card" href="https://trade.ec.europa.eu/access-to-markets/en/home" target="_blank">
+                <div><h3>Avrupa Komisyonu Pazara Erişim Veritabanı</h3></div>
+              </a>
+              <a class="link-card" href="https://tmdb.wto.org/en" target="_blank">
+                <div><h3>DTÖ Ticaret Önlemleri Veritabanı (TMDB)</h3></div>
+              </a>
+              <a class="link-card" href="https://www.wto.org/english/res_e/statis_e/statis_e.htm" target="_blank">
+                <div><h3>DTÖ Veritabanı (Genel İstatistikler)</h3></div>
+              </a>
+              <a class="link-card" href="http://data.wto.org/" target="_blank">
+                <div><h3>DTÖ Veri Portalı</h3></div>
+              </a>
+            </div>
+          </div>
+          
+          <div class="sub-tab-content" id="ekonomik_gostergeler">
+            <h3>Ekonomik Göstergeler ve Kalkınma Verileri</h3>
+            <div class="link-grid">
+              <a class="link-card" href="http://datatopics.worldbank.org/world-development-indicators" target="_blank">
+                <div><h3>Dünya Bankası Dünya Kalkınma Göstergeleri (WDI)</h3></div>
+              </a>
+              <a class="link-card" href="https://databank.worldbank.org/data/home.aspx" target="_blank">
+                <div><h3>Dünya Bankası Kalkınma Göstergeleri Veritabanı (Databank)</h3></div>
+              </a>
+              <a class="link-card" href="https://data.worldbank.org/country" target="_blank">
+                <div><h3>Dünya Bankası Ülke Bazlı Veritabanı</h3></div>
+              </a>
+              <a class="link-card" href="http://www.worldbank.org/en/research/commodity-markets" target="_blank">
+                <div><h3>Dünya Bankası Aylık Emtia Fiyatları (Pink Sheet)</h3></div>
+              </a>
+              <a class="link-card" href="https://data.worldbank.org/indicator" target="_blank">
+                <div><h3>Dünya Bankası Veritabanı - Göstergeler</h3></div>
+              </a>
+              <a class="link-card" href="http://www.sesric.org/oicstat.php" target="_blank">
+                <div><h3>İslam İşbirliği Teşkilatı İstatistik Veritabanı (OICStat)</h3></div>
+              </a>
+              <a class="link-card" href="https://www.investmentmap.org/" target="_blank">
+                <div><h3>Uluslararası Ticaret Merkezi Yatırım Haritası</h3></div>
+              </a>
+              <a class="link-card" href="https://procurementmap.intracen.org" target="_blank">
+                <div><h3>Uluslararası Ticaret Merkezi Tedarik Haritası</h3></div>
+              </a>
+              <a class="link-card" href="https://sustainabilitymap.org/home" target="_blank">
+                <div><h3>Uluslararası Ticaret Merkezi Sürdürülebilirlik Haritası</h3></div>
+              </a>
+              <a class="link-card" href="https://www.imf.org/en/Data" target="_blank">
+                <div><h3>IMF Veritabanı (Uluslararası Para Fonu)</h3></div>
+              </a>
+              <a class="link-card" href="https://www.imf.org/en/Research/commodity-prices" target="_blank">
+                <div><h3>IMF Temel Emtia Fiyatları</h3></div>
+              </a>
+              <a class="link-card" href="https://unctad.org/en/Pages/statistics.aspx" target="_blank">
+                <div><h3>UNCTAD Veritabanı</h3></div>
+              </a>
+              <a class="link-card" href="https://stats.oecd.org/" target="_blank">
+                <div><h3>OECD Veritabanı</h3></div>
+              </a>
+              <a class="link-card" href="http://stat.unido.org/?_ga=2.57168620.773818956.1552561632-1850875588.1552561632" target="_blank">
+                <div><h3>UNIDO İstatistik Veritabanı</h3></div>
+              </a>
+              <a class="link-card" href="https://ec.europa.eu/eurostat/web/main/data/database" target="_blank">
+                <div><h3>Eurostat Veritabanı</h3></div>
+              </a>
+              <a class="link-card" href="https://data.aseanstats.org" target="_blank">
+                <div><h3>ASEAN İstatistik Veritabanı</h3></div>
+              </a>
+              <a class="link-card" href="https://www.unece.org/stats/stats_h.html" target="_blank">
+                <div><h3>Avrupa Ekonomik Komisyonu İstatistikleri (UNECE)</h3></div>
+              </a>
+              <a class="link-card" href="http://atlas.cid.harvard.edu/" target="_blank">
+                <div><h3>Harvard Üniversitesi Veritabanı (CID Atlas)</h3></div>
+              </a>
+              <a class="link-card" href="https://tr.tradingeconomics.com" target="_blank">
+                <div><h3>Trading Economics Göstergeler</h3></div>
+              </a>
+            </div>
+          </div>
+
+          <div class="sub-tab-content" id="turkiye_verileri">
+            <h3>Türkiye Ekonomisi ve Dış Ticaret Verileri</h3>
+            <div class="link-grid">
+              <a class="link-card" href="https://ticaret.gov.tr/istatistikler/dis-ticaret-istatistikleri" target="_blank">
+                <div><h3>Ticaret Bakanlığı Dış Ticaret İstatistikleri</h3></div>
+              </a>
+              <a class="link-card" href="https://ticaret.gov.tr/istatistikler/arastirma-ve-raporlar/dis-ticaret-beklenti-anketi" target="_blank">
+                <div><h3>Ticaret Bakanlığı Dış Ticaret Beklenti Anketi</h3></div>
+              </a>
+              <a class="link-card" href="https://www.tuik.gov.tr/Kurumsal/Veri_Takvimi" target="_blank">
+                <div><h3>TÜİK Veri Yayınlama Takvimi</h3></div>
+              </a>
+              <a class="link-card" href="http://www.resmiistatistik.gov.tr" target="_blank">
+                <div><h3>Resmi İstatistik Portalı</h3></div>
+              </a>
+              <a class="link-card" href="https://data.tuik.gov.tr/Kategori/GetKategori?p=Dis-Ticaret-104" target="_blank">
+                <div><h3>TÜİK Dış Ticaret İstatistikleri</h3></div>
+              </a>
+              <a class="link-card" href="http://www.tim.org.tr/tr/ihracat-rakamlari.html" target="_blank">
+                <div><h3>TİM İhracat Rakamları</h3></div>
+              </a>
+              <a class="link-card" href="https://www.tuik.gov.tr/" target="_blank">
+                <div><h3>TÜİK Temel İstatistikleri (Genel)</h3></div>
+              </a>
+              <a class="link-card" href="https://evds2.tcmb.gov.tr" target="_blank">
+                <div><h3>T.C. Merkez Bankası Elektronik Veri Dağıtım Sistemi (EVDS)</h3></div>
+              </a>
+              <a class="link-card" href="https://www.imf.org/en/Countries/TUR" target="_blank">
+                <div><h3>IMF Ülkeler: Türkiye Verileri</h3></div>
+              </a>
+              <a class="link-card" href="https://www.hmb.gov.tr/kamu-finansmani-istatistikleri" target="_blank">
+                <div><h3>Hazine ve Maliye Bakanlığı Kamu Finansmanı İstatistikleri (TR)</h3></div>
+              </a>
+              <a class="link-card" href="https://en.hmb.gov.tr/public-finance" target="_blank">
+                <div><h3>Hazine ve Maliye Bakanlığı Kamu Finansmanı İstatistikleri (EN)</h3></div>
+              </a>
+              <a class="link-card" href="http://yigm.kulturturizm.gov.tr/TR-9851/turizm-istatistikleri.html" target="_blank">
+                <div><h3>Kültür ve Turizm Bakanlığı Turizm İstatistikleri</h3></div>
+              </a>
+            </div>
+          </div>
+
+          <div class="sub-tab-content" id="pazara_giris">
+            <h3>Pazara Giriş ve Ticaret Engelleri Veritabanları</h3>
+            <div class="link-grid">
+              <a class="link-card" href="http://exportpotential.intracen.org/#/home" target="_blank">
+                <div><h3>Uluslararası Ticaret Merkezi İhracat Potansiyeli Haritası</h3></div>
+              </a>
+              <a class="link-card" href="https://www.macmap.org" target="_blank">
+                <div><h3>Uluslararası Ticaret Merkezi Pazara Giriş Haritası (Market Access Map)</h3></div>
+              </a>
+              <a class="link-card" href="https://databank.worldbank.org/data/reports.aspx?source=UNCTAD-~-Trade-Analysis-Information-System-(TRAINS)" target="_blank">
+                <div><h3>Dünya Bankası Ticaret Analiz Bilgi Sistemi (TRAINS)</h3></div>
+              </a>
+              <a class="link-card" href="http://madb.europa.eu/madb/indexPubli.htm" target="_blank">
+                <div><h3>AB Pazara Giriş Veritabanı (MADB)</h3></div>
+              </a>
+              <a class="link-card" href="https://ntmsurvey.intracen.org/home" target="_blank">
+                <div><h3>Uluslararası Ticaret Merkezi Küresel Ticaret Yardım Masası</h3></div>
+              </a>
+              <a class="link-card" href="https://euromed.macmap.org/euromed" target="_blank">
+                <div><h3>Euromed Ticaret Yardım Masası</h3></div>
+              </a>
+              <a class="link-card" href="http://www.doingbusiness.org/" target="_blank">
+                <div><h3>Doing Business Veritabanı</h3></div>
+              </a>
+              <a class="link-card" href="https://wits.worldbank.org/simulationtool.html" target="_blank">
+                <div><h3>Dünya Bankası WITS Simülasyonu</h3></div>
+              </a>
+              <a class="link-card" href="https://unctad.org/en/PublicationsLibrary/ditctab20122_en.pdf" target="_blank">
+                <div><h3>UNCTAD Tarife Dışı Önlemlerin Uluslararası Sınıflandırması (PDF)</h3></div>
+              </a>
+              <a class="link-card" href="http://i-tip.wto.org/goods/default.aspx?language=en" target="_blank">
+                <div><h3>DTÖ I-TIP Portalı</h3></div>
+              </a>
+              <a class="link-card" href="https://ntmsurvey.intracen.org/home" target="_blank">
+                <div><h3>Uluslararası Ticaret Merkezi Tarife Dışı Önlemler Araştırması</h3></div>
+              </a>
+              <a class="link-card" href="http://www.teknikengel.gov.tr/" target="_blank">
+                <div><h3>Ticarette Teknik Engeller İnternet Sitesi</h3></div>
+              </a>
+              <a class="link-card" href="http://www.epingalert.org/en" target="_blank">
+                <div><h3>EPING Veritabanı</h3></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
 
     <footer>
@@ -1424,6 +1657,16 @@
   }
   setInterval(updateDateTime, 1000); updateDateTime();
 
+  // YARDIMCI FONKSİYON: İSTATİSTİK SEKMESİ İÇİN ALT TAB GEÇİŞİ
+  function loadSubTab(tabName) {
+    // Sadece #istatistikler içindeki sub-tab-content ve sub-tab-buttonları etkiler
+    document.querySelectorAll('#istatistikler .sub-tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('#istatistikler .sub-tab-button').forEach(b => b.classList.remove('active'));
+    
+    document.getElementById(tabName).classList.add('active');
+    document.querySelector(`#istatistikler button[onclick="loadSubTab('${tabName}')"]`).classList.add('active');
+  }
+
   // ANA TAB GEÇİŞİ
   function loadPage(pageName) {
     document.querySelectorAll('.tabs .tab-button').forEach(b => {
@@ -1442,6 +1685,10 @@
         c.classList.remove('active');
         if (c.id === 'platform') c.classList.add('active');
       });
+    }
+    // YENİ EK: İstatistikler sekmesi açıldığında ilk alt menüyü aktifleştir
+    if (pageName === 'istatistikler') {
+        loadSubTab('uluslararasi_ticaret');
     }
   }
   document.querySelectorAll('.tabs .tab-button').forEach(btn => {
