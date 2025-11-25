@@ -235,12 +235,13 @@
   footer { 
     margin-top:30px; 
     display:flex; 
-    justify-content:space-between; 
+    justify-content:flex-start; 
     align-items:center; 
     font-size:14px; 
     color:var(--muted); 
     flex-wrap:wrap; 
     gap:10px; 
+    padding-left: 20px; 
   }
   .sig {
     font-weight:700;
@@ -249,11 +250,10 @@
     font-size: 15px;
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
-    padding: 6px 12px;
-    border-radius: 8px;
-    background: rgba(0, 246, 210, 0.1);
-    border: 1px solid rgba(0, 246, 210, 0.3);
-    box-shadow: 0 0 12px rgba(0, 246, 210, 0.2);
+    padding: 0; 
+    box-shadow: none; 
+    background: transparent; 
+    border: none; 
   }
   .sig a {
     color: inherit;
@@ -263,14 +263,9 @@
     gap: 6px;
   }
   .sig:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 18px rgba(0, 246, 210, 0.4);
-    background: rgba(0, 246, 210, 0.15);
-  }
-  .sig::before {
-    content: "Diamond";
-    font-size: 12px;
-    opacity: 0.8;
+    transform: none; 
+    box-shadow: none;
+    background: transparent;
   }
 
   .martyrs-container {
@@ -457,7 +452,8 @@
         <button class="tab-button" data-tab="ulastirma">Ulaştırma</button>
         <button class="tab-button" data-tab="mense_kontrol">Menşe Kontrol</button>
         <button class="tab-button" data-tab="referanslar">Referans Mesajları</button>
-        <button class="tab-button" data-tab="istatistikler">İSTATİSTİKLER VE VERİTABANLARI</button> </nav>
+        <button class="tab-button" data-tab="istatistikler">İSTATİSTİKLER VE VERİTABANLARI</button>
+      </nav>
 
       <section class="tab-content active" id="anasayfa">
         <h2>Ana Sayfa</h2>
@@ -703,6 +699,12 @@
         <div class="sub-menu-content">
           <div class="sub-tab-content active" id="platform">
             <h3>NCTS Platform</h3>
+            <a class="link-card" href="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/main/t%C4%B1r%20i%C5%9Flemleri%20seri%20no%201%20EK-1.pdf" target="_blank" download>
+              <div>
+                <h3>Gümrük Genel Tebliği (TIR İşlemleri) (SeriNo 1) Eki EK-1</h3>
+                <p>TIR Karnesi EK-1 İndir (PDF)</p>
+              </div>
+            </a>
             <a href="https://giris.ticaret.gov.tr" target="_blank" class="link-card">
               <div>
                 <h3>NCTS Giriş</h3>
@@ -780,8 +782,8 @@
           <div class="sub-tab-content" id="hareket">
             <h3>Hareket Gümrük İdaresi NCTS İş Akışı</h3>
             <div class="flow-gallery">
-              <div class="flow-card" onclick="showModal('https://i.imgur.com/RAXECS0.png')">
-                <img src="https://i.imgur.com/RAXECS0.png" alt="Hareket">
+              <div class="flow-card" onclick="showModal('https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/HAreket%20G%C3%BCmr%C3%BCk%20%C4%B0daresi%20%C4%B0%C5%9F%20NCTS%20Ak%C4%B1%C5%9F%C4%B1%20.png')">
+                <img src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/HAreket%20G%C3%BCmr%C3%BCk%20%C4%B0daresi%20%C4%B0%C5%9F%20NCTS%20Ak%C4%B1%C5%9F%C4%B1%20.png" alt="Hareket">
                 <p class="flow-title">Hareket İdaresi</p>
               </div>
             </div>
@@ -790,8 +792,8 @@
           <div class="sub-tab-content" id="transit_idaresi">
             <h3>Transit Gümrük İdaresi NCTS İş Akışı</h3>
             <div class="flow-gallery">
-              <div class="flow-card" onclick="showModal('https://i.imgur.com/xhFsRLL.png')">
-                <img src="https://i.imgur.com/xhFsRLL.png" alt="Transit">
+              <div class="flow-card" onclick="showModal('https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Transit%20G%C3%BCmr%C3%BCk%20%C4%B0daresi%20%C4%B0%C5%9F%20NCTS%20Ak%C4%B1%C5%9F%C4%B1%20.png')">
+                <img src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Transit%20G%C3%BCmr%C3%BCk%20%C4%B0daresi%20%C4%B0%C5%9F%20NCTS%20Ak%C4%B1%C5%9F%C4%B1%20.png" alt="Transit">
                 <p class="flow-title">Transit İdaresi</p>
               </div>
             </div>
@@ -800,8 +802,8 @@
           <div class="sub-tab-content" id="varis">
             <h3>Varış Gümrük İdaresi NCTS İş Akışı</h3>
             <div class="flow-gallery">
-              <div class="flow-card" onclick="showModal('https://i.imgur.com/N7OLQXS.png')">
-                <img src="https://i.imgur.com/N7OLQXS.png" alt="Varış">
+              <div class="flow-card" onclick="showModal('https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Var%C4%B1%C5%9F%20G%C3%BCmr%C3%BCk%20%C4%B0daresi%20%C4%B0%C5%9F%20NCTS%20Ak%C4%B1%C5%9F%C4%B1%20.png')">
+                <img src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Var%C4%B1%C5%9F%20G%C3%BCmr%C3%BCk%20%C4%B0daresi%20%C4%B0%C5%9F%20NCTS%20Ak%C4%B1%C5%9F%C4%B1%20.png" alt="Varış">
                 <p class="flow-title">Varış İdaresi</p>
               </div>
             </div>
@@ -810,8 +812,8 @@
           <div class="sub-tab-content" id="uyusmazlik">
             <h3>Uyuşmazlık İşlemleri</h3>
             <div class="flow-gallery">
-              <div class="flow-card" onclick="showModal('https://i.imgur.com/WUO2hxI.png')">
-                <img src="https://i.imgur.com/WUO2hxI.png" alt="Uyuşmazlık">
+              <div class="flow-card" onclick="showModal('https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Uyu%C5%9Fmazl%C4%B1k%20%C4%B0%C5%9Flemleri.png')">
+                <img src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Uyu%C5%9Fmazl%C4%B1k%20%C4%B0%C5%9Flemleri.png" alt="Uyuşmazlık">
                 <p class="flow-title">Uyuşmazlık</p>
               </div>
             </div>
@@ -820,16 +822,16 @@
           <div class="sub-tab-content" id="arastirma">
             <h3>Araştırma İşlemleri</h3>
             <div class="flow-gallery">
-              <div class="flow-card" onclick="showModal('https://i.imgur.com/PFpCV72.png')">
-                <img src="https://i.imgur.com/PFpCV72.png" alt="Araştırma 1">
+              <div class="flow-card" onclick="showModal('https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Ara%C5%9Ft%C4%B1rma%20%C4%B0%C5%9Flemleri%201.png')">
+                <img src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Ara%C5%9Ft%C4%B1rma%20%C4%B0%C5%9Flemleri%201.png" alt="Araştırma 1">
                 <p class="flow-title">Araştırma 1</p>
               </div>
-              <div class="flow-card" onclick="showModal('https://i.imgur.com/mclDdon.png')">
-                <img src="https://i.imgur.com/mclDdon.png" alt="Araştırma 2">
+              <div class="flow-card" onclick="showModal('https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Ara%C5%9Ft%C4%B1rma%20%C4%B0%C5%9Flemleri%202.png')">
+                <img src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Ara%C5%9Ft%C4%B1rma%20%C4%B0%C5%9Flemleri%202.png" alt="Araştırma 2">
                 <p class="flow-title">Araştırma 2</p>
               </div>
-              <div class="flow-card" onclick="showModal('https://i.imgur.com/mclDdon.png')">
-                <img src="https://i.imgur.com/mclDdon.png" alt="Araştırma 3">
+              <div class="flow-card" onclick="showModal('https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Ara%C5%9Ft%C4%B1rma%20%C4%B0%C5%9Flemleri%203.png')">
+                <img src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Ara%C5%9Ft%C4%B1rma%20%C4%B0%C5%9Flemleri%203.png" alt="Araştırma 3">
                 <p class="flow-title">Araştırma 3</p>
               </div>
             </div>
@@ -838,12 +840,12 @@
           <div class="sub-tab-content" id="tahsilat">
             <h3>Hareket/Varış Tahsilat İşlemleri</h3>
             <div class="flow-gallery">
-              <div class="flow-card" onclick="showModal('https://i.imgur.com/4safllv.png')">
-                <img src="https://i.imgur.com/4safllv.png" alt="Tahsilat 1">
+              <div class="flow-card" onclick="showModal('https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Hareket%20g%C3%BCmr%C3%BCk%20idaresi%20taraf%C4%B1ndan%20yap%C4%B1lan%20tahsilat%20i%C5%9Flemi.png')">
+                <img src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Hareket%20g%C3%BCmr%C3%BCk%20idaresi%20taraf%C4%B1ndan%20yap%C4%B1lan%20tahsilat%20i%C5%9Flemi.png" alt="Tahsilat 1">
                 <p class="flow-title">Hareket Tahsilatı</p>
               </div>
-              <div class="flow-card" onclick="showModal('https://i.imgur.com/HBvIKYb.png')">
-                <img src="https://i.imgur.com/HBvIKYb.png" alt="Tahsilat 2">
+              <div class="flow-card" onclick="showModal('https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Var%C4%B1%C5%9F%20g%C3%BCmr%C3%BCk%20idaresi%20taraf%C4%B1ndan%20yap%C4%B1lan%20tahsilat%20i%C5%9Flemi.png')">
+                <img src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/Var%C4%B1%C5%9F%20g%C3%BCmr%C3%BCk%20idaresi%20taraf%C4%B1ndan%20yap%C4%B1lan%20tahsilat%20i%C5%9Flemi.png" alt="Tahsilat 2">
                 <p class="flow-title">Varış Tahsilatı</p>
               </div>
             </div>
@@ -965,6 +967,7 @@
         <div class="tabs">
           <button class="tab-btn active" onclick="openTab('sorgulamalar')">Sorgulamalar</button>
           <button class="tab-btn" onclick="openTab('cezalar')">Cezalar</button>
+          <button class="tab-btn" onclick="openTab('boyut_agirlik')">Araçların Boyutları ve Ağırlıkları</button> 
         </div>
 
         <div id="sorgulamalar" class="tab-content active">
@@ -1054,6 +1057,46 @@
             <p>· <strong>Yabancı Plakalı Taşıtlar:</strong> Cezalar, tebligat şartı aranmaksızın sürücü bilgilendirilerek tahsil edilir ve ceza ödenmeden taşıtın ülkeyi terk etmesine izin verilmez.</p>
           </div>
         </div>
+        
+        <div id="boyut_agirlik" class="tab-content">
+          <h3>Araçların Boyutları ve Ağırlıkları</h3>
+          <p>
+            Gümrükler Genel Müdürlüğü’nün **2012/04 sayılı Genelgesinin 17. maddesine istinaden** Karayolları Trafik Yönetmeliği’nin **128. Maddesi** Karayollarında seyreden araçların yüklü ve yüksüz olarak uyacakları boyutların ve bu araçların karayolu yapısına zarar vermeden güvenle seyredebilecekleri ağırlıkların aşağıda belirtilen şartlara uygun olduğunun **denetlenmesi zorunludur.**
+          </p>
+          <table style="width: 100%; margin-top: 20px; margin-bottom: 20px;">
+            <thead>
+              <tr>
+                <th style="width: 70%; background-color: rgba(0, 246, 210, 0.1);">Araç Tipi ve Durumu</th>
+                <th style="width: 15%; background-color: rgba(0, 246, 210, 0.1);">Toplam Ağırlık (Ton)</th>
+                <th style="width: 15%; background-color: rgba(0, 246, 210, 0.1);">(%5 Toleranslı Maksimum Kg)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>İki dingilli motorlu araçlar ve römorklarda</td><td>18 ton</td><td>18900</td></tr>
+              <tr>
+                <td>Üç dingilli motorlu araçlarda (<small>Tahrikli dingilin, çift lastikle ve havalı süspansiyon sistemi ile veya 97/27/AT Yönetmeliğinde tanımlandığı gibi eşdeğer kabul edilen bir süspansiyon sistemi ile donatılmış olduğu veya her bir tahrikli dingilin çift lastikli olduğu ve her bir dingilin azami ağırlığının 9,5 tonu aşmadığı durumlarda 26 tondur.*</small>)</td>
+                <td>25 ton<br/>(26 ton*)</td>
+                <td>26250<br/>(27300)</td>
+              </tr>
+              <tr><td>Üç dingilli yarı römorklu araçlarla mafsallı otobüslerde</td><td>28 ton</td><td>29400</td></tr>
+              <tr><td>Dört dingilli motorlu araçlarda</td><td>32 ton</td><td>33600</td></tr>
+              <tr><td>Dört dingilli römorklu ve yarı römorklu araçlarda</td><td>36 ton</td><td>37800</td></tr>
+              <tr><td>Dört dingilli yarı römorklu araçlarda yarı römork dingil grubu ağırlığı 20 ton olan araçlarda</td><td>38 ton</td><td>39900</td></tr>
+              <tr><td>Beş veya daha çok dingilli yarı römorklu veya römorklu katarlarda</td><td>40 ton</td><td>42000</td></tr>
+              <tr><td>40 ft. boyutunda ISO Konteyner taşıyan iki veya üç dingilli yarı-römorka sahip üç dingilli motorlu araçlarda</td><td>44 ton</td><td>46200</td></tr>
+            </tbody>
+          </table>
+          <div class="link-grid" style="margin-top: 0;">
+            <a class="link-card" href="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/main/t%C4%B1r%20i%C5%9Flemleri%20seri%20no%201%20EK-1.pdf" target="_blank">
+              <div>
+                <h3>Gümrük Genel Tebliği (TIR İşlemleri) (SeriNo 1) Eki EK-1</h3>
+                <p>TIR Karnesi EK-1 İndir (PDF)</p>
+              </div>
+            </a>
+          </div>
+          
+        </div>
+        
       </section>
 
       <section class="tab-content" id="mense_kontrol">
@@ -1627,7 +1670,6 @@
           Serhan SAYGIN — Gümrük Memuru
         </a>
       </div>
-      <div>Oluşturuldu: <span id="created"></span></div>
     </footer>
   </div>
 
@@ -1638,18 +1680,6 @@
   </div>
 
 <script>
-  // Tarih ve Saat
-  const created = new Date().toLocaleDateString('tr-TR', { year:'numeric', month:'long', day:'numeric' });
-  document.getElementById('created').textContent = created;
-
-  function updateDateTime(){
-    const now = new Date();
-    const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric',
-                   hour:'2-digit', minute:'2-digit', second:'2-digit' };
-    document.getElementById('datetime').textContent = now.toLocaleDateString('tr-TR', opts);
-  }
-  setInterval(updateDateTime, 1000); updateDateTime();
-
   // YARDIMCI FONKSİYON: İSTATİSTİK SEKMESİ İÇİN ALT TAB GEÇİŞİ
   function loadSubTab(tabName) {
     // Sadece #istatistikler içindeki sub-tab-content ve sub-tab-buttonları etkiler
@@ -1698,13 +1728,13 @@
     });
   });
 
-  // ŞEHİTLER FOTOĞRAFI
+  // ŞEHİTLER FOTOĞRAFI (YENİ GITHUB LİNKLERİ İLE GÜNCELLENDİ)
   const martyrPhotos = {
-    yarmoglu: 'https://i.imgur.com/HxfRgwP.png',
-    turan: 'https://i.imgur.com/dGvKbRY.png',
-    kavastan: 'https://i.imgur.com/QjzhFdd.png',
-    turk: 'https://i.imgur.com/YbRWnSw.png',
-    sakaoglu: 'https://i.imgur.com/YxRCH3g.png'
+    yarmoglu: 'https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/yar%C4%B1mo%C4%9Flu.png',
+    turan: 'https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/turan.png',
+    kavastan: 'https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/kavastan.png',
+    turk: 'https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/turan.png', 
+    sakaoglu: 'https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/sakaro%C4%9Flu.png'
   };
 
   document.querySelectorAll('.martyr-link').forEach(link => {
@@ -1877,7 +1907,7 @@
       <p>Gümrük hizmetlerinin bütünlüğü ve taşra teşkilatının güvenliği gözetilerek, 640 sayılı KHK’nın 39. maddesinde gerekli değişikliğin yapılması ve gümrük memurlarına da silah taşıma hakkının tanınması elzemdir.</p>
       
       <h4 style="color: var(--text); margin-top: 25px; margin-bottom: 5px;">Ek Zam ve Tazminat Talebi (Depo/Ambar Görevleri):</h4>
-      <p>Devlet Memurlarına Ödenecek Zam ve Tazminatlara İlişkin Karar ile Tasfiye Yönetmeliği kapsamında, gümrük idarelerinin kontrolü altında bulunan geçici depolama yerleri, antrepo ve ambarlarda eşya alınması, muhafazası ve teslimi işlemlerinde görev yapan personele, mevcut olarak ödenen; **500 puan** iş güçlüğü zammı, **575 puan** teminde güçlük zammı, Ambar ve sundurmalarda görev yapan personele **600 puan** iş güçlüğü zammı, ek olarak yapılan işlemlerin riski ve eşyaya zarar ziyan durumunda memura rücu edilmesinden mütevelli **1.000 puan** mali sorumluluk zammı verilmesi talep edilmektedir.</p>
+      <p>Devlet Memurlarına Ödenecek Zam ve Tazminatlara İlişkin Karar ile Tasfiye Yönetmeliği kapsamında, gümrük idarelerinin kontrolü altında bulunan geçici depolama yerleri, antrepo ve ambarlarda eşya alınması, muhafazası ve teslimi işlemlerinde görev yapan personele, mevcut olarak ödenen; **500 puan** iş güçlüğü zammı, **575 puan** temininde güçlük zammı, Ambar ve sundurmalarda görev yapan personele **600 puan** iş güçlüğü zammı, ek olarak yapılan işlemlerin riski ve eşyaya zarar ziyan durumunda memura rücu edilmesinden mütevelli **1.000 puan** mali sorumluluk zammı verilmesi talep edilmektedir.</p>
 
       <h4 style="color: var(--text); margin-top: 25px; margin-bottom: 5px;">Lisanslı Yediemin Depoları Lisans Talebi:</h4>
       <p>Lisanslı Yediemin Depoları Yönetmeliği kapsamında, gümrük idarelerinin kontrolü altında bulunan geçici depolama yerleri, antrepo ve ambarlara eşya alınması, muhafazası ve teslimi işlemlerinde görev yapan gümrük memurlarının, görevlerinden istifa eden veya emekliye ayrılanlara ilgili yönetmelik kapsamında lisans verilmesi talep edilmektedir.</p>
