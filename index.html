@@ -418,6 +418,8 @@
 </style>
 </head>
 <body data-theme="dark">
+<button onclick="toggleTheme()" style="position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 10px; border-radius: 50%; cursor: pointer; background: var(--card); border: 1px solid var(--accent); font-size: 20px;">🌓</button>
+<body data-theme="dark">
   <div class="app">
     <header>
       <div class="header-left">
@@ -428,7 +430,12 @@
       <div class="header-center">
         <h1>Gümrük – Hızlı Erişim Paneli</h1>
         <p>Gümrük işlemleri için modern kaynak</p>
+        <div style="max-width: 600px; margin: 20px auto; padding: 0 20px;">
+  <input type="text" id="superSearch" placeholder="Sistem, link veya içerik ara..." 
+         style="width: 100%; padding: 15px 25px; border-radius: 30px; border: 1px solid var(--border); background: var(--card); color: var(--text); outline: none; box-shadow: var(--accent-glow);">
+</div>
       </div>
+      
 
       <div class="header-right">
         <div class="right-images">
@@ -2092,11 +2099,66 @@
     const modal = document.getElementById('imageModal');
     if (e.target === modal) modal.style.display = 'none';
   };
+  function toggleTheme() {
+  const body = document.body;
+  const currentTheme = body.getAttribute('data-theme');
+  body.setAttribute('data-theme', currentTheme === 'light' ? 'dark' : 'light');
+}
+
+// Arama fonksiyonunu bu şekilde güncelleyin
+document.getElementById('superSearch').addEventListener('input', function(e) {
+  const term = e.target.value.toLowerCase();
+  // .link-card'a ek olarak .link-card-vertical ve tablo satırlarını (tr) da listeye ekledik
+  const cards = document.querySelectorAll('.link-card, .link-card-vertical, tr');
+  const sections = document.querySelectorAll('.tab-content');
+  const body = document.body;
+
+  if (term.length > 0) {
+    body.classList.add('search-mode');
+    sections.forEach(section => {
+      let hasVisibleItem = false;
+      
+      // Bölüm içindeki tüm aranabilir öğeleri tara
+      section.querySelectorAll('.link-card, .link-card-vertical, tr').forEach(item => {
+        const text = item.innerText.toLowerCase();
+        if (text.includes(term)) {
+          // Eğer öğe bir tablo satırıysa görünürlük tipini koru, değilse flex yap
+          item.style.display = (item.tagName === 'TR') ? "table-row" : "flex";
+          hasVisibleItem = true;
+        } else {
+          item.style.display = "none";
+        }
+      });
+
+      // Eğer bölüm içinde eşleşen bir şey varsa o sekmeyi göster
+      if (hasVisibleItem) {
+        section.classList.add('active');
+        section.style.display = "block"; 
+      } else {
+        section.classList.remove('active');
+        section.style.display = "none";
+      }
+    });
+  } else {
+    // Arama kutusu temizlendiğinde her şeyi eski haline getir
+    body.classList.remove('search-mode');
+    sections.forEach(s => {
+        s.classList.remove('active');
+        s.style.display = ""; 
+    });
+    cards.forEach(c => c.style.display = "");
+    
+    // Aktif olan orijinal sekmeyi geri yükle
+    const activeBtn = document.querySelector('.tab-button.active');
+    if(activeBtn) {
+      const activeTabId = activeBtn.getAttribute('data-tab');
+      const activeContent = document.getElementById(activeTabId);
+      if(activeContent) activeContent.style.display = "block";
+    }
+  }
+});
+
 </script>
 </body>
 
 </html>
-
-
-
-
