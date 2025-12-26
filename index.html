@@ -2312,19 +2312,53 @@ document.getElementById('superSearch').addEventListener('input', function(e) {
     }
   }
 });
+// --- NOT DEFTERİ KAYDETME MOTORU ---
+// 1. Sidebar'ı açıp kapatan fonksiyon
+function toggleNotes() {
+    const sidebar = document.getElementById('notesSidebar');
+    if (sidebar) sidebar.classList.toggle('active');
+}
 
+// 2. Sayfa yüklendiğinde ve yazarken çalışan sistem
+document.addEventListener('DOMContentLoaded', function() {
+    const noteArea = document.getElementById('noteInput');
+    const statusText = document.getElementById('saveStatus');
+
+    // Hafızadan notu yükle
+    const savedData = localStorage.getItem('gumrukNotlari');
+    if (savedData && noteArea) {
+        noteArea.value = savedData;
+    }
+
+    // Yazarken anlık kaydet
+    if (noteArea) {
+        noteArea.addEventListener('input', function() {
+            localStorage.setItem('gumrukNotlari', noteArea.value);
+            
+            if (statusText) {
+                statusText.innerText = "💾 Kaydedildi...";
+                setTimeout(() => {
+                    statusText.innerText = "Otomatik kaydediliyor...";
+                }, 1000);
+            }
+        });
+    }
+});
+// --- MOTOR BİTİŞİ ---
 </script>
 <div id="notesSidebar" class="notes-sidebar">
-        <div class="notes-header">
-            <h3>📝 Hızlı Notlar</h3>
-            <button onclick="toggleNotes()" class="close-notes">×</button>
-        </div>
-        <textarea id="noteInput" placeholder="Konteyner no, beyanname kalemleri vb. buraya not alın..."></textarea>
-        <div class="notes-footer">
-            <small id="saveStatus">Otomatik kaydediliyor...</small>
-        </div>
+    <div class="notes-header">
+        <h3>📝 Hızlı Notlar</h3>
+        <button onclick="toggleNotes()" class="close-notes">×</button>
     </div>
-    <button id="notesToggleBtn" onclick="toggleNotes()" title="Not Defterini Aç">📝</button>
+    <textarea id="noteInput" placeholder="Notlarınızı buraya yazın..."></textarea>
+    <div class="notes-footer">
+        <small id="saveStatus">Otomatik kaydediliyor...</small>
+    </div>
+</div>
+
+<button id="notesToggleBtn" onclick="toggleNotes()" title="Not Defterini Aç">📝</button>
+
 </body>
 
 </html>
