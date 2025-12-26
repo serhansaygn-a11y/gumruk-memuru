@@ -415,6 +415,16 @@
     table { font-size: 13px; }
     th, td { padding: 8px 6px; }
   }
+  /* Favori Yıldız Butonu Stili */
+.link-card, .link-card-vertical { position: relative; }
+.fav-btn {
+  position: absolute; top: 8px; right: 8px;
+  background: none; border: none; color: var(--muted);
+  cursor: pointer; font-size: 1.4rem; z-index: 5;
+  transition: transform 0.2s, color 0.2s;
+}
+.fav-btn.active { color: #ffca28; text-shadow: 0 0 8px rgba(255, 202, 40, 0.6); }
+.fav-btn:hover { transform: scale(1.2); }
 </style>
 </head>
 <body data-theme="dark">
@@ -451,6 +461,7 @@
       <nav class="tabs">
         <button class="tab-button active" data-tab="anasayfa">Ana Sayfa</button>
         <button class="tab-button" data-tab="sehitlerimiz">Şehitlerimiz</button>
+        <button class="tab-button" data-tab="favoriler">⭐ Favorilerim</button>
         <button class="tab-button" data-tab="mevzuat">Mevzuat-Tarife</button>
         <button class="tab-button" data-tab="Gümrük Uygulamaları">Gümrük Uygulamaları</button>
         <button class="tab-button" data-tab="personel">Personel</button>
@@ -462,6 +473,12 @@
         <button class="tab-button" data-tab="istatistikler">İstatistikler ve Veri Tabanları</button>
         <button class="tab-button" data-tab="tir">TIR</button> </nav>
 
+     <section class="tab-content" id="favoriler">
+  <h2>⭐ Sık Kullanılanlar</h2>
+  <div class="link-grid" id="favorites-list">
+    <p style="color:var(--muted); grid-column: 1/-1; padding: 20px;">Henüz favori eklemediniz. Kartların sağ üstündeki yıldıza basarak buraya ekleyebilirsiniz.</p>
+  </div>
+</section>
       <section class="tab-content active" id="anasayfa">
         <h2>Ana Sayfa</h2>
         <div class="link-grid">
@@ -2105,6 +2122,68 @@
   body.setAttribute('data-theme', currentTheme === 'light' ? 'dark' : 'light');
 }
 
+// Sayfa yüklendiğinde favorileri kur
+document.addEventListener('DOMContentLoaded', () => {
+    // Tüm kartlara (normal ve dikey) yıldız ekle
+    document.querySelectorAll('.link-card, .link-card-vertical').forEach((card, index) => {
+        const cardId = 'card-' + index;
+        card.setAttribute('data-id', cardId);
+        
+        const star = document.createElement('button');
+        star.innerHTML = '★';
+        star.className = 'fav-btn';
+        star.title = "Favorilere Ekle/Çıkar";
+        star.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleFavorite(cardId);
+        };
+        card.appendChild(star);
+    });
+    loadFavorites();
+});
+
+function toggleFavorite(id) {
+    let favs = JSON.parse(localStorage.getItem('gumrukFavs') || '[]');
+    if (favs.includes(id)) {
+        favs = favs.filter(f => f !== id);
+    } else {
+        favs.push(id);
+    }
+    localStorage.setItem('gumrukFavs', JSON.stringify(favs));
+    loadFavorites();
+}
+
+function loadFavorites() {
+    const favs = JSON.parse(localStorage.getItem('gumrukFavs') || '[]');
+    const favoritesList = document.getElementById('favorites-list');
+    
+    // Yıldızları güncelle
+    document.querySelectorAll('.fav-btn').forEach(btn => {
+        const id = btn.parentElement.getAttribute('data-id');
+        btn.classList.toggle('active', favs.includes(id));
+    });
+
+    // Favoriler sekmesini doldur
+    if (favs.length === 0) {
+        favoritesList.innerHTML = '<p style="color:var(--muted); grid-column: 1/-1; padding: 20px;">Henüz favori eklemediniz.</p>';
+    } else {
+        favoritesList.innerHTML = '';
+        favs.forEach(id => {
+            const originalCard = document.querySelector(`[data-id="${id}"]`);
+            if (originalCard) {
+                const clone = originalCard.cloneNode(true);
+                // Klonun tıklama olayını tekrar bağla
+                clone.querySelector('.fav-btn').onclick = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleFavorite(id);
+                };
+                favoritesList.appendChild(clone);
+            }
+        });
+    }
+}
 // Arama fonksiyonunu bu şekilde güncelleyin
 document.getElementById('superSearch').addEventListener('input', function(e) {
   const term = e.target.value.toLowerCase();
