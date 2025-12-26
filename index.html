@@ -425,6 +425,52 @@
 }
 .fav-btn.active { color: #ffca28; text-shadow: 0 0 8px rgba(255, 202, 40, 0.6); }
 .fav-btn:hover { transform: scale(1.2); }
+/* Not Defteri Paneli */
+    .notes-sidebar {
+        position: fixed;
+        right: -320px;
+        top: 0;
+        width: 300px;
+        height: 100%;
+        background: var(--card);
+        backdrop-filter: blur(20px);
+        border-left: 1px solid var(--border);
+        box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+        z-index: 9999;
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
+    .notes-sidebar.active { right: 0; }
+    .notes-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    #noteInput {
+        flex: 1;
+        background: rgba(0,0,0,0.2);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 15px;
+        border-radius: 10px;
+        resize: none;
+        font-family: inherit;
+        line-height: 1.5;
+    }
+    #notesToggleBtn {
+        position: fixed;
+        bottom: 80px; /* Yukarı çık butonuyla çakışmaz */
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        box-shadow: var(--accent-glow);
+        z-index: 1001;
+    }
+    .close-notes { background: none; border: none; color: var(--text); font-size: 2rem; cursor: pointer; }
+    .notes-footer { margin-top: 10px; font-size: 0.8rem; color: var(--muted); }
 </style>
 </head>
 <body data-theme="dark">
@@ -1867,8 +1913,38 @@
     <div class="modal-content" id="modalInnerContent">
         </div>
   </div>
-
+  
 <script>
+    // NOT DEFTERİ FONKSİYONLARI
+    function toggleNotes() {
+        const sidebar = document.getElementById('notesSidebar');
+        sidebar.classList.toggle('active');
+    }
+
+    const noteInput = document.getElementById('noteInput');
+    const saveStatus = document.getElementById('saveStatus');
+
+    // Sayfa yüklendiğinde notları yükle
+    window.addEventListener('load', () => {
+        const savedNotes = localStorage.getItem('gumrukNotes');
+        if (savedNotes) {
+            if (noteInput) noteInput.value = savedNotes;
+        }
+    });
+
+    // Otomatik kaydetme
+    if (noteInput) {
+        noteInput.addEventListener('input', () => {
+            localStorage.setItem('gumrukNotes', noteInput.value);
+            if (saveStatus) {
+                saveStatus.innerText = "Kaydedildi...";
+                setTimeout(() => {
+                    saveStatus.innerText = "Otomatik kaydediliyor...";
+                }, 2000);
+            }
+        });
+    }
+    // NOT DEFTERİ BİTİŞ
   // YARDIMCI FONKSİYON: İSTATİSTİK SEKMESİ İÇİN ALT TAB GEÇİŞİ
   function loadSubTab(tabName) {
     // Sadece #istatistikler içindeki sub-tab-content ve sub-tab-buttonları etkiler
@@ -2238,6 +2314,17 @@ document.getElementById('superSearch').addEventListener('input', function(e) {
 });
 
 </script>
+<div id="notesSidebar" class="notes-sidebar">
+        <div class="notes-header">
+            <h3>📝 Hızlı Notlar</h3>
+            <button onclick="toggleNotes()" class="close-notes">×</button>
+        </div>
+        <textarea id="noteInput" placeholder="Konteyner no, beyanname kalemleri vb. buraya not alın..."></textarea>
+        <div class="notes-footer">
+            <small id="saveStatus">Otomatik kaydediliyor...</small>
+        </div>
+    </div>
+    <button id="notesToggleBtn" onclick="toggleNotes()" title="Not Defterini Aç">📝</button>
 </body>
 
 </html>
