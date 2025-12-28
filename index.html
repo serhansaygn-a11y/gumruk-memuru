@@ -506,6 +506,7 @@
 
 
 <div class="currency-bar" style="display: flex; justify-content: flex-start; gap: 15px; margin-top: 15px; margin-bottom: 40px; padding-left: 5px; flex-wrap: wrap; width: 100%;">
+    
     <div id="usd-box" style="background: var(--card); padding: 5px 15px; border-radius: 8px; border: 1px solid var(--border); min-width: 100px;">
         <span style="color: var(--muted); font-size: 11px; display: block; text-align: left;">USD/TRY</span>
         <strong id="usd-rate" style="color: var(--accent); font-size: 15px; display: block; text-align: left;">--.--</strong>
@@ -517,10 +518,17 @@
     <div id="gbp-box" style="background: var(--card); padding: 5px 15px; border-radius: 8px; border: 1px solid var(--border); min-width: 100px;">
         <span style="color: var(--muted); font-size: 11px; display: block; text-align: left;">GBP/TRY</span>
         <strong id="gbp-rate" style="color: var(--accent); font-size: 15px; display: block; text-align: left;">--.--</strong>
-
-
+        
     </div>
-</div>    
+    <a href="https://www.tcmb.gov.tr/kurlar/kurlar_tr.html" target="_blank" 
+   style="display: flex; align-items: center; justify-content: center; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0 15px; text-decoration: none; transition: 0.3s; height: 42px; margin-left: 10px; border-left: 3px solid var(--accent);">
+    <span style="color: var(--accent); font-size: 11px; font-weight: bold; letter-spacing: 1px;">TCMB ARŞİV</span>
+</a>
+<div style="background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0 15px; margin-left: auto; height: 42px; display: flex; align-items: center; white-space: nowrap;">
+    <span id="canli-zaman" style="color: var(--accent); font-size: 13px; font-weight: bold;">Yükleniyor...</span>
+</div>
+</div>
+
 
     <div class="main-container">
       <nav class="tabs">
@@ -2383,11 +2391,13 @@ async function dovizCek() {
     }
 }
 
+
 // Sayfa açıldığında kurları getir
 dovizCek();
 // 5 dakikada bir güncelle
-setInterval(dovizCek, 300000);
+setInterval(dovizCek, 600000);
 // --- MOTOR BİTİŞİ ---
+
 </script>
 <div id="notesSidebar" class="notes-sidebar">
     <div class="notes-header">
@@ -2576,6 +2586,45 @@ function indirPdf(bytes, name) {
     link.click();
 }
 // --- PDF İŞLEM MOTORU BİTİŞ ---
+
+// SAAT VE TARİH MOTORU
+function zamaniBaslat() {
+    const zamanElement = document.getElementById('canli-zaman');
+    if (!zamanElement) return;
+
+    function guncelle() {
+        const simdi = new Date();
+        const gun = String(simdi.getDate()).padStart(2, '0');
+        const ay = String(simdi.getMonth() + 1).padStart(2, '0');
+        const yil = simdi.getFullYear();
+        const saat = String(simdi.getHours()).padStart(2, '0');
+        const dakika = String(simdi.getMinutes()).padStart(2, '0');
+        const saniye = String(simdi.getSeconds()).padStart(2, '0');
+        const gunler = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+        const gunAdi = gunler[simdi.getDay()];
+
+        zamanElement.innerText = `${gun}.${ay}.${yil} ${gunAdi} | ${saat}:${dakika}:${saniye}`;
+    }
+
+    setInterval(guncelle, 1000);
+    guncelle();
+}
+
+// Sayfa hazır olduğunda çalıştır
+if (document.readyState === 'complete') {
+    zamaniBaslat();
+} else {
+    window.addEventListener('load', zamaniBaslat);
+}
+
+// Kurları canlı tutma motoru
+setInterval(function() {
+    if (typeof fetchCurrencies === "function") {
+        fetchCurrencies();
+        console.log("Kurlar canlı olarak güncellendi.");
+    }
+}, 300000); // 300.000 milisaniye = 5 Dakika
+
 </script>
 </body>
 
