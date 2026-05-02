@@ -476,7 +476,6 @@
 </head>
 <body data-theme="dark">
 <button onclick="toggleTheme()" style="position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 10px; border-radius: 50%; cursor: pointer; background: var(--card); border: 1px solid var(--accent); font-size: 20px;">🌓</button>
-<body data-theme="dark">
   <div class="app">
     <header>
       <div class="header-left">
@@ -692,6 +691,41 @@
       <section class="tab-content" id="Gümrük Uygulamaları">
         <h2>Gümrük Uygulamaları</h2>
         <div class="link-grid">
+            <!-- Yeni Eklenen Gümrük Uygulamaları -->
+<a class="link-card" href="https://bgp-portal.ticaret.gov.tr/" target="_blank">
+  <div>
+    <h3>Bilge Gümrük Platformu</h3>
+    <p>BGP Portal Girişi</p>
+  </div>
+</a>
+
+<a class="link-card" href="https://hgbs.ticaret.gov.tr/" target="_blank">
+  <div>
+    <h3>Hava Yolu Gümrük Beyan Sistemi</h3>
+    <p>HGBS Uygulaması</p>
+  </div>
+</a>
+
+<a class="link-card" href="https://tbs.ticaret.gov.tr/" target="_blank">
+  <div>
+    <h3>Teminat Bilgi Sistemi</h3>
+    <p>Banka Teminatları ve Takibi</p>
+  </div>
+</a>
+
+<a class="link-card" href="https://ypti.ticaret.gov.tr/Sorgulama" target="_blank">
+  <div>
+    <h3>Yabancı Plakalı Taşıt İşlemleri</h3>
+    <p>YPTİ Sorgulama Ekranı</p>
+  </div>
+</a>
+
+<a class="link-card" href="https://utsuygulama.saglik.gov.tr/UTS/" target="_blank">
+  <div>
+    <h3>Ürün Takip Sistemi (ÜTS)</h3>
+    <p>Tıbbi Cihaz ve Kozmetik Sorgulama</p>
+  </div>
+</a>
           <a class="link-card" href="https://portal.ticaret.gov.tr/birimler/gumrukler-genel-mudurlugu" target="_blank">
             <div><h3>Gümrükler Genel Müdürlüğü</h3><p>Resmi Birim Sayfası</p></div>
           </a>
@@ -2290,8 +2324,6 @@ function loadFavorites() {
 // Arama fonksiyonunu bu şekilde güncelleyin
 document.getElementById('superSearch').addEventListener('input', function(e) {
   const term = e.target.value.toLowerCase();
-  // .link-card'a ek olarak .link-card-vertical ve tablo satırlarını (tr) da listeye ekledik
-  const cards = document.querySelectorAll('.link-card, .link-card-vertical, tr');
   const sections = document.querySelectorAll('.tab-content');
   const body = document.body;
 
@@ -2300,42 +2332,53 @@ document.getElementById('superSearch').addEventListener('input', function(e) {
     sections.forEach(section => {
       let hasVisibleItem = false;
       
-      // Bölüm içindeki tüm aranabilir öğeleri tara
-      section.querySelectorAll('.link-card, .link-card-vertical, tr').forEach(item => {
+      // Bölüm içindeki tüm kartları ve satırları tara
+      const items = section.querySelectorAll('.link-card, .link-card-vertical, tr');
+      items.forEach(item => {
         const text = item.innerText.toLowerCase();
         if (text.includes(term)) {
-          // Eğer öğe bir tablo satırıysa görünürlük tipini koru, değilse flex yap
-          item.style.display = (item.tagName === 'TR') ? "table-row" : "flex";
+          // Önemli: display:flex veya block yerine boş bırakıyoruz ki CSS kendi kuralını uygulasın
+          item.style.display = ""; 
           hasVisibleItem = true;
         } else {
           item.style.display = "none";
         }
       });
 
-      // Eğer bölüm içinde eşleşen bir şey varsa o sekmeyi göster
+      // Eğer eşleşme varsa section'ı zorla göster, yoksa gizle
       if (hasVisibleItem) {
+        section.style.setProperty('display', 'block', 'important');
         section.classList.add('active');
-        section.style.display = "block"; 
       } else {
-        section.classList.remove('active');
         section.style.display = "none";
+        section.classList.remove('active');
       }
     });
   } else {
-    // Arama kutusu temizlendiğinde her şeyi eski haline getir
+    // Arama kutusu boşaldığında her şeyi tertemiz sıfırla
     body.classList.remove('search-mode');
-    sections.forEach(s => {
-        s.classList.remove('active');
-        s.style.display = ""; 
-    });
-    cards.forEach(c => c.style.display = "");
     
-    // Aktif olan orijinal sekmeyi geri yükle
+    sections.forEach(s => {
+        // Tüm manuel verilmiş stilleri temizle
+        s.style.removeProperty('display');
+        s.classList.remove('active');
+        
+        // İçerideki öğelerin gizliliğini kaldır
+        s.querySelectorAll('.link-card, .link-card-vertical, tr').forEach(item => {
+            item.style.display = ""; 
+        });
+    });
+    
+    // Sadece butonun seçili olduğu aktif sekmeyi geri getir
     const activeBtn = document.querySelector('.tab-button.active');
     if(activeBtn) {
       const activeTabId = activeBtn.getAttribute('data-tab');
       const activeContent = document.getElementById(activeTabId);
-      if(activeContent) activeContent.style.display = "block";
+      if(activeContent) {
+          activeContent.classList.add('active');
+          // CSS'teki varsayılan görünürlüğe dönmesini sağla
+          activeContent.style.display = "block";
+      }
     }
   }
 });
@@ -2630,5 +2673,3 @@ setInterval(function() {
 </body>
 
 </html>
-
-
