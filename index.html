@@ -958,25 +958,26 @@
            <ul id="transitList" class="status-list">
               <li><span class="code">IE002 - AAR_REQ</span> <span class="description">Beklenen Varış Bildirimi Talebi</span></li>
               <li><span class="code">IE003 - AAR_RSP</span> <span class="description">Beklenen Varış Bildirimi Cevabı</span></li>
-              <li><span class="code">IE001 - AAR_SND</span> <span class="description">Beklenen Varış Bildirimi Gönderildi</span></li>
-              <li><span class="code">IE006 - ARR_ADV</span> <span class="description">Varış Bildirimi Haber Verildi</span></li>
+              <li><span class="code">IE001 - AAR_SND</span> <span class="description">Beklenen Varış Bildirimi Gönderimi</span></li>
+              <li><span class="code">IE026 - ACC_COD</span> <span class="description">Teminat Erişim Kodu</span></li>
+              <li><span class="code">IE004 - AMD_ACC</span> <span class="description">Beyanname Değişikliği Kabul Edildi</span></li>
+              <li><span class="code">IE022 - AMD_NOT</span> <span class="description">Beyanname Değişikliği Bildirimi</span></li>
+              <li><span class="code">IE006 - ARR_ADV</span> <span class="description">Varış Bildirimi Haber Verildi (ARR_NOT geçerli ise)</span></li>
+              <li><span class="code">IE007 - ARR_NOT</span> <span class="description">Varış Bildirimi (YGM tarafından)</span></li>
               <li><span class="code">IE114 - ATR_REQ</span> <span class="description">Beklenen Transit (Sınır Geçişi) Bildirimi Talebi</span></li>
               <li><span class="code">IE115 - ATR_RSP</span> <span class="description">Beklenen Transit (Sınır Geçişi) Bildirimi Cevabı</span></li>
               <li><span class="code">IE050 - ATR_SND</span> <span class="description">Beklenen Transit (Sınır Geçişi) Bildiriminin Gönderilmesi</span></li>
-              <li><span class="code">IE901 - CAN_ACK</span> <span class="description">Transit İptali Kabul Edildi</span></li>
-              <li><span class="code">IE009 - CAN_DEC</span> <span class="description">Transit İptali Tebliği</span></li>
-              <li><span class="code">IE059 - CAN_ENQ</span> <span class="description">Araştırma İptali Bildirimi</span></li>
-              <li><span class="code">IE010 - CAN_NOT</span> <span class="description">Transit İptali Bildirimi</span></li>
+              <li><span class="code">IE059 - CAN_ENQ</span> <span class="description">Araştırma İptal Bildirimi</span></li>
               <li><span class="code">IE060 - CTR_DEC</span> <span class="description">İdarenin Kabul Ettiği Beyannamede Kontrol Kararı Verildi</span></li>
               <li><span class="code">IE013 - DEC_AMD</span> <span class="description">Beyanname Değiştirildi</span></li>
-              <li><span class="code">IE014 - DEC_CAN</span> <span class="description">Beyanname İptal Talebi</span></li>
               <li><span class="code">IE015 - DEC_DAT</span> <span class="description">Beyanname Tescil İçin İdareye Gönderildi</span></li>
-              <li><span class="code">IE016 - DEC_REJ</span> <span class="description">Beyanname İdare Tarafından Reddedildi</span></li>
+              <li><span class="code">IE014 - DEC_INV</span> <span class="description">Beyanname İptal Talebi</span></li>
               <li><span class="code">IE017 - DEP_CON</span> <span class="description">Hareket İdaresi Kontrol Sonuçları</span></li>
-              <li><span class="code">IE119 - DEP_PAP</span> <span class="description">Hareket İdaresinde Kağıt Usulü İle Kontrol Edildi</span></li>
+              <li><span class="code">IE056 - DEP_REJ</span> <span class="description">Beyannamenin Reddi (Hareket Gümrük İdaresinde)</span></li>
               <li><span class="code">IE018 - DES_CON</span> <span class="description">Varış Kontrolü Olumlu</span></li>
-              <li><span class="code">IE018 - DES_CON_NEG</span> <span class="description">Varış Kontrolü Olumsuz / Uyuşmazlık Var</span></li>
+              <li><span class="code">IE057 - DES_REJ</span> <span class="description">Beyannamenin Reddi (Varış Gümrük İdaresinde)</span></li>
               <li><span class="code">IE120 - DES_PAP</span> <span class="description">Varış İdaresinde Kağıt Usulü İle Kontrol Edildi</span></li>
+              <li><span class="code">IE049 - DIS_NOT</span> <span class="description">Varış Gümrük İdaresince Boşaltma Açıklamalarının Reddi</span></li>
               <li><span class="code">IE019 - DIS_SND</span> <span class="description">Uyumsuzluk Çözüm İsteği Gönderildi</span></li>
               <li><span class="code">IE020 - DIS_SOL</span> <span class="description">Uyumsuzluk Çözüldü Bildirimi</span></li>
               <li><span class="code">IE059 - ENQ_CAN</span> <span class="description">Araştırma İptal Edildi</span></li>
@@ -989,15 +990,30 @@
               <li><span class="code">IE142 - ENQ_REQ</span> <span class="description">Araştırma Başlatılması İstenen Beyanname</span></li>
               <li><span class="code">IE024 - FWD_ARR</span> <span class="description">Varış Sapması Bildirimi (Başka Gümrük İdaresinde İşlem Gördü)</span></li>
               <li><span class="code">IE025 - GDS_REL</span> <span class="description">Eşyanın Serbest Bırakılması Bildirimi</span></li>
-              <li><span class="code">IE055 - GUA_INV</span> <span class="description">Geçersiz Teminat</span></li>
+              <li><span class="code">IE204 - GUA_CAN</span> <span class="description">Teminat Kullanım İptali</span></li>
               <li><span class="code">IE200 - GUA_CHE</span> <span class="description">Teminat Kontrolü</span></li>
+              <li><span class="code">IE055 - GUA_INV</span> <span class="description">Geçersiz Teminat</span></li>
+              <li><span class="code">IE023 - GUA_NOT</span> <span class="description">Kefil Bildirimi</span></li>
+              <li><span class="code">IE034 - GUA_QUE</span> <span class="description">Teminat Sırası</span></li>
               <li><span class="code">IE036 - GUA_REQ</span> <span class="description">Teminat (Güncellemesi) Talebi</span></li>
+              <li><span class="code">IE201 - GUA_RES</span> <span class="description">Teminat Kontrol Sonucu</span></li>
               <li><span class="code">IE037 - GUA_RSP</span> <span class="description">Teminatın Güncellendiğine Dair Bildirim</span></li>
-              <li><span class="code">IE203 - GUA_USE</span> <span class="description">Teminat Kullanıldı (Tescil Edildi)</span></li>
+              <li><span class="code">IE203 - GUA_USE</span> <span class="description">Teminat Kullanımı (Tescil Edildi)</span></li>
+              <li><span class="code">IE205 - GUA_USR</span> <span class="description">Teminat Kullanım Sonucu</span></li>
+              <li><span class="code">IE225 - GUA_WUP</span> <span class="description">Teminat Güncelleme Bildirimi</span></li>
+              <li><span class="code">IE181 - INC_FWD</span> <span class="description">Olay Bildirimi Sisteme İletildi</span></li>
+              <li><span class="code">IE180 - INC_NOT</span> <span class="description">Olay Bildirimi</span></li>
+              <li><span class="code">IE182 - INC_NOT</span> <span class="description">Olay Bildirimi Taraflara İletildi</span></li>
+              <li><span class="code">IE145 - INF_REQ</span> <span class="description">Araştırma Bilgisi Talebi</span></li>
+              <li><span class="code">IE009 - INV_DEC</span> <span class="description">Beyanname İptal Talebi Kabul Edildi</span></li>
+              <li><span class="code">IE010 - INV_NOT</span> <span class="description">Transit İptali Bildirimi</span></li>
               <li><span class="code">IE141 - MOV_RSP</span> <span class="description">Yerine Ulaşmamış Taşıma İle İlgili Cevap</span></li>
-              <li><span class="code">IE038 - MVT_RSP</span> <span class="description">Yerine Ulaşmış Taşıma İle İlgili Cevap</span></li>
+              <li><span class="code">IE027 - MVT_QUE</span> <span class="description">Taşıma Sorgusu</span></li>
+              <li><span class="code">IE038 - MVT_RSP</span> <span class="description">Taşıma Sorgusu Cevabı</span></li>
               <li><span class="code">IE028 - MRN_ALL</span> <span class="description">Beyanname Tescil Edildi</span></li>
               <li><span class="code">IE118 - NCF_NOT</span> <span class="description">Transit İdaresinde Sınır Geçişi Bildirimi</span></li>
+              <li><span class="code">IE928 - POS_ACK</span> <span class="description">Beyanın Kabulüne İlişkin Olumlu Bilgilendirme</span></li>
+              <li><span class="code">IE170 - PRE_NOT</span> <span class="description">Beyannamesi Önceden Verilmiş Eşyanın Gümrük İdaresine Sunulmasına İlişkin Bildirim</span></li>
               <li><span class="code">IE151 - REC_ACC</span> <span class="description">Tahsilat Onayı Bilgisi</span></li>
               <li><span class="code">IE151 - REC_ACC_POZ</span> <span class="description">Tahsilat Erişimi Diğer Gümrük İdaresine Verildi</span></li>
               <li><span class="code">IE063 - REC_COM</span> <span class="description">Tahsilat Usulüne Geçildi</span></li>
