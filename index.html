@@ -3,7 +3,13 @@
 <head>
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#00f6d2" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Gümrük Paneli" />
+<link rel="manifest" href="./manifest.json" />
+<link rel="apple-touch-icon" href="./icon.svg" />
 <title>Gümrük – Hızlı Erişim Paneli</title>
 <style>
   :root {
@@ -302,11 +308,33 @@
   }
 
   @media(max-width:900px){
+    body { padding: 12px; }
+    .app { max-width: 100%; }
     .main-container{flex-direction:column;}
-    .tabs{flex-direction:row;overflow-x:auto;}
-    .tab-button{flex:1;min-width:150px;text-align:center;}
+    .tabs{flex-direction:row;overflow-x:auto; padding-bottom:4px;}
+    .tab-button{flex:1;min-width:150px;text-align:center; padding:12px 10px; font-size:14px;}
     .header-right{align-items:flex-end;}
     .sub-tabs { justify-content: center; }
+    .link-grid{grid-template-columns:1fr;}
+    .flow-gallery{grid-template-columns:1fr;}
+    .status-list{max-height:50vh;}
+    .link-card, .link-card-vertical { padding:14px; }
+    .pdf-ana-panel { width: calc(100vw - 24px); right: 12px; left: 12px; bottom: 78px; }
+    .masaustu-ekle-btn, .pdf-duzenle-btn, #notesToggleBtn { width: 48px; height: 48px; }
+    .masaustu-ekle-btn { bottom: 132px; }
+    .pdf-duzenle-btn { bottom: 190px; }
+  }
+
+  @media(max-width:600px){
+    header { padding: 16px; border-radius: 14px; }
+    .header-left img, .right-images img { height: 54px; }
+    .header-center h1 { font-size: 20px; }
+    .tab-content { padding: 14px; }
+    .search-container { flex-direction: column; }
+    .search-container button { width: 100%; }
+    .status-item { flex-direction: column; gap: 4px; }
+    #transitList .description { margin-left: 0; }
+    .notes-sidebar { width: min(92vw, 360px); }
   }
 
   /* YENİ TRANSİT STİLLERİ */
@@ -1110,6 +1138,10 @@
               <a href="https://taxation-customs.ec.europa.eu/document/download/314c75bf-436d-4a6e-b702-7bab0879d3c3_en?filename=taxud-978-98.pdf" target="_blank" class="link-card">
                 <h3>Transit Ağı Defteri (PDF)</h3>
                 <p>AB Transit Ağı Rehberi</p>
+              </a>
+              <a href="https://ec.europa.eu/taxation_customs/dds2/eos/eori_validation.jsp?Lang=en" target="_blank" class="link-card">
+                <h3>EORI Numarası Sorgulama</h3>
+                <p>EORI number validation</p>
               </a>
               <a href="https://ec.europa.eu/taxation_customs/dds2/mrn/mrn_home.jsp" target="_blank" class="link-card">
                 <h3>MRN Takibi (İhracat ve Transit)</h3>
@@ -2458,6 +2490,30 @@ setInterval(dovizCek, 600000);
 // --- MOTOR BİTİŞİ ---
 
 </script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(console.error);
+  });
+}
+
+function installPwa() {
+  const installBtn = document.getElementById('installPwaBtn');
+  if (installBtn) installBtn.style.display = 'none';
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  window.deferredPrompt = e;
+  const installBtn = document.getElementById('installPwaBtn');
+  if (installBtn) installBtn.style.display = 'flex';
+});
+
+window.addEventListener('appinstalled', () => {
+  const installBtn = document.getElementById('installPwaBtn');
+  if (installBtn) installBtn.style.display = 'none';
+});
+</script>
 <div id="notesSidebar" class="notes-sidebar">
     <div class="notes-header">
         <h3>📝 Hızlı Notlar</h3>
@@ -2471,7 +2527,11 @@ setInterval(dovizCek, 600000);
 
 <button id="notesToggleBtn" onclick="toggleNotes()" title="Not Defterini Aç">📝</button>
 
-<button onclick="masaustuneKısayolOlustur()" class="masaustu-ekle-btn" title="Masaüstüne Kısayol Ekle">
+<button id="installPwaBtn" onclick="if(window.deferredPrompt){window.deferredPrompt.prompt();window.deferredPrompt.userChoice.then(()=>{window.deferredPrompt=null;});}" class="masaustu-ekle-btn" title="Uygulamayı Yükle" style="display:none; bottom: 132px; background: var(--accent); color: #000;">
+    📱
+</button>
+
+<button onclick="masaustuneKısayolOlustur()" class="masaustu-ekle-btn" title="Masaüstüne Kısayol Ekle" style="bottom: 190px;">
     📥
 </button>
 
@@ -2543,7 +2603,7 @@ function masaustuneKısayolOlustur() {
 <style>
 .pdf-duzenle-btn {
     position: fixed;
-    bottom: 205px; /* Masaüstü butonunun 60px üstü */
+    bottom: 205px; /* Masaüstü butonunun 50px üstü */
     right: 20px;
     width: 50px;
     height: 50px;
