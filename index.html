@@ -2,6 +2,8 @@
   <html lang="tr">
   <head>
       <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+      <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
@@ -124,6 +126,83 @@
       display: block;
       animation: fade .3s ease-in-out;
     }
+
+    .personel-pane { display: none; }
+    .personel-pane.active { display: block; animation: fade .35s ease-in-out; }
+    .forms-accordion {
+      margin-bottom: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(0,246,210,.28);
+      border-radius: 14px;
+      background: rgba(255,255,255,.035);
+    }
+    .forms-accordion summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px;
+      color: var(--accent);
+      font-weight: 800;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+    .forms-accordion summary::-webkit-details-marker { display: none; }
+    .forms-accordion summary::after { content: '⌄'; font-size: 22px; transition: transform .2s ease; }
+    .forms-accordion[open] summary::after { transform: rotate(180deg); }
+    .forms-accordion .link-grid { padding: 0 16px 16px; }
+    .internship-info {
+      margin-bottom: 18px;
+      padding: 18px 20px;
+      border: 1px solid rgba(0,246,210,.24);
+      border-left: 4px solid var(--accent);
+      border-radius: 14px;
+      background: rgba(255,255,255,.045);
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .internship-info h3 { margin: 0 0 8px; color: var(--accent); }
+    .internship-info p { margin: 0; }
+    .tasit-pane { display: none; }
+    .tasit-pane.active { display: block; animation: fade .35s ease-in-out; }
+    .guide-toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0 18px; }
+    .guide-filter {
+      padding: 8px 13px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .guide-filter:hover, .guide-filter.active { background: var(--accent); color: #001; border-color: var(--accent); }
+    .guide-list { display: grid; gap: 12px; }
+    .guide-item {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 13px;
+      background: rgba(255,255,255,.045);
+    }
+    .guide-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 15px 17px;
+      color: var(--text);
+      font-weight: 750;
+      cursor: pointer;
+      list-style: none;
+    }
+    .guide-item summary::-webkit-details-marker { display: none; }
+    .guide-item summary::after { content: '+'; flex: 0 0 auto; color: var(--accent); font-size: 22px; }
+    .guide-item[open] { border-color: rgba(0,246,210,.38); }
+    .guide-item[open] summary::after { content: '−'; }
+    .guide-answer { padding: 0 17px 17px; color: var(--muted); line-height: 1.65; }
+    .guide-answer strong { color: var(--text); }
+    .guide-answer ul { margin: 8px 0 0; padding-left: 20px; }
+    .guide-note { margin-top: 18px; padding: 12px 15px; border-radius: 11px; background: rgba(255,190,0,.09); color: var(--muted); }
 
     .link-grid{
       display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:20px;
@@ -277,35 +356,45 @@
     }
 
     .martyrs-container {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px;
+      padding-top: 12px;
     }
-    .martyr-link {
-      display: block;
-      padding: 12px 18px;
-      background: rgba(255, 0, 0, 0.1); 
+    .martyr-card {
+      overflow: hidden;
+      padding: 0;
+      background: linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
       color: var(--text);
-      font-weight: 600;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: all 0.2s;
-      border: 1px solid rgba(255, 0, 0, 0.3);
-    }
-    .martyr-link:hover {
-      background: rgba(255, 0, 0, 0.25);
-      color: #fff;
-      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-      transform: translateX(3px);
-    }
-    .martyr-photo {
-      max-width: 100%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-      margin-top: 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 75, 75, .28);
       cursor: pointer;
+      text-align: center;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .martyr-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 75, 75, .65);
+      box-shadow: 0 14px 32px rgba(0,0,0,.28), 0 0 18px rgba(255, 45, 45, .12);
+    }
+    .martyr-card-photo {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center top;
+      background: rgba(0,0,0,.16);
+    }
+    .martyr-card-name {
+      display: flex;
+      min-height: 62px;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 10px;
+      font-size: .96rem;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: .01em;
     }
 
     @media(max-width:900px){
@@ -320,7 +409,7 @@
       .status-list{max-height:50vh;}
       .link-card, .link-card-vertical { padding:14px; }
       .pdf-ana-panel { width: calc(100vw - 24px); right: 12px; left: 12px; bottom: 78px; }
-      .masaustu-ekle-btn, .pdf-duzenle-btn, #notesToggleBtn { width: 48px; height: 48px; }
+      .masaustu-ekle-btn, .pdf-duzenle-btn, #notesToggleBtn, #themeToggleBtn { width: 48px; height: 48px; }
     }
 
     @media(max-width:600px){
@@ -600,7 +689,7 @@
   </style>
   </head>
   <body data-theme="dark">
-  <button onclick="toggleTheme()" style="position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 10px; border-radius: 50%; cursor: pointer; background: var(--card); border: 1px solid var(--accent); font-size: 20px;">🌓</button>
+  <button id="themeToggleBtn" onclick="toggleTheme()" title="Açık / Koyu Tema" aria-label="Açık ve koyu tema arasında geçiş yap">🌓</button>
     <div class="app">
       <header>
         <div class="header-left">
@@ -648,7 +737,8 @@
     style="display: flex; align-items: center; justify-content: center; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0 15px; text-decoration: none; transition: 0.3s; height: 42px; margin-left: 10px; border-left: 3px solid var(--accent);">
       <span style="color: var(--accent); font-size: 11px; font-weight: bold; letter-spacing: 1px;">TCMB ARŞİV</span>
   </a>
-  <div style="background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0 15px; margin-left: auto; height: 42px; display: flex; align-items: center; white-space: nowrap;">
+  <button type="button" id="bist100Toggle" class="bist100-toggle" onclick="openBist100()" aria-haspopup="dialog">📈 BIST 100</button>
+  <div style="background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0 15px; height: 42px; display: flex; align-items: center; white-space: nowrap;">
       <span id="canli-zaman" style="color: var(--accent); font-size: 13px; font-weight: bold;">Yükleniyor...</span>
   </div>
   </div>
@@ -839,24 +929,32 @@
         <section class="tab-content" id="sehitlerimiz">
           <h2>Şehitlerimiz</h2>
           <div class="martyrs-container">
-            <a href="#" class="martyr-link" data-martyr="yarmoglu">Ahmet Serkan YARIMOĞLU</a>
-            <a href="#" class="martyr-link" data-martyr="turan">Ramazan TURAN</a>
-            <a href="#" class="martyr-link" data-martyr="kavastan">Özgür KAVASTAN</a>
-            <a href="#" class="martyr-link" data-martyr="turk">Mustafa TÜRK</a>
-            <a href="#" class="martyr-link" data-martyr="sakaoglu">Umut SAKAROĞLU</a>
+            <button class="martyr-card" type="button" onclick="showModal(this.querySelector('img').src)" aria-label="Ahmet Serkan YARIMOĞLU fotoğrafını büyüt">
+              <img class="martyr-card-photo" src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/yar%C4%B1mo%C4%9Flu.png" alt="Ahmet Serkan YARIMOĞLU" loading="lazy">
+              <span class="martyr-card-name">Ahmet Serkan YARIMOĞLU</span>
+            </button>
+            <button class="martyr-card" type="button" onclick="showModal(this.querySelector('img').src)" aria-label="Ramazan TURAN fotoğrafını büyüt">
+              <img class="martyr-card-photo" src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/turan.png" alt="Ramazan TURAN" loading="lazy">
+              <span class="martyr-card-name">Ramazan TURAN</span>
+            </button>
+            <button class="martyr-card" type="button" onclick="showModal(this.querySelector('img').src)" aria-label="Özgür KAVASTAN fotoğrafını büyüt">
+              <img class="martyr-card-photo" src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/kavastan.png" alt="Özgür KAVASTAN" loading="lazy">
+              <span class="martyr-card-name">Özgür KAVASTAN</span>
+            </button>
+            <button class="martyr-card" type="button" onclick="showModal(this.querySelector('img').src)" aria-label="Mustafa TÜRK fotoğrafını büyüt">
+              <img class="martyr-card-photo" src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/t%C3%BCrk.png" alt="Mustafa TÜRK" loading="lazy">
+              <span class="martyr-card-name">Mustafa TÜRK</span>
+            </button>
+            <button class="martyr-card" type="button" onclick="showModal(this.querySelector('img').src)" aria-label="Umut SAKAROĞLU fotoğrafını büyüt">
+              <img class="martyr-card-photo" src="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/sakaro%C4%9Flu.png" alt="Umut SAKAROĞLU" loading="lazy">
+              <span class="martyr-card-name">Umut SAKAROĞLU</span>
+            </button>
           </div>
-          <div id="martyr-photo-container"></div>
         </section>
 
         <section class="tab-content" id="mevzuat">
           <h2>Mevzuat-Tarife</h2>
           <div class="link-grid">
-            <a class="link-card" href="#" target="_blank">
-              <div>
-                <h3>Gümrük Akıllı Mevzuat Sistemi</h3>
-                <p>Yapım Aşamasında</p>
-              </div>
-            </a>
             <a class="link-card" href="https://gumrukrehberi.gov.tr/anasayfa" target="_blank">
               <div>
                 <h3>Gümrük Rehberi</h3>
@@ -1063,6 +1161,12 @@
 
         <section class="tab-content" id="personel">
           <h2>Personel</h2>
+          <div class="sub-tabs" aria-label="Personel alt menüsü">
+            <button class="sub-tab-button active" type="button" data-personel-tab="personel-uygulamalar">Uygulamalar</button>
+            <button class="sub-tab-button" type="button" data-personel-tab="personel-formlar">Formlar</button>
+            <button class="sub-tab-button" type="button" data-personel-tab="personel-staj">Staj</button>
+          </div>
+          <div class="personel-pane active" id="personel-uygulamalar">
           <div class="link-grid">
             <a class="link-card" href="https://ortakgiris.ticaret.gov.tr/realms/99333951-7fbd-4803-ac67-d5f7df3df99e/protocol/openid-connect/auth?client_id=c3b2b462-c4f7-4934-aaac-9b6ec5a8fcfd&redirect_uri=https%3A%2F%2Fweb.ticaret.gov.tr%2FSifreSifirla%2FHesap%2FCallback&response_type=code&scope=openid&code_challenge=zrS7g3MWYbhdSyWRnE2zgRf51ox1smT_u3hqehAg0BY&code_challenge_method=S256&state=OpenIdConnect.AuthenticationProperties%3DlsxDrmZ5CMXn6iTN9MZ22lCNPSbwDyUhbHf3B4NwpBX3RbPYxbZ-edrGCktj21bBWHwJLit_hDZmcsxQHacXo44LCR5e0-CzlwnGwp7qrgqQxRiqg9pq5uxRjKy5Deb0FVQ54hc_tJU8lkcswEQP7GCay-A_5X9sGAJfiJGF8J83mdaxW07G6c-4FLfYnKcSR_8wQ-C9PJCCUdsIAF588yk4Q1wgOrzDEcx9e1dKGLuBVWDwwRuzEmFlca9htXnAV6jZlTsgNacmd3kR9ojlpOpKQDUGC4IeBY6UfydOGfhfaDsYZjs1lphe7Tm_IIRYP_OdUEvfVB6SQJNEY9ezwTyHQ8n7jBARfJFN39GQMO23Q&response_mode=form_post&nonce=638936261255466554.NzcxMDQyNmQtNWI3NC00MjUyLTllM2EtZjhhODBmNTEwN2ZlNzIxZGIzMzAtYjNlZC00OTQxLTljNDgtNTg4M2YwYTQ1NDc0&x-client-SKU=ID_NET461&x-client-ver=5.3.0.0" target="_blank">
               <div>
@@ -1148,6 +1252,46 @@
                 <p>Online Eğitim</p>
               </div>
             </a>
+          </div>
+          </div>
+
+          <div class="personel-pane" id="personel-formlar">
+            <details class="forms-accordion">
+              <summary>Mal Bildirimi Formu</summary>
+              <div class="link-grid">
+                <a class="link-card" href="https://personel.ticaret.gov.tr/data/5e4d2ae013b8773b58a62d89/Mal%20Bildirimine%20%C4%B0li%C5%9Fkin%20Rehber%20(2024-1%20Say%C4%B1l%C4%B1%20Genelge%20Eki).pdf" target="_blank" rel="noopener"><div><h3>Mal Bildirimine İlişkin Rehber</h3><p>PDF rehber</p></div></a>
+                <a class="link-card" href="https://personel.ticaret.gov.tr/data/5e4d2ae013b8773b58a62d89/Mal%20Bildirimi%20Formu%20(2024-1%20Say%C4%B1l%C4%B1%20Genelge%20Eki).doc" target="_blank" rel="noopener"><div><h3>Mal Bildirim Formu</h3><p>Word belgesi</p></div></a>
+                <a class="link-card" href="https://personel.ticaret.gov.tr/data/5e4d2ae013b8773b58a62d89/MAL%20B%C4%B0LD%C4%B0R%C4%B0M%C4%B0%20A%C3%87IKLAMA%20FORMU.doc" target="_blank" rel="noopener"><div><h3>Mal Bildirimi Açıklama Formu</h3><p>Word belgesi</p></div></a>
+                <a class="link-card" href="https://personel.ticaret.gov.tr/data/5e4d2ae013b8773b58a62d89/Mal%20Bildirimi%20(EBYS)%20Slayt.pptx" target="_blank" rel="noopener"><div><h3>Mal Bildiriminin EBYS Üzerinden Verilmesi</h3><p>Bilgilendirme slaytı</p></div></a>
+              </div>
+            </details>
+            <div class="link-grid">
+              <a class="link-card" href="https://personel.ticaret.gov.tr/data/61b9e68313b87646287935ff/Personel%20Tan%C4%B1tma%20Formu.xlsx" target="_blank" rel="noopener"><div><h3>Personel Tanıtma Formu</h3><p>Excel formu</p></div></a>
+              <a class="link-card" href="https://kapsis.kbs.gov.tr/Kapsis/kapsis/aileYardimBildirim" target="_blank" rel="noopener"><div><h3>Aile Yardımı &amp; Aile Durumu Formu</h3><p>e-Devlet ile giriş yaptıktan sonra ilgili butonlara tıklayarak çıktı alabilirsiniz.</p></div></a>
+              <a class="link-card" href="https://personel.ticaret.gov.tr/data/5e4d278913b8773b58a62d76/Kimlik%20Teslim%20Tesell%C3%BCm%20Tutana%C4%9F%C4%B1.docx" target="_blank" rel="noopener"><div><h3>Personel Kimlik Giriş Kartı Teslim-Tesellüm-İmha-İade Tutanağı</h3><p>Word belgesi</p></div></a>
+              <a class="link-card" href="https://personel.ticaret.gov.tr/data/5e4d278913b8773b58a62d76/Kimlik%20Kay%C4%B1p%20%C3%87al%C4%B1nt%C4%B1%20Bildirim%20Formu.docx" target="_blank" rel="noopener"><div><h3>Personel Kimlik Kartı Kayıp/Çalıntı Bildirim Formu</h3><p>Word belgesi</p></div></a>
+              <a class="link-card" href="https://personel.ticaret.gov.tr/data/5e4d245213b8773b58a62d5c/Hususi%20Pasaportu%20Talep%20Formu%20-%20Ta%C5%9Fra%20Te%C5%9Fkilat%C4%B1.doc" target="_blank" rel="noopener"><div><h3>Hususi Pasaport Talep Formu</h3><p>Taşra teşkilatı</p></div></a>
+              <a class="link-card" href="https://personel.ticaret.gov.tr/data/5e4d245213b8773b58a62d5c/Emekli%20Pasaport%20%C4%B0%C3%A7in%20Belge%20%C4%B0steme%20Dilek%C3%A7esi%20(Kendisi).doc" target="_blank" rel="noopener"><div><h3>Emekli Pasaport Belge İsteme Dilekçesi</h3><p>Kendisi için</p></div></a>
+              <a class="link-card" href="https://personel.ticaret.gov.tr/data/5e4d245213b8773b58a62d5c/Emekli%20Pasaport%20%C4%B0%C3%A7in%20Belge%20%C4%B0steme%20Dilek%C3%A7esi%20(Yak%C4%B1n%C4%B1).doc" target="_blank" rel="noopener"><div><h3>Emekli Pasaport Belge İsteme Dilekçesi</h3><p>Yakını için</p></div></a>
+            </div>
+          </div>
+
+          <div class="personel-pane" id="personel-staj">
+            <div class="internship-info">
+              <h3>Staj Genel Bilgilendirme</h3>
+              <p>Cumhurbaşkanlığı İnsan Kaynakları Ofisi tarafından Ulusal Staj Programı başlatılmıştır. Bakanlığımızda staj yapmak isteyen üniversite öğrencileri başvurularını Kariyer Kapısı üzerinden gerçekleştirebilir; program ve Bakanlık staj esaslarına aşağıdaki belgelerden ulaşabilir.</p>
+            </div>
+            <div class="link-grid">
+              <a class="link-card" href="https://ulusalstajprogrami.iskur.gov.tr/" target="_blank" rel="noopener">
+                <div><h3>Kariyer Kapısı</h3><p>Ulusal Staj Programı başvuru ve bilgilendirme sayfası</p></div>
+              </a>
+              <a class="link-card" href="https://egitim.ticaret.gov.tr/data/6304781f13b8763014c3bf48/USP%20Y%C3%B6nergesi.pdf" target="_blank" rel="noopener">
+                <div><h3>Ulusal Staj Programı Uygulama Yönergesi</h3><p>PDF belge</p></div>
+              </a>
+              <a class="link-card" href="https://egitim.ticaret.gov.tr/data/6304781f13b8763014c3bf48/Ticaret%20Bakanl%C4%B1%C4%9F%C4%B1%20Staj%20Y%C3%B6nergesi.pdf" target="_blank" rel="noopener">
+                <div><h3>Ticaret Bakanlığı Staj Yönergesi</h3><p>PDF belge</p></div>
+              </a>
+            </div>
           </div>
         </section>
 
@@ -1368,6 +1512,11 @@
 
         <section class="tab-content" id="tasit_yolcu">
           <h2>Taşıt-Yolcu</h2>
+          <div class="sub-tabs" aria-label="Taşıt Yolcu alt menüsü">
+            <button class="sub-tab-button active" type="button" data-tasit-tab="tasit-sistemler">Sistemler</button>
+            <button class="sub-tab-button" type="button" data-tasit-tab="tasit-rehber">Yolcu Rehberi</button>
+          </div>
+          <div class="tasit-pane active" id="tasit-sistemler">
           <div class="search-box">
             <input type="text" id="tasitSearch" placeholder="Sorgulama, taşıt, yolcu, yat, liman ara...">
           </div>
@@ -1442,6 +1591,92 @@
               <p>Yolcu beraberinde numune ve fuar eşyası beyanı</p>
               <div class="url">https://uygulama.gtb.gov.tr/NakitBeyan</div>
             </a>
+          </div>
+          </div>
+
+          <div class="tasit-pane" id="tasit-rehber">
+            <div class="search-box">
+              <input type="search" id="guideSearch" placeholder="Rehberde ara: 185 gün, vekâlet, belge, süre, ceza..." autocomplete="off">
+            </div>
+            <div class="guide-toolbar" aria-label="Rehber konu filtreleri">
+              <button class="guide-filter active" type="button" data-guide-filter="all">Tümü</button>
+              <button class="guide-filter" type="button" data-guide-filter="yerlesiklik">Yerleşiklik</button>
+              <button class="guide-filter" type="button" data-guide-filter="sure">Süreler</button>
+              <button class="guide-filter" type="button" data-guide-filter="belge">Belgeler</button>
+              <button class="guide-filter" type="button" data-guide-filter="kullanim">Kullanım</button>
+              <button class="guide-filter" type="button" data-guide-filter="ceza">Ceza</button>
+            </div>
+            <div class="guide-list" id="guideList">
+              <details class="guide-item" data-category="yerlesiklik">
+                <summary>Kimler yabancı plakalı taşıtla Türkiye’ye giriş yapabilir?</summary>
+                <div class="guide-answer">Olağan durumda yurtdışında ikamet eden ve giriş tarihinden geriye doğru son bir yılda <strong>en az 185 gün fiilen yurtdışında bulunan</strong> kişiler, ikamet yerlerinde adlarına kayıtlı bir taşıtı geçici olarak getirebilir. AB/EFTA ülkelerinde ikamet edenler, bu ülkelerden birinde adlarına kayıtlı taşıtı da getirebilir.</div>
+              </details>
+              <details class="guide-item" data-category="yerlesiklik">
+                <summary>185 günlük yurtdışı yerleşiklik süresi nasıl hesaplanır?</summary>
+                <div class="guide-answer">Giriş tarihinden geriye doğru 365 günlük dönem esas alınır. Kesintili veya kesintisiz toplam yurtdışı kalış süresi hesaplanır; <strong>185 gün veya daha fazla</strong> yurtdışında bulunulması gerekir. Farklı pasaport veya kimlik kullanıldıysa gümrük idaresine bilgi verilmelidir.</div>
+              </details>
+              <details class="guide-item" data-category="yerlesiklik sure">
+                <summary>185 gün şartı her girişte yeniden aranır mı?</summary>
+                <div class="guide-answer"><strong>Evet.</strong> Taşıtın önceki girişten kalan süresi bulunsa bile her yeni girişte son bir yıllık yurtdışı yerleşiklik şartı kontrol edilir. Taşıtsız olarak Türkiye’de geçirilen süre, taşıta verilen 730 günlük süreden düşmez; ancak yerleşiklik hesabını etkiler.</div>
+              </details>
+              <details class="guide-item" data-category="yerlesiklik sure">
+                <summary>Yurtdışından emeklilerde 185 gün şartı ne zaman aranmaz?</summary>
+                <div class="guide-answer">Yurtdışından emekli olanların emeklilik tarihinden sonra adlarına kayıtlı taşıtı Türkiye’ye <strong>ilk defa getirmelerinde</strong> 185 gün şartı aranmaz. Taşıtın 730 günlük süresi dolmadan çıkıp kalan süreden yararlanmak üzere süresi içinde tekrar girişte de 185 gün şartı aranmaz.</div>
+              </details>
+              <details class="guide-item" data-category="belge">
+                <summary>Türkiye’ye girişte hangi belgeler aranır?</summary>
+                <div class="guide-answer"><ul><li>Taşıt ruhsatı veya mülkiyet belgesi</li><li>Sürücü belgesi</li><li>Pasaport/kimlik ve gerektiğinde yurtdışı ikamet belgesi</li><li>Türkiye’de geçerli trafik sigortası</li><li>Emekliler için onaylı Türkçe tercümeli emeklilik belgesi</li><li>Duruma göre vekâletname, kira sözleşmesi veya şirket çalışanı/ortağı belgesi</li></ul>Gümrük kayıt işlemleri ücretli değildir.</div>
+              </details>
+              <details class="guide-item" data-category="sure">
+                <summary>Taşıta ne kadar süre verilir?</summary>
+                <div class="guide-answer">Yurtdışında yerleşik vatandaşlar ve Türkiye’de oturma izni bulunan yabancılar için en fazla <strong>730 gün</strong>; oturma izni bulunmayan yabancılar için 180 günde toplam <strong>90 gün</strong>; tüzel kişiliğe ait vekâletli taşıtlarda en fazla <strong>90 gün</strong> verilir. Kiralık taşıtta süre, sözleşme süresini ve 730 günü aşamaz.</div>
+              </details>
+              <details class="guide-item" data-category="sure yerlesiklik">
+                <summary>Bir aylık giriş süresinden kimler yararlanabilir?</summary>
+                <div class="guide-answer">730 günlük hakkını tüketen veya 185 gün şartını sağlayamayan AB/EFTA ülkelerinde ikamet eden kişilerin, bu ülkelerde adlarına kayıtlı taşıtlarına girişte <strong>bir defaya mahsus bir ay</strong> süre verilebilir. İkametin belgeyle kanıtlanması gerekir; son 365 gün içinde bu haktan yararlananlar tekrar kullanamaz.</div>
+              </details>
+              <details class="guide-item" data-category="sure">
+                <summary>Daha önce kullanılan süreden sonra kalan süre nasıl hesaplanır?</summary>
+                <div class="guide-answer">Son 185 gün içinde getirilen taşıt için kullanılan günler 730 günlük haktan düşülür. Oturma izni ve mavi kartı bulunmayan yabancılarda ise son 180 gün içindeki kullanım 90 günlük haktan düşülerek kalan süre verilir.</div>
+              </details>
+              <details class="guide-item" data-category="belge kullanim">
+                <summary>Başkasına ait taşıt vekâlet veya kiralama ile getirilebilir mi?</summary>
+                <div class="guide-answer">Getiren kişi ile taşıt sahibinin yurtdışında yerleşik olması ve taşıtın kural olarak getiren kişinin ikamet ülkesinde kayıtlı bulunması gerekir. Kiralık taşıtta kira sözleşmesi; vekâletli taşıtta geçerli vekâletname sunulmalıdır. AB/EFTA ikametlileri için kayıt ülkesi konusunda özel istisna bulunur.</div>
+              </details>
+              <details class="guide-item" data-category="belge">
+                <summary>Vekâletli taşıtta hangi belgeler kabul edilir?</summary>
+                <div class="guide-answer">Elçilik, konsolosluk veya noter onaylı vekâletname; tarafların giriş gümrüğünde birlikte düzenlediği gümrük onaylı vekâletname ya da ilgili ülkenin resmi makamınca onaylanmış belge kabul edilebilir. Tüzel kişiliklerde ayrıca firma onaylı vekâletname ve ortaklık/çalışanlık belgesi aranır. Gerekli belgelerin onaylı Türkçe tercümesi sunulmalıdır.</div>
+              </details>
+              <details class="guide-item" data-category="kullanim">
+                <summary>Yabancı plakalı taşıtı Türkiye’de kimler kullanabilir?</summary>
+                <div class="guide-answer">İzin hak sahibi ile yurtdışında yerleşik <strong>eşi, anne-babası ve çocukları</strong> kullanabilir. Akrabalık ve yurtdışı ikamet belgeleri araçta bulunmalıdır. Bunların dışındaki kişiler, vekâletnameleri olsa dahi aracı kullanamaz.</div>
+              </details>
+              <details class="guide-item" data-category="kullanim belge">
+                <summary>Taşıtı Türkiye’de bırakıp taşıtsız yurtdışına çıkılabilir mi?</summary>
+                <div class="guide-answer">Evet. Taşıt en yakın gümrük idaresine teslim edilmeli veya aracın kullanılmayacağına dair taahhütname gümrükten ya da e-Devlet hizmetinden verilmelidir. <strong>Gümrüğe teslimde süre durur; taahhütname ile çıkışta süre işlemeye devam eder.</strong> Taahhüt süresince araç hiç kimse tarafından kullanılamaz.</div>
+              </details>
+              <details class="guide-item" data-category="kullanim belge">
+                <summary>Taşıt vekâletnameyle yurtdışı edilebilir mi?</summary>
+                <div class="guide-answer">Geçerli vekâletname bulunması, taşıtı çıkaracak kişinin yurtdışında yerleşik olması ve kural olarak tarafların gümrüğe birlikte başvurması gerekir. Elçilik, konsolosluk veya noter onaylı vekâletnamede yalnız vekâlet alanın başvurması yeterlidir.</div>
+              </details>
+              <details class="guide-item" data-category="kullanim">
+                <summary>Yabancı plakalı taşıt Türkiye’de devredilebilir mi?</summary>
+                <div class="guide-answer">Genel kural olarak <strong>devredilemez.</strong> Yalnızca geçici giriş belgesi veya karnesi kapsamında taşıt ithal etme hakkı bulunan aynı aile ünitesindeki bir kişiye, özel şartlarla mülkiyet devrine izin verilebilir.</div>
+              </details>
+              <details class="guide-item" data-category="ceza">
+                <summary>Hangi durumlarda ceza uygulanır?</summary>
+                <div class="guide-answer">Taşıtın amacı dışında kullanılması, kiralanması/ödünç verilmesi/satılması, hak sahibi olmayan kişiye kullandırılması, parçalarının izinsiz değiştirilmesi, süresi sonunda çıkarılmaması veya farklı kimliklerle yerleşiklik şartı sağlanmış gibi işlem yaptırılması ceza ve taşıtın gümrükçe teslim alınması sonucunu doğurabilir. <strong>Parasal tutarlar her yıl değiştiğinden güncel mevzuat kontrol edilmelidir.</strong></div>
+              </details>
+              <details class="guide-item" data-category="kullanim">
+                <summary>Kaza yapan yabancı plakalı taşıt nasıl tamir edilir?</summary>
+                <div class="guide-answer">Taşıt sahibi veya yetkilendirilmiş kişi talepte bulunur. Tamir, gümrükçe uygun görülen yerde ve gümrüğün gözetimi altında yapılır.</div>
+              </details>
+              <details class="guide-item" data-category="belge">
+                <summary>Taşıt Ön Beyanı ne zaman ve nereden yapılır?</summary>
+                <div class="guide-answer">Yola çıkmadan en fazla <strong>15 gün önce</strong> Ticaret Bakanlığı E-İşlemler menüsü veya e-Devlet’teki Taşıt Ön Beyan hizmeti üzerinden kişi ve taşıt bilgileri girilebilir. Bu işlem sınır kapısındaki kayıt süresini kısaltır.</div>
+              </details>
+            </div>
+            <div class="guide-note">Bu modül, yüklediğiniz Ticaret Bakanlığı “Yabancı Plakalı Kara Taşıtları İçin Yolcu Rehberi”nin hızlı erişim özetidir. İşlem tarihinde güncel mevzuat ve sistem kayıtları esas alınmalıdır.</div>
           </div>
         </section>
 
@@ -2221,7 +2456,38 @@
       <div class="modal-content" id="modalInnerContent">
           </div>
     </div>
-    
+
+    <div id="bist100Modal" class="bist100-overlay" role="dialog" aria-modal="true" aria-labelledby="bist100Title">
+      <div class="bist100-panel">
+        <div class="bist100-head">
+          <div>
+            <span class="bist100-kicker">BORSA İSTANBUL • PİYASA HAREKETLERİ</span>
+            <h2 id="bist100Title">📈 BIST 100 <small>Canlı Piyasa</small></h2>
+            <p>Fiyat, günlük değişim ve işlem verilerini panelden ayrılmadan inceleyin.</p>
+          </div>
+          <button type="button" class="bist100-close" onclick="closeBist100()" aria-label="BIST 100 penceresini kapat">×</button>
+        </div>
+        <div class="bist100-tools">
+          <form id="bistSymbolForm" class="bist-symbol-search" onsubmit="searchBistSymbol(event)">
+            <span>⌕</span>
+            <input id="bistSymbolInput" type="search" placeholder="Hisse kodu ara: THYAO, ASELS, TUPRS…" aria-label="BIST hisse kodu" autocomplete="off">
+            <button type="submit">Hisse Ara</button>
+          </form>
+          <button type="button" id="bistFavoriteBtn" class="bist-favorite-btn" onclick="toggleBistFavorite()" disabled>☆ Favoriye Ekle</button>
+          <button type="button" class="bist-ranking-btn" onclick="showBistRanking()">☷ Canlı Sıralama</button>
+        </div>
+        <div id="bistFavoritesLine" class="bist-favorites-line empty">
+          <strong>★ Favorilerim</strong>
+          <div id="bistFavorites" class="bist-favorites"><small>Henüz favori hisse eklenmedi.</small></div>
+        </div>
+        <div id="bistViewLabel" class="bist-view-label">BIST hisseleri • Günlük performans sıralaması</div>
+        <div id="bist100Widget" class="bist100-widget">
+          <div class="bist100-loading"><span></span> Piyasa verileri hazırlanıyor…</div>
+        </div>
+        <div class="bist100-note"><span>● Piyasa verisi</span><small>BIST ücretsiz verileri yaklaşık 15 dakika gecikmeli olabilir. Yatırım tavsiyesi değildir.</small></div>
+      </div>
+    </div>
+
   <script>
       // NOT DEFTERİ FONKSİYONLARI
       function toggleNotes() {
@@ -2304,21 +2570,44 @@
       });
     });
 
-    // ŞEHİTLER FOTOĞRAFI
-    const martyrPhotos = {
-      yarmoglu: 'https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/yar%C4%B1mo%C4%9Flu.png',
-      turan: 'https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/turan.png',
-      kavastan: 'https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/kavastan.png',
-      turk: 'https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/t%C3%BCrk.png',
-      sakaoglu: 'https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/refs/heads/main/sakaro%C4%9Flu.png'
-    };
+    // PERSONEL ALT MENÜ GEÇİŞİ
+    document.querySelectorAll('#personel [data-personel-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#personel [data-personel-tab]').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#personel .personel-pane').forEach(pane => pane.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.personelTab).classList.add('active');
+      });
+    });
 
-    document.querySelectorAll('.martyr-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const key = link.dataset.martyr;
-        const container = document.getElementById('martyr-photo-container');
-        container.innerHTML = `<img src="${martyrPhotos[key]}" alt="${link.textContent}" class="martyr-photo" onclick="showModal(this.src)">`;
+    // TAŞIT-YOLCU ALT MENÜ VE REHBER FİLTRELERİ
+    document.querySelectorAll('#tasit_yolcu [data-tasit-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#tasit_yolcu [data-tasit-tab]').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#tasit_yolcu .tasit-pane').forEach(pane => pane.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tasitTab).classList.add('active');
+      });
+    });
+
+    const guideSearch = document.getElementById('guideSearch');
+    let activeGuideFilter = 'all';
+    function filterGuide() {
+      const query = (guideSearch?.value || '').toLocaleLowerCase('tr-TR').trim();
+      document.querySelectorAll('#guideList .guide-item').forEach(item => {
+        const categories = (item.dataset.category || '').split(' ');
+        const categoryMatch = activeGuideFilter === 'all' || categories.includes(activeGuideFilter);
+        const textMatch = !query || item.textContent.toLocaleLowerCase('tr-TR').includes(query);
+        item.style.display = categoryMatch && textMatch ? '' : 'none';
+      });
+    }
+    guideSearch?.addEventListener('input', filterGuide);
+    document.querySelectorAll('#tasit-rehber [data-guide-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeGuideFilter = btn.dataset.guideFilter;
+        document.querySelectorAll('#tasit-rehber [data-guide-filter]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterGuide();
       });
     });
 
@@ -2763,10 +3052,27 @@
       background: var(--accent);
       color: #000;
   }
-  #installPwaBtn { bottom: 140px !important; }
-  .masaustu-ekle-btn:not(#installPwaBtn) { bottom: 200px !important; }
-  .pdf-duzenle-btn { bottom: 260px !important; }
-  button[onclick="toggleTheme()"] { top: 36px !important; }
+  #installPwaBtn { bottom: 200px !important; }
+  .masaustu-ekle-btn:not(#installPwaBtn) { bottom: 260px !important; }
+  .pdf-duzenle-btn { bottom: 320px !important; }
+  #themeToggleBtn {
+      position:fixed;
+      right:20px;
+      top:auto;
+      bottom:140px;
+      z-index:9999;
+      width:50px;
+      height:50px;
+      padding:0;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      cursor:pointer;
+      color:var(--text);
+      background:var(--card);
+      border:1px solid var(--accent);
+      font-size:20px;
+  }
   </style>
 
   <script>
@@ -2800,9 +3106,22 @@
           <div class="pdf-modlar">
               <button onclick="pdfIsle('birleştir')" class="mod-btn">🔗 Birleştir</button>
               <button onclick="pdfIsle('ayır')" class="mod-btn">✂️ Sayfalara Ayır</button>
-              <button onclick="pdfIsle('küçült')" class="mod-btn">📉 Küçült (Hızlı)</button>
+              <button onclick="pdfIsle('küçült')" class="mod-btn">⚙️ Yapısal Küçültme</button>
+              <button onclick="pdfIsle('word')" class="mod-btn">📝 PDF → Word</button>
+              <button onclick="pdfIsle('excel')" class="mod-btn">📊 PDF → Excel</button>
+              <div class="pdf-compress-row">
+                  <select id="pdfCompressionQuality" aria-label="PDF sıkıştırma kalitesi">
+                      <option value="small">Yüksek Sıkıştırma</option>
+                      <option value="balanced" selected>Dengeli</option>
+                      <option value="quality">Yüksek Kalite</option>
+                  </select>
+                  <button onclick="pdfIsle('sıkıştır')" class="mod-btn pdf-compress-btn">🗜️ Boyut Küçült</button>
+              </div>
           </div>
+          <div id="pdfProgress" class="pdf-progress" aria-live="polite"></div>
           <small style="color:var(--muted); font-size:10px;">*İşlemler cihazınızda güvenle yapılır.</small>
+          <small class="pdf-convert-note">*Word/Excel dönüşümü metin tabanlı PDF'ler içindir; taranmış belgelerde OCR gerekir.</small>
+          <small class="pdf-compress-note">*Boyut küçültme sayfaları görsele dönüştürür; seçilebilir metin ve bağlantılar kaybolabilir.</small>
       </div>
   </div>
 
@@ -2852,6 +3171,12 @@
 
   .mod-btn { background: var(--card); color: white; border: 1px solid var(--border); padding: 8px; border-radius: 6px; cursor: pointer; font-size: 13px; transition: 0.2s; }
   .mod-btn:hover { background: var(--accent); color: black; }
+  .pdf-compress-row { display: grid; grid-template-columns: 1fr 1.15fr; gap: 8px; }
+  #pdfCompressionQuality { min-width: 0; padding: 8px; border: 1px solid var(--border); border-radius: 6px; background: #111820; color: white; font-size: 11px; }
+  .pdf-compress-btn { border-color: rgba(0,246,210,.45); }
+  .pdf-progress { min-height: 18px; margin-top: 9px; color: var(--accent); font-size: 11px; }
+  .pdf-compress-note { display: block; margin-top: 4px; color: #fbbf24; font-size: 9px; line-height: 1.35; }
+  .pdf-convert-note { display:block; margin-top:5px; color:#7dd3fc; font-size:9px; line-height:1.35; }
   </style>
   <script>
   // --- PDF İŞLEM MOTORU BAŞLANGIÇ ---
@@ -2898,9 +3223,136 @@
               const saved = await doc.save({ useObjectStreams: true }); 
               indirPdf(saved, "Küçültülmüş_" + f.name);
           }
+          else if (mod === 'sıkıştır') {
+              await pdfBoyutKucult(secilenDosyalar[0]);
+          }
+          else if (mod === 'word') {
+              await pdfToWord(secilenDosyalar[0]);
+          }
+          else if (mod === 'excel') {
+              await pdfToExcel(secilenDosyalar[0]);
+          }
       } catch (e) {
+          const progress = document.getElementById('pdfProgress');
+          if (progress) progress.textContent = '';
           alert("Hata oluştu: " + e.message);
       }
+  }
+
+  async function pdfBoyutKucult(file) {
+      if (!window.pdfjsLib) throw new Error("PDF sıkıştırma bileşeni yüklenemedi.");
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+      const presets = {
+          small: { scale: 1.05, quality: 0.48 },
+          balanced: { scale: 1.35, quality: 0.68 },
+          quality: { scale: 1.7, quality: 0.84 }
+      };
+      const preset = presets[document.getElementById('pdfCompressionQuality').value] || presets.balanced;
+      const progress = document.getElementById('pdfProgress');
+      const sourceBytes = new Uint8Array(await file.arrayBuffer());
+      const sourcePdf = await pdfjsLib.getDocument({ data: sourceBytes }).promise;
+      const resultPdf = await PDFLib.PDFDocument.create();
+
+      for (let pageNo = 1; pageNo <= sourcePdf.numPages; pageNo++) {
+          progress.textContent = "Sıkıştırılıyor: " + pageNo + " / " + sourcePdf.numPages;
+          const sourcePage = await sourcePdf.getPage(pageNo);
+          const originalViewport = sourcePage.getViewport({ scale: 1 });
+          const renderViewport = sourcePage.getViewport({ scale: preset.scale });
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.ceil(renderViewport.width);
+          canvas.height = Math.ceil(renderViewport.height);
+          const context = canvas.getContext('2d', { alpha: false });
+          context.fillStyle = '#ffffff';
+          context.fillRect(0, 0, canvas.width, canvas.height);
+          await sourcePage.render({ canvasContext: context, viewport: renderViewport }).promise;
+
+          const jpegBlob = await new Promise((resolve, reject) => {
+              canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error("Sayfa görseli oluşturulamadı.")), 'image/jpeg', preset.quality);
+          });
+          const jpeg = await resultPdf.embedJpg(await jpegBlob.arrayBuffer());
+          const page = resultPdf.addPage([originalViewport.width, originalViewport.height]);
+          page.drawImage(jpeg, { x: 0, y: 0, width: originalViewport.width, height: originalViewport.height });
+          canvas.width = 1;
+          canvas.height = 1;
+          sourcePage.cleanup();
+      }
+
+      const resultBytes = await resultPdf.save({ useObjectStreams: true });
+      const oldSize = (file.size / 1048576).toFixed(2);
+      const newSize = (resultBytes.length / 1048576).toFixed(2);
+      const gain = Math.round((1 - resultBytes.length / file.size) * 100);
+      progress.textContent = gain > 0
+          ? "Tamamlandı: " + oldSize + " MB → " + newSize + " MB (%" + gain + " küçüldü)"
+          : "Tamamlandı: " + oldSize + " MB → " + newSize + " MB (bu PDF küçülmedi)";
+      indirPdf(resultBytes, "Sıkıştırılmış_" + file.name);
+  }
+
+  async function pdfMetinSatirlari(file) {
+      if (!window.pdfjsLib) throw new Error("PDF okuma bileşeni yüklenemedi.");
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      const progress = document.getElementById('pdfProgress');
+      const source = await pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+      const pages = [];
+      for (let pageNo = 1; pageNo <= source.numPages; pageNo++) {
+          progress.textContent = "Metin çıkarılıyor: " + pageNo + " / " + source.numPages;
+          const page = await source.getPage(pageNo);
+          const content = await page.getTextContent();
+          const items = content.items
+              .filter(item => item.str && item.str.trim())
+              .map(item => ({ text: item.str.trim(), x: item.transform[4], y: item.transform[5] }))
+              .sort((a, b) => Math.abs(b.y - a.y) > 3 ? b.y - a.y : a.x - b.x);
+          const rows = [];
+          for (const item of items) {
+              let row = rows.find(existing => Math.abs(existing.y - item.y) <= 3);
+              if (!row) { row = { y: item.y, cells: [] }; rows.push(row); }
+              row.cells.push(item);
+          }
+          rows.sort((a,b) => b.y - a.y).forEach(row => row.cells.sort((a,b) => a.x - b.x));
+          pages.push(rows.map(row => row.cells.map(cell => cell.text)));
+          page.cleanup();
+      }
+      if (!pages.some(page => page.some(row => row.length))) throw new Error("Bu PDF'de seçilebilir metin bulunamadı. Belge taranmış olabilir.");
+      return pages;
+  }
+
+  function guvenliDosyaAdi(name) {
+      return name.replace(/\.pdf$/i, '').replace(/[\\/:*?"<>|]+/g, '_');
+  }
+
+  async function pdfToWord(file) {
+      const pages = await pdfMetinSatirlari(file);
+      const escapeHtml = value => value.replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+      const body = pages.map((page, index) =>
+          `<section class="page"><h2>Sayfa ${index + 1}</h2>${page.map(row => `<p>${row.map(escapeHtml).join(' ')}</p>`).join('')}</section>`
+      ).join('');
+      const html = `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Calibri,Arial,sans-serif;font-size:11pt;line-height:1.35}.page{page-break-after:always}.page:last-child{page-break-after:auto}h2{font-size:12pt;color:#555}p{margin:0 0 5pt}</style></head><body>${body}</body></html>`;
+      const blob = new Blob(['\ufeff', html], { type:'application/msword;charset=utf-8' });
+      indirDosya(blob, guvenliDosyaAdi(file.name) + '_Word.doc');
+      document.getElementById('pdfProgress').textContent = "Word belgesi hazırlandı.";
+  }
+
+  async function pdfToExcel(file) {
+      if (!window.XLSX) throw new Error("Excel dönüştürme bileşeni yüklenemedi.");
+      const pages = await pdfMetinSatirlari(file);
+      const workbook = XLSX.utils.book_new();
+      pages.forEach((rows, index) => {
+          const sheet = XLSX.utils.aoa_to_sheet(rows);
+          const maxColumns = Math.max(1, ...rows.map(row => row.length));
+          sheet['!cols'] = Array.from({length:maxColumns}, (_, column) => ({
+              wch: Math.min(45, Math.max(12, ...rows.map(row => String(row[column] || '').length + 2)))
+          }));
+          XLSX.utils.book_append_sheet(workbook, sheet, ('Sayfa ' + (index + 1)).slice(0,31));
+      });
+      XLSX.writeFile(workbook, guvenliDosyaAdi(file.name) + '_Excel.xlsx', { compression:true });
+      document.getElementById('pdfProgress').textContent = "Excel çalışma kitabı hazırlandı.";
+  }
+
+  function indirDosya(blob, name) {
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.href = url; link.download = name; link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   function indirPdf(bytes, name) {
@@ -3348,7 +3800,7 @@
     transform:rotate(12deg) scale(1.06);
     box-shadow:0 0 26px rgba(0,246,210,.28);
   }
-  .masaustu-ekle-btn,.pdf-duzenle-btn,#notesToggleBtn {
+  .masaustu-ekle-btn,.pdf-duzenle-btn,#notesToggleBtn,#themeToggleBtn {
     border:1px solid rgba(255,255,255,.14);
     backdrop-filter:blur(18px);
     box-shadow:0 12px 30px rgba(0,0,0,.32);
@@ -3382,7 +3834,176 @@
       transition-duration:.01ms!important;
     }
   }
+  .bist100-toggle {
+    height:42px;
+    margin-left:auto;
+    padding:0 17px;
+    border:1px solid rgba(0,246,210,.38);
+    border-radius:9px;
+    color:var(--accent);
+    background:linear-gradient(135deg,rgba(0,246,210,.14),rgba(18,121,255,.08));
+    box-shadow:0 0 18px rgba(0,246,210,.08);
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:.04em;
+    cursor:pointer;
+    transition:transform .2s,box-shadow .2s,border-color .2s;
+  }
+  .bist100-toggle:hover { transform:translateY(-2px);border-color:var(--accent);box-shadow:0 0 22px rgba(0,246,210,.22); }
+  .bist100-overlay { display:none;position:fixed;inset:0;z-index:20000;padding:0;overflow:hidden;background:rgba(1,5,10,.96); }
+  .bist100-overlay.active { display:grid;place-items:center;animation:fade .2s ease; }
+  .bist100-panel { width:100vw;height:100vh;display:flex;flex-direction:column;padding:10px 14px 12px;border:0;border-radius:0;background:linear-gradient(145deg,#101b29,#050a11);box-shadow:inset 0 0 70px rgba(0,246,210,.06); }
+  .bist100-head { display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:7px; }
+  .bist100-kicker,.bist100-head p { display:none; }
+  .bist100-head h2 { margin:0;color:#eaf4ff;font-size:20px;line-height:36px; }.bist100-head h2 small{margin-left:7px;color:var(--accent);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+  .bist100-close { flex:0 0 36px;height:36px;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#eaf4ff;background:rgba(255,255,255,.06);font-size:23px;cursor:pointer; }
+  .bist100-tools { display:grid;grid-template-columns:minmax(240px,1fr) auto auto;gap:7px;margin-bottom:5px; }
+  .bist-symbol-search { display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:7px;padding:3px 3px 3px 11px;border:1px solid rgba(0,246,210,.26);border-radius:10px;background:rgba(2,8,14,.55); }
+  .bist-symbol-search span { color:var(--accent);font-size:20px; }.bist-symbol-search input{min-width:0;padding:7px 3px;border:0!important;background:transparent!important;color:#eaf4ff;box-shadow:none!important;text-transform:uppercase;}.bist-symbol-search button,.bist-favorite-btn,.bist-ranking-btn{padding:8px 12px;border:1px solid rgba(0,246,210,.25);border-radius:8px;color:#eaf4ff;background:rgba(0,246,210,.09);font-size:11px;font-weight:800;cursor:pointer;}.bist-symbol-search button{border:0;background:var(--accent);color:#00110f}.bist-favorite-btn:disabled{opacity:.42;cursor:not-allowed}.bist-favorite-btn.active{color:#ffd84d;border-color:rgba(255,216,77,.45);background:rgba(255,216,77,.1)}
+  .bist-favorites-line { display:flex;align-items:center;gap:9px;min-height:26px;margin-bottom:4px;color:#91a1b8;font-size:10px; }.bist-favorites-line.empty{display:none}.bist-favorites-line>strong{color:#ffd84d;white-space:nowrap}.bist-favorites{display:flex;gap:5px;overflow-x:auto;padding:1px}.bist-favorite-chip{padding:4px 8px;border:1px solid rgba(255,216,77,.26);border-radius:20px;color:#eaf4ff;background:rgba(255,216,77,.07);font-size:10px;font-weight:800;cursor:pointer}.bist-view-label{margin-bottom:4px;color:var(--accent);font-size:10px;font-weight:800;letter-spacing:.03em}
+  .bist100-widget { position:relative;flex:1;min-height:440px;overflow:hidden;border:1px solid rgba(255,255,255,.08);border-radius:16px;background:#0f0f0f; }
+  .bist100-widget .tradingview-widget-container,.bist100-widget .tradingview-widget-container__widget { width:100%;height:100%; }
+  .bist100-loading { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:10px;color:#91a1b8; }
+  .bist100-loading span { width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 15px var(--accent);animation:pulse 1s infinite alternate; }
+  .bist100-note { display:flex;justify-content:space-between;gap:12px;margin-top:11px;color:#91a1b8; }
+  .bist100-note span { color:var(--accent);font-size:11px;font-weight:800; }.bist100-note small{font-size:10px;text-align:right;}
+  body[data-theme="light"] .bist100-overlay { background:rgba(225,241,246,.98); }
+  body[data-theme="light"] .bist100-panel { background:linear-gradient(145deg,#f9feff,#dceef3);box-shadow:inset 0 0 70px rgba(0,145,160,.08); }
+  body[data-theme="light"] .bist100-head h2,body[data-theme="light"] .bist100-close { color:#13263b; }
+  body[data-theme="light"] .bist100-head p,body[data-theme="light"] .bist100-note { color:#53677b; }
+  body[data-theme="light"] .bist100-close { border-color:rgba(0,70,90,.14);background:rgba(255,255,255,.55); }
+  body[data-theme="light"] .bist-symbol-search { background:rgba(255,255,255,.62); }body[data-theme="light"] .bist-symbol-search input,body[data-theme="light"] .bist-favorite-btn,body[data-theme="light"] .bist-ranking-btn,body[data-theme="light"] .bist-favorite-chip{color:#13263b}
+  .bist100-overlay.active ~ *{pointer-events:none;}
+  @media(max-width:650px){.bist100-panel{padding:12px}.bist100-head p{display:none}.bist100-tools{grid-template-columns:1fr 1fr}.bist-symbol-search{grid-column:1/-1}.bist100-widget{min-height:390px}.bist100-note{display:none}.bist-favorites-line{align-items:flex-start}.bist100-toggle{padding:0 12px}}
   </style>
+  <script>
+    let bistWidgetLoaded = false;
+    let bistWidgetTheme = '';
+    let bistCurrentSymbol = '';
+    function createBistWidget(source, config) {
+      const host = document.getElementById('bist100Widget');
+      const container = document.createElement('div');
+      container.className = 'tradingview-widget-container';
+      const widget = document.createElement('div');
+      widget.className = 'tradingview-widget-container__widget';
+      container.appendChild(widget);
+      host.replaceChildren(container);
+      const script = document.createElement('script');
+      script.src = source;
+      script.type = 'text/javascript';
+      script.async = true;
+      script.textContent = JSON.stringify(config);
+      container.appendChild(script);
+    }
+    function loadBist100Widget(force) {
+      const currentTheme = document.body.dataset.theme === 'light' ? 'light' : 'dark';
+      if (!force && bistWidgetLoaded && bistWidgetTheme === currentTheme && !bistCurrentSymbol) return;
+      bistCurrentSymbol = '';
+      createBistWidget('https://s3.tradingview.com/external-embedding/embed-widget-screener.js', {
+        width:'100%', height:'100%', defaultColumn:'overview',
+        defaultScreen:'top_gainers', showToolbar:true, locale:'tr',
+        market:'turkey', colorTheme:currentTheme,
+        isTransparent:false
+      });
+      bistWidgetLoaded = true;
+      bistWidgetTheme = currentTheme;
+      document.getElementById('bistViewLabel').textContent = 'BIST hisseleri • Günlük performans sıralaması';
+      updateBistFavoriteButton();
+    }
+    function normalizeBistSymbol(value) {
+      return value.toLocaleUpperCase('tr-TR').replace(/İ/g,'I').replace(/[^A-Z0-9.]/g,'').slice(0,12);
+    }
+    function searchBistSymbol(event) {
+      if (event) event.preventDefault();
+      const input = document.getElementById('bistSymbolInput');
+      const symbol = normalizeBistSymbol(input.value);
+      if (symbol.length < 2) {
+        document.getElementById('bistViewLabel').textContent = 'Geçerli bir hisse kodu yazın. Örnek: THYAO';
+        input.focus();
+        return;
+      }
+      input.value = symbol;
+      showBistSymbol(symbol);
+    }
+    function showBistSymbol(symbol) {
+      symbol = normalizeBistSymbol(symbol);
+      if (!symbol) return;
+      bistCurrentSymbol = symbol;
+      const currentTheme = document.body.dataset.theme === 'light' ? 'light' : 'dark';
+      createBistWidget('https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js', {
+        symbols:[[symbol,'BIST:' + symbol + '|1D']], chartOnly:false,
+        width:'100%', height:'100%', autosize:true, locale:'tr',
+        colorTheme:currentTheme, isTransparent:false, chartType:'area',
+        lineWidth:2, dateRanges:['1d|1','1m|30','3m|60','12m|1D','all|1M']
+      });
+      bistWidgetLoaded = true;
+      bistWidgetTheme = currentTheme;
+      document.getElementById('bistSymbolInput').value = symbol;
+      document.getElementById('bistViewLabel').textContent = symbol + ' • Hisse detayı ve fiyat grafiği';
+      updateBistFavoriteButton();
+    }
+    function getBistFavorites() {
+      try { return JSON.parse(localStorage.getItem('bistFavorites') || '[]').filter(item => typeof item === 'string'); }
+      catch (_) { return []; }
+    }
+    function renderBistFavorites() {
+      const host = document.getElementById('bistFavorites');
+      const line = document.getElementById('bistFavoritesLine');
+      const favorites = getBistFavorites();
+      line.classList.toggle('empty', !favorites.length);
+      if (!favorites.length) { host.innerHTML = ''; return; }
+      host.innerHTML = '';
+      favorites.forEach(symbol => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'bist-favorite-chip';
+        button.textContent = '★ ' + symbol;
+        button.addEventListener('click', () => showBistSymbol(symbol));
+        host.appendChild(button);
+      });
+    }
+    function updateBistFavoriteButton() {
+      const button = document.getElementById('bistFavoriteBtn');
+      button.disabled = !bistCurrentSymbol;
+      const active = bistCurrentSymbol && getBistFavorites().includes(bistCurrentSymbol);
+      button.classList.toggle('active', Boolean(active));
+      button.textContent = active ? '★ Favoriden Çıkar' : '☆ Favoriye Ekle';
+    }
+    function toggleBistFavorite() {
+      if (!bistCurrentSymbol) return;
+      const favorites = getBistFavorites();
+      const index = favorites.indexOf(bistCurrentSymbol);
+      if (index >= 0) favorites.splice(index,1); else favorites.unshift(bistCurrentSymbol);
+      localStorage.setItem('bistFavorites', JSON.stringify(favorites.slice(0,20)));
+      renderBistFavorites();
+      updateBistFavoriteButton();
+    }
+    function showBistRanking() {
+      document.getElementById('bistSymbolInput').value = '';
+      loadBist100Widget(true);
+    }
+    function openBist100() {
+      const modal = document.getElementById('bist100Modal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      loadBist100Widget();
+      renderBistFavorites();
+      setTimeout(() => modal.querySelector('.bist100-close').focus(), 40);
+    }
+    function closeBist100() {
+      document.getElementById('bist100Modal').classList.remove('active');
+      document.body.style.overflow = '';
+      document.getElementById('bist100Toggle').focus();
+    }
+    document.getElementById('bist100Modal').addEventListener('click', event => { if(event.target.id === 'bist100Modal') closeBist100(); });
+    document.addEventListener('keydown', event => { if(event.key === 'Escape' && document.getElementById('bist100Modal').classList.contains('active')) closeBist100(); });
+    new MutationObserver(mutations => {
+      if (!mutations.some(item => item.attributeName === 'data-theme')) return;
+      if (!document.getElementById('bist100Modal').classList.contains('active')) return;
+      bistWidgetLoaded = false;
+      if (bistCurrentSymbol) showBistSymbol(bistCurrentSymbol); else loadBist100Widget(true);
+    }).observe(document.body, { attributes:true, attributeFilter:['data-theme'] });
+  </script>
   </body>
 
   </html>
