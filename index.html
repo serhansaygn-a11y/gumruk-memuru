@@ -203,6 +203,86 @@
     .guide-answer strong { color: var(--text); }
     .guide-answer ul { margin: 8px 0 0; padding-left: 20px; }
     .guide-note { margin-top: 18px; padding: 12px 15px; border-radius: 11px; background: rgba(255,190,0,.09); color: var(--muted); }
+    .transit-center-pane { display: none; }
+    .transit-center-pane.active { display: block; animation: fade .35s ease-in-out; }
+    .transit-viewer-shell {
+      overflow: hidden;
+      border: 1px solid rgba(0,246,210,.25);
+      border-radius: 16px;
+      background: rgba(7,13,22,.72);
+    }
+    .transit-viewer-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+      padding: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.05);
+    }
+    .transit-viewer-toolbar button,
+    .transit-viewer-toolbar select,
+    .transit-viewer-toolbar input {
+      min-height: 38px;
+      padding: 8px 11px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 9px;
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      font: inherit;
+    }
+    .transit-viewer-toolbar button { cursor: pointer; font-weight: 750; }
+    .transit-viewer-toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+    .transit-viewer-toolbar select { min-width: 185px; }
+    .transit-viewer-toolbar option { color: #111; background: #fff; }
+    #transitPdfPage { width: 66px; text-align: center; }
+    .transit-page-indicator, .transit-zoom-indicator { color: var(--muted); font-weight: 700; white-space: nowrap; }
+    .transit-pdf-stage {
+      min-height: 580px;
+      max-height: 74vh;
+      overflow: auto;
+      padding: 20px;
+      text-align: center;
+      background: radial-gradient(circle at top, rgba(0,246,210,.07), transparent 42%), #111720;
+    }
+    #transitPdfCanvas { display: inline-block; max-width: none; background: #fff; box-shadow: 0 18px 45px rgba(0,0,0,.5); }
+    .transit-pdf-status { padding: 8px 12px; color: var(--muted); text-align: center; }
+    .transit-guide-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 16px; }
+    .transit-guide-tab {
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 10px;
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 800;
+    }
+    .transit-guide-tab.active, .transit-guide-tab:hover { background: var(--accent); color: #001; border-color: var(--accent); }
+    .transit-guide-heading { margin: 4px 0 14px; color: var(--accent); }
+    .transit-guide-grid { display: grid; gap: 12px; }
+    .transit-guide-card {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 13px;
+      background: rgba(255,255,255,.045);
+    }
+    .transit-guide-card summary { padding: 15px 17px; cursor: pointer; list-style: none; color: var(--text); font-weight: 750; }
+    .transit-guide-card summary::-webkit-details-marker { display: none; }
+    .transit-guide-card summary::before { content: '›'; margin-right: 10px; color: var(--accent); }
+    .transit-guide-card[open] summary::before { content: '⌄'; }
+    .transit-guide-answer { padding: 0 17px 17px 36px; color: var(--muted); line-height: 1.65; }
+    .transit-guide-answer strong { color: var(--text); }
+    .ncts-status-section { margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(0,246,210,.22); }
+    .ncts-status-section[hidden] { display: none; }
+    .transit-viewer-shell:fullscreen { width: 100vw; height: 100vh; border: 0; border-radius: 0; background: #080d14; }
+    .transit-viewer-shell:fullscreen .transit-pdf-stage { max-height: calc(100vh - 66px); min-height: calc(100vh - 66px); }
+    @media (max-width: 600px) {
+      .transit-viewer-toolbar { gap: 7px; padding: 9px; }
+      .transit-viewer-toolbar select { width: 100%; }
+      .transit-viewer-toolbar button, .transit-viewer-toolbar input { min-height: 36px; padding: 7px 9px; }
+      .transit-pdf-stage { min-height: 430px; padding: 10px; }
+      .transit-guide-tabs { display: grid; grid-template-columns: 1fr 1fr; }
+    }
 
     .link-grid{
       display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:20px;
@@ -853,13 +933,12 @@
           <button class="tab-button" data-tab="mevzuat">Mevzuat-Tarife</button>
           <button class="tab-button" data-tab="Gümrük Uygulamaları">Gümrük Uygulamaları</button>
           <button class="tab-button" data-tab="personel">Personel</button>
-          <button class="tab-button" data-tab="transit">Transit</button>
+          <button class="tab-button" data-tab="transit_bilgi">Transit Bilgi Merkezi</button>
           <button class="tab-button" data-tab="tasit_yolcu">Taşıt Yolcu</button>
-          <button class="tab-button" data-tab="ulastirma">Ulaştırma</button>
           <button class="tab-button" data-tab="mense_kontrol">Menşe Kontrol</button>
           <button class="tab-button" data-tab="referanslar">Referans Mesajları</button>
           <button class="tab-button" data-tab="istatistikler">İstatistikler ve Veri Tabanları</button>
-          <button class="tab-button" data-tab="tir">TIR</button> </nav>
+          </nav>
 
       <section class="tab-content" id="favoriler">
     <h2>⭐ Sık Kullanılanlar</h2>
@@ -1295,6 +1374,67 @@
           </div>
         </section>
 
+        <section class="tab-content" id="transit_bilgi">
+          <h2>Transit Bilgi Merkezi</h2>
+          <div class="sub-tabs" aria-label="Transit Bilgi Merkezi bölümleri">
+            <button class="sub-tab-button active" type="button" data-transit-center="transit-sunum">Sunumu Görüntüle</button>
+            <button class="sub-tab-button" type="button" data-transit-center="transit-akilli-rehber">Akıllı Rehber</button>
+            <button class="sub-tab-button" type="button" data-transit-center="transit-sorgulama-merkezi">Sorgulama</button>
+            <button class="sub-tab-button" type="button" data-transit-center="ulastirma">Ulaştırma</button>
+          </div>
+
+          <div class="transit-center-pane active" id="transit-sunum">
+            <div class="transit-viewer-shell" id="transitViewerShell">
+              <div class="transit-viewer-toolbar">
+                <select id="transitPdfToc" aria-label="Sunum içindekiler">
+                  <option value="1">İçindekiler</option>
+                  <option value="2">Transit Rejimi</option>
+                  <option value="7">NCTS</option>
+                  <option value="26">NCTS İş Akışları</option>
+                  <option value="35">Araştırma İşlemleri</option>
+                  <option value="48">Tahsilat İşlemleri</option>
+                  <option value="54">Eksiklik / Fazlalık</option>
+                  <option value="63">İhracat Refakat Belgesi</option>
+                  <option value="71">TIR Sistemi</option>
+                  <option value="91">Transit Cezaları</option>
+                </select>
+                <button type="button" id="transitPdfPrev" title="Önceki sayfa">← Önceki</button>
+                <span class="transit-page-indicator">Sayfa</span>
+                <input id="transitPdfPage" type="number" min="1" value="1" aria-label="Sayfa numarası">
+                <span class="transit-page-indicator">/ <span id="transitPdfTotal">93</span></span>
+                <button type="button" id="transitPdfNext" title="Sonraki sayfa">Sonraki →</button>
+                <button type="button" id="transitPdfZoomOut" title="Uzaklaştır">−</button>
+                <span class="transit-zoom-indicator" id="transitPdfZoomLabel">100%</span>
+                <button type="button" id="transitPdfZoomIn" title="Yakınlaştır">+</button>
+                <button type="button" id="transitPdfFullscreen" title="Tam ekran">⛶ Tam Ekran</button>
+                <a class="sub-tab-button" href="https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/main/Transit%20Rejimi.pdf" target="_blank" rel="noopener">PDF’yi Aç</a>
+              </div>
+              <div class="transit-pdf-stage" id="transitPdfStage">
+                <canvas id="transitPdfCanvas" aria-label="Transit Rejimi sunum sayfası"></canvas>
+              </div>
+              <div class="transit-pdf-status" id="transitPdfStatus">Sunumu açmak için bu bölüme geçin.</div>
+            </div>
+          </div>
+
+          <div class="transit-center-pane" id="transit-akilli-rehber">
+            <div class="search-box">
+              <input type="search" id="transitGuideSearch" placeholder="Rehberde ara: statü, teminat, araştırma, TIR, İRB..." autocomplete="off">
+            </div>
+            <div class="transit-guide-tabs" aria-label="Akıllı rehber konuları">
+              <button class="transit-guide-tab active" type="button" data-transit-guide="transit-rejimi">Transit Rejimi</button>
+              <button class="transit-guide-tab" type="button" data-transit-guide="ncts">NCTS</button>
+              <button class="transit-guide-tab" type="button" data-transit-guide="tir">TIR</button>
+              <button class="transit-guide-tab" type="button" data-transit-guide="irb">İRB</button>
+            </div>
+            <h3 class="transit-guide-heading" id="transitGuideHeading">Transit Rejimi</h3>
+            <div class="transit-guide-grid" id="transitGuideContent"></div>
+            <div class="ncts-status-section" id="nctsStatusSection" hidden></div>
+            <div class="guide-note">Hızlı rehber eğitim ve işlem desteği amacı taşır. İşlem tarihinde yürürlükte bulunan mevzuat, talimatlar ve sistem kayıtları esas alınmalıdır.</div>
+          </div>
+
+          <div class="transit-center-pane" id="transit-sorgulama-merkezi"></div>
+        </section>
+
         <section class="tab-content" id="transit">
           <h2>Transit</h2>
           <div class="sub-menu">
@@ -1633,7 +1773,7 @@
               </details>
               <details class="guide-item" data-category="sure yerlesiklik">
                 <summary>Bir aylık giriş süresinden kimler yararlanabilir?</summary>
-                <div class="guide-answer">730 günlük hakkını tüketen veya 185 gün şartını sağlayamayan AB/EFTA ülkelerinde ikamet eden kişilerin, bu ülkelerde adlarına kayıtlı taşıtlarına girişte <strong>bir defaya mahsus bir ay</strong> süre verilebilir. İkametin belgeyle kanıtlanması gerekir; son 365 gün içinde bu haktan yararlananlar tekrar kullanamaz.</div>
+                <div class="guide-answer">730 günlük hakkını tüketen veya 185 gün şartını sağlayamayan <strong>AB, EFTA, Büyük Britanya ve Kuzey İrlanda Birleşik Krallığı</strong> ülkelerinde yerleşik kişilerin, bu ülkelerde adlarına kayıtlı taşıtlarına girişte bir ay süre verilebilir. Bu hak, Türkiye’ye giriş tarihinden geriye doğru 365 gün içerisinde yalnız bir kez kullanılabilir. <strong>Dayanak: Tebliğ md. 6/3.</strong></div>
               </details>
               <details class="guide-item" data-category="sure">
                 <summary>Daha önce kullanılan süreden sonra kalan süre nasıl hesaplanır?</summary>
@@ -1675,8 +1815,48 @@
                 <summary>Taşıt Ön Beyanı ne zaman ve nereden yapılır?</summary>
                 <div class="guide-answer">Yola çıkmadan en fazla <strong>15 gün önce</strong> Ticaret Bakanlığı E-İşlemler menüsü veya e-Devlet’teki Taşıt Ön Beyan hizmeti üzerinden kişi ve taşıt bilgileri girilebilir. Bu işlem sınır kapısındaki kayıt süresini kısaltır.</div>
               </details>
+              <details class="guide-item" data-category="belge">
+                <summary>Hangi durumlarda taşıtın Türkiye’ye girişine izin verilmez?</summary>
+                <div class="guide-answer">Geçerli mülkiyet belgesi veya vekâletname ibraz edilmemesi; sigortanın süresinin bitmiş olması, Türkiye’nin tamamını kapsamaması ya da yeşil kartta “TR” ibaresinin çizilmiş olması halinde girişe izin verilmez. Süresi geçmiş, Türkiye’de geçerli olmayan veya usulüne uygun düzeltilmemiş kazıntı ve silinti bulunan belgeler kabul edilmez. <strong>Dayanak: Tebliğ md. 24.</strong></div>
+              </details>
+              <details class="guide-item" data-category="sure yerlesiklik">
+                <summary>Kişinin ve taşıtın süreleri birlikte nasıl hesaplanır?</summary>
+                <div class="guide-answer">Kişi ve taşıt için süreler ayrı ayrı hesaplanır ve <strong>kısa olan süre</strong> taşıta verilir. Hakkın tamamı kullanıldıktan sonra yeniden taşıt getirilebilmesi için hem kişinin hem taşıtın çıkıştan itibaren en az 185 gün fiilen yurtdışında bulunması gerekir. Mülkiyet değişikliği yapılmış taşıtın önceki Türkiye süreleri yeni hesapta dikkate alınmaz. <strong>Dayanak: Tebliğ md. 6/4, 6/6 ve 6/7.</strong></div>
+              </details>
+              <details class="guide-item" data-category="belge">
+                <summary>Taşıtla birlikte getirilen römork veya karavan ayrıca kaydedilir mi?</summary>
+                <div class="guide-answer"><strong>Evet.</strong> Kişisel kullanıma mahsus taşıt tarafından çekilerek birlikte getirilen römork ve karavan için 1 No.lu Taşıt Takip Programında ayrı kayıt oluşturulur. <strong>Dayanak: Tebliğ md. 5/1.</strong></div>
+              </details>
+              <details class="guide-item" data-category="sure belge">
+                <summary>Taşıtın yurtta kalma süresi hangi durumlarda uzatılabilir?</summary>
+                <div class="guide-answer">Kaza, yangın, hastalık, tutukluluk, beklenmeyen hâl veya olağan dışı durumun süre içinde meydana geldiği resmî belgelerle kanıtlanırsa süre uzatımı istenebilir. Başvurunun taşıtın mevcut süresi dolmadan yapılması esastır. Sağlık raporunda istirahat süresi bulunmalı; özel sağlık kuruluşu raporları ilgili sağlık makamınca onaylanmış olmalıdır. <strong>Dayanak: Tebliğ md. 17.</strong></div>
+              </details>
+              <details class="guide-item" data-category="belge kullanim">
+                <summary>Yabancı plakalı taşıt Türkiye’de çalınırsa ne yapılır?</summary>
+                <div class="guide-answer">Emniyet veya jandarma tarafından düzenlenen belge ile mahkeme kararı ya da Cumhuriyet savcılığından alınan belgeyle gümrük idaresine başvurulur. Çalındığı ispatlanan taşıtın vergileri aranmaz ve kaydı çalıntı tarihi itibarıyla kapatılır. Taşıt daha sonra bulunursa gümrük gözetimine alınır; sahibinin başvurusunda kalan süre üzerinden yeniden giriş kaydı yapılabilir. <strong>Dayanak: Tebliğ md. 30.</strong></div>
+              </details>
+              <details class="guide-item" data-category="belge kullanim">
+                <summary>Kullanılamaz hâle gelen kazalı taşıt için hangi işlem yapılır?</summary>
+                <div class="guide-answer">Kullanılamayacak derecede hasarlı taşıtın vergileri aranmaz; taşıtın yurtdışı edilmesi veya gümrüğe terk edilmesi gerekir. Kaza; olayın niteliğine göre mahkeme/savcılık yazısı, emniyet-jandarma tutanağı veya yetkili sigorta eksperi raporuyla belgelenir. Tamir gerekiyorsa gümrüğün uygun gördüğü yerde ve gözetimi altında yapılır. <strong>Dayanak: Tebliğ md. 31.</strong></div>
+              </details>
+              <details class="guide-item" data-category="sure kullanim">
+                <summary>Taşıt geçici olarak gümrük idaresine bırakılabilir mi?</summary>
+                <div class="guide-answer"><strong>Evet.</strong> Gümrükçe teslim alınan taşıt üç ay gümrük gözetiminde kalabilir; talep edilirse mücbir sebep belgesi aranmadan üç aya kadar ek süre verilebilir. Bu sürede taşıt için gümrükçe onaylanmış bir işlem veya kullanım belirlenmezse tasfiye hükümleri uygulanabilir. <strong>Dayanak: Tebliğ md. 32.</strong></div>
+              </details>
+              <details class="guide-item" data-category="belge kullanim">
+                <summary>Taşıt sahibinin ölümü hâlinde nasıl işlem yapılır?</summary>
+                <div class="guide-answer">Ölüm belgelendirildiğinde taşıt üçüncü kişiler tarafından ceza uygulanmadan gümrüğe teslim edilebilir. Taşıtın yurtdışı edilmesi için mahkeme kararıyla belirlenen tüm mirasçıların vekâletlerinin sunulması gerekir. Taşıt teslim veya yurtdışı edilmezse vergiler, mirası reddetmeyen mirasçılardan tahsil edilir; ayrıca para cezası uygulanmaz. <strong>Dayanak: Tebliğ md. 19/4, 20/4 ve 29/4.</strong></div>
+              </details>
+              <details class="guide-item" data-category="ceza">
+                <summary>Vergi ve cezaların ödenmesi taşıtı serbest dolaşıma sokar mı?</summary>
+                <div class="guide-answer"><strong>Hayır.</strong> Şart ihlali nedeniyle vergi ve cezaların tahsil edilmiş olması, taşıtın serbest dolaşıma girdiği anlamına gelmez. Vergi ve cezalar ödenmiş olsa bile taşıtın yurtdışı edilmesi gerekir. <strong>Dayanak: Tebliğ md. 20/7.</strong></div>
+              </details>
+              <details class="guide-item" data-category="belge">
+                <summary>Taşıt yurtdışı edilmiş fakat sistem kaydı kapanmamışsa ne yapılır?</summary>
+                <div class="guide-answer">Taşıtın yurtdışında olduğu yabancı ülkenin resmî belgeleriyle kanıtlanarak herhangi bir gümrük idaresinden kayıt kapatma talep edilebilir. Taşıt çıkmış fakat pasaporta çıkış kaşesi uygulanmamışsa, çıkışın doğrulanması üzerine kayıt kapatılır ve gerekli pasaport işlemi yapılır. <strong>Dayanak: Tebliğ md. 21.</strong></div>
+              </details>
             </div>
-            <div class="guide-note">Bu modül, yüklediğiniz Ticaret Bakanlığı “Yabancı Plakalı Kara Taşıtları İçin Yolcu Rehberi”nin hızlı erişim özetidir. İşlem tarihinde güncel mevzuat ve sistem kayıtları esas alınmalıdır.</div>
+            <div class="guide-note">Bu modül, Ticaret Bakanlığı “Yabancı Plakalı Kara Taşıtları İçin Yolcu Rehberi” ile Geçici İthal Edilen Kara Taşıtlarına İlişkin Gümrük Genel Tebliği esas alınarak hazırlanmış hızlı erişim özetidir. İşlem tarihinde yürürlükte bulunan güncel mevzuat, talimatlar ve sistem kayıtları esas alınmalıdır.</div>
           </div>
         </section>
 
@@ -2535,7 +2715,7 @@
         b.classList.remove('active');
         if (b.dataset.tab === pageName) b.classList.add('active');
       });
-      document.querySelectorAll('.tab-content').forEach(c => {
+      document.querySelectorAll('.main-container > .tab-content').forEach(c => {
         c.classList.remove('active');
         c.style.removeProperty('display');
       });
@@ -2579,6 +2759,242 @@
         document.getElementById(btn.dataset.personelTab).classList.add('active');
       });
     });
+
+    // TRANSİT BİLGİ MERKEZİ
+    function moveTransitModulesToCenter() {
+      const statusSource = document.querySelector('#transit #kodlar');
+      const statusTarget = document.getElementById('nctsStatusSection');
+      if (statusSource && statusTarget) {
+        while (statusSource.firstChild) statusTarget.appendChild(statusSource.firstChild);
+        statusSource.remove();
+        document.querySelector('#transit .sub-tab-button[data-tab="kodlar"]')?.remove();
+      }
+
+      const querySource = document.querySelector('#transit #sorgulama');
+      const queryTarget = document.getElementById('transit-sorgulama-merkezi');
+      if (querySource && queryTarget) {
+        while (querySource.firstChild) queryTarget.appendChild(querySource.firstChild);
+        querySource.remove();
+        document.querySelector('#transit .sub-tab-button[data-tab="sorgulama"]')?.remove();
+      }
+
+      const transportSource = document.getElementById('ulastirma');
+      const center = document.getElementById('transit_bilgi');
+      if (transportSource && center) {
+        transportSource.classList.remove('tab-content', 'active');
+        transportSource.classList.add('transit-center-pane');
+        center.appendChild(transportSource);
+      }
+    }
+    moveTransitModulesToCenter();
+
+    const transitPdfUrl = 'https://raw.githubusercontent.com/serhansaygn-a11y/gumruk-memuru/main/Transit%20Rejimi.pdf';
+    let transitPdfDocument = null;
+    let transitPdfPageNumber = 1;
+    let transitPdfZoom = 1;
+    let transitPdfRenderTask = null;
+    let transitPdfLoading = null;
+
+    async function loadTransitPresentation() {
+      if (transitPdfDocument) return transitPdfDocument;
+      if (transitPdfLoading) return transitPdfLoading;
+      const status = document.getElementById('transitPdfStatus');
+      if (!window.pdfjsLib) {
+        status.textContent = 'PDF görüntüleme bileşeni yüklenemedi. “PDF’yi Aç” düğmesini kullanabilirsiniz.';
+        return null;
+      }
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      status.textContent = 'Transit Rejimi sunumu yükleniyor…';
+      transitPdfLoading = pdfjsLib.getDocument({ url: transitPdfUrl }).promise
+        .then(pdf => {
+          transitPdfDocument = pdf;
+          document.getElementById('transitPdfTotal').textContent = pdf.numPages;
+          document.getElementById('transitPdfPage').max = pdf.numPages;
+          return pdf;
+        })
+        .catch(error => {
+          console.error('Transit sunumu yüklenemedi:', error);
+          status.textContent = 'Sunum panel içinde yüklenemedi. İnternet bağlantısını kontrol edin veya “PDF’yi Aç” düğmesini kullanın.';
+          transitPdfLoading = null;
+          return null;
+        });
+      return transitPdfLoading;
+    }
+
+    async function renderTransitPdfPage(pageNumber = transitPdfPageNumber) {
+      const pdf = await loadTransitPresentation();
+      if (!pdf) return;
+      transitPdfPageNumber = Math.max(1, Math.min(Number(pageNumber) || 1, pdf.numPages));
+      const status = document.getElementById('transitPdfStatus');
+      status.textContent = `Sayfa ${transitPdfPageNumber} hazırlanıyor…`;
+      const page = await pdf.getPage(transitPdfPageNumber);
+      const stage = document.getElementById('transitPdfStage');
+      const canvas = document.getElementById('transitPdfCanvas');
+      const baseViewport = page.getViewport({ scale: 1 });
+      const fitScale = Math.max(.35, (stage.clientWidth - 42) / baseViewport.width);
+      const viewport = page.getViewport({ scale: fitScale * transitPdfZoom });
+      if (transitPdfRenderTask) transitPdfRenderTask.cancel();
+      canvas.width = Math.floor(viewport.width);
+      canvas.height = Math.floor(viewport.height);
+      try {
+        transitPdfRenderTask = page.render({ canvasContext: canvas.getContext('2d'), viewport });
+        await transitPdfRenderTask.promise;
+        status.textContent = `Transit Rejimi • ${transitPdfPageNumber}. sayfa`;
+      } catch (error) {
+        if (error?.name !== 'RenderingCancelledException') throw error;
+      } finally {
+        transitPdfRenderTask = null;
+      }
+      document.getElementById('transitPdfPage').value = transitPdfPageNumber;
+      document.getElementById('transitPdfZoomLabel').textContent = `${Math.round(transitPdfZoom * 100)}%`;
+      document.getElementById('transitPdfPrev').disabled = transitPdfPageNumber <= 1;
+      document.getElementById('transitPdfNext').disabled = transitPdfPageNumber >= pdf.numPages;
+    }
+
+    document.querySelectorAll('#transit_bilgi [data-transit-center]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#transit_bilgi [data-transit-center]').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#transit_bilgi .transit-center-pane').forEach(pane => pane.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.transitCenter).classList.add('active');
+        if (btn.dataset.transitCenter === 'transit-sunum') renderTransitPdfPage();
+        if (btn.dataset.transitCenter === 'ulastirma') openTab('sorgulamalar');
+      });
+    });
+    document.querySelector('.tabs [data-tab="transit_bilgi"]')?.addEventListener('click', () => renderTransitPdfPage());
+    document.getElementById('transitPdfPrev')?.addEventListener('click', () => renderTransitPdfPage(transitPdfPageNumber - 1));
+    document.getElementById('transitPdfNext')?.addEventListener('click', () => renderTransitPdfPage(transitPdfPageNumber + 1));
+    document.getElementById('transitPdfPage')?.addEventListener('change', e => renderTransitPdfPage(e.target.value));
+    document.getElementById('transitPdfToc')?.addEventListener('change', e => renderTransitPdfPage(e.target.value));
+    document.getElementById('transitPdfZoomOut')?.addEventListener('click', () => {
+      transitPdfZoom = Math.max(.5, transitPdfZoom - .15);
+      renderTransitPdfPage();
+    });
+    document.getElementById('transitPdfZoomIn')?.addEventListener('click', () => {
+      transitPdfZoom = Math.min(2.5, transitPdfZoom + .15);
+      renderTransitPdfPage();
+    });
+    document.getElementById('transitPdfFullscreen')?.addEventListener('click', () => {
+      const shell = document.getElementById('transitViewerShell');
+      if (!document.fullscreenElement) shell.requestFullscreen?.();
+      else document.exitFullscreen?.();
+    });
+    document.addEventListener('fullscreenchange', () => {
+      if (transitPdfDocument && document.getElementById('transit-sunum').classList.contains('active')) {
+        setTimeout(() => renderTransitPdfPage(), 80);
+      }
+    });
+
+    const transitGuideData = {
+      'transit-rejimi': {
+        title: 'Transit Rejimi',
+        items: [
+          ['Transit rejimi nedir?', 'Serbest dolaşıma girmemiş eşyanın veya ihracat işlemleri tamamlanmış eşyanın, ithalat vergileri ve ticaret politikası önlemleri uygulanmadan gümrük gözetimi altında bir noktadan diğerine taşınmasını sağlayan şartlı muafiyet düzenlemesidir.'],
+          ['Transit beyanında hangi belgeler kullanılabilir?', 'Transit Refakat Belgesi, TIR Karnesi, ATA Karnesi, Form 302, belirli demiryolu/denizyolu/havayolu belgeleri, sözlü beyan formu ve uygun taşımada İhracat Refakat Belgesi kullanılabilir.'],
+          ['TR, T1 ve T2 neyi ifade eder?', '<strong>TR</strong>, Türkiye Gümrük Bölgesi içinde başlayıp biten ulusal transit rejimidir. <strong>T1</strong> ortak transit kapsamında topluluk dışı eşyayı, <strong>T2</strong> ise topluluk eşyasını ifade eder.'],
+          ['Transit işlemindeki temel idareler hangileridir?', 'Hareket gümrük idaresi işlemi başlatır; varsa transit gümrük idaresi sınır geçişini kaydeder; varış gümrük idaresi taşımanın sonucunu ve kontrolünü tamamlar.'],
+          ['Transit süresi ve ayniyat önlemleri nelerdir?', 'Güzergâh ve mevsim koşullarına göre transit süresi belirlenir. Mühür, zorunlu güzergâh, ATS cihazı ve gerektiğinde memur refakati ayniyatın korunmasında kullanılabilir.']
+        ]
+      },
+      ncts: {
+        title: 'NCTS',
+        items: [
+          ['NCTS nedir?', 'Yeni Bilgisayarlı Transit Sistemi; transit beyanı, teminat, hareket, sınır geçişi, varış, araştırma ve tahsilat mesajlarını elektronik ortamda yöneten sistemdir.'],
+          ['Hareket idaresinde temel iş akışı nasıldır?', 'Beyan DEC_DAT ile gönderilir; kabul ve MRN tahsisinden sonra teminat kontrol edilir, gerekli kontroller ve ayniyat önlemleri uygulanır, eşya REL_TRA statüsüyle serbest bırakılır.'],
+          ['Varış idaresinde temel iş akışı nasıldır?', 'Varış bildirimi yapılır, boşaltma/kontrol sonuçları girilir. Uyumlu sonuçta işlem sonlandırılır; uyuşmazlık veya varışın gerçekleşmemesi halinde araştırma ve gerektiğinde tahsilat süreci başlar.'],
+          ['Araştırmada kullanılan temel cevaplar nelerdir?', 'ENQ_POZ teyit/olumlu bilgi, ENQ_DUP mükerrer kayıt, ENQ_NEG ise varışta bilinmeyen sevkiyat veya varışta tahsilat talebi gibi durumlarda kullanılır. Somut olaya göre sistem mesajı ve belge akışı birlikte değerlendirilmelidir.'],
+          ['TC20, TC21, TC24, TC25 ve TC30 ne için kullanılır?', 'TC20 eşyanın akıbetinin araştırılması; TC21 alternatif kanıtın doğrulanması; TC24 tahsilat sorumluluğu hakkında ülkeler arası bilgi alışverişi; TC25 sorumlu ülke üzerinde kesin mutabakat; TC30 kefil tüzel kişi bilgilerinin talebi içindir.'],
+          ['NCTS sorgusunda hangi statülere odaklanılmalı?', 'Hareket idaresinde DEP_REJ, INV_DEC, DES_CON_NEG, ENQ_REC, ENQ_NEG, REQ_MOV ve REC_REQ; varış idaresinde AAR_SND, ARR_ADV, DES_CON_NEG, ENQ_REQ, REC_REQ ve REC_ACC_POZ statüleri özellikle takip edilmelidir.']
+        ]
+      },
+      tir: {
+        title: 'TIR',
+        items: [
+          ['TIR sistemi nedir?', '1975 TIR Sözleşmesine dayanan, eşyanın uluslararası karayolu taşımalarında tek karne ve uluslararası teminat zinciriyle gümrük denetimi altında taşınmasını sağlayan sistemdir.'],
+          ['TIR Karnesinin temel özellikleri nelerdir?', 'Gümrük beyannamesi ve uluslararası teminat kanıtı niteliğindedir. Tek yolculuk için geçerlidir; geçerlilik süresi uzatılamaz ve her işlem gören gümrük idaresi için gerekli yaprak çifti kullanılır.'],
+          ['Taşıt Onay Belgesi ne kadar geçerlidir?', 'Yetkili gümrük idarelerince elektronik ortamda düzenlenir ve normal olarak üç yıl geçerlidir. Yenileme, süre sonu ve istisnalar bakımından güncel TIR düzenlemeleri kontrol edilmelidir.'],
+          ['TIR’da eksiklik veya fazlalık nasıl kaydedilir?', 'Volet-2 ve dipkoçanına tespit yazılır, şartlı ibra şerhi düşülür ve TIR/Transit Takip Programına işlenir. Kanıt süresi ve sonucuna göre ibra, vergi takibatı ve ceza işlemleri yürütülür.'],
+          ['TIR kefalet zinciri kimlerden oluşur?', 'Karne hamili, kefil kuruluş olarak TOBB, yerel sigorta şirketi, IRU nezdindeki sigorta şirketi ve IRU uluslararası kefalet zincirinin temel taraflarıdır.']
+        ]
+      },
+      irb: {
+        title: 'İhracat Refakat Belgesi (İRB)',
+        items: [
+          ['İRB hangi amaçla düzenlenir?', 'İhracat işlemleri tamamlanmış eşyanın Türkiye Gümrük Bölgesi içinde çıkış gümrüğüne kadar ulusal transit kapsamında karayoluyla taşınmasını kolaylaştırmak için, yükümlünün tercihine bağlı olarak TRB yerine düzenlenebilir.'],
+          ['İRB taşımalarında hangi idareler ve teminat vardır?', 'Yalnız hareket ve varış/çıkış gümrük idareleri bulunur. Sadece ihraç eşyası taşındığından İRB’de teminat kullanımı yoktur.'],
+          ['Bir araç için kaç İRB düzenlenir?', 'Bir veya birden fazla gümrükten aynı araçla taşınan tüm ihracat beyannamelerini kapsayacak şekilde tek İRB düzenlenir. Parçalı taşımada her araç için ayrı İRB gerekir.'],
+          ['İRB ile TRB aynı araçta birlikte kullanılabilir mi?', 'Araçta serbest dolaşımda olmayan transit eşyası varsa İRB düzenlenmez. Önceden TRB bulunan araca İRB, önceden İRB bulunan araca da NCTS üzerinden TRB düzenlenemez.'],
+          ['İRB hangi sınır idarelerine sevk edilemez?', 'Sunumdaki 2018/19 sayılı Genelge bilgisine göre Yunanistan ve Bulgaristan’a açılan Kapıkule, İpsala, Pazarkule, Uzunköprü, Dereköy ve Hamzabeyli gümrük müdürlüklerine İRB sevki yapılamaz. Güncel talimat ayrıca kontrol edilmelidir.']
+        ]
+      }
+    };
+
+    // Temel mevzuat özeti: Transit Rejimi Seri No: 4 ve TIR İşlemleri Seri No: 1.
+    // Kartlar operasyonel hızlı başvuru içindir; tereddütte güncel mevzuat metni esas alınır.
+    transitGuideData['transit-rejimi'].items.push(
+      ['Tek transit beyanı hangi taşımayı kapsar?', 'Her transit beyanı, yalnız bir hareket gümrük idaresinden bir varış gümrük idaresine yapılan ve tek taşıma aracına yüklenen eşyayı kapsar. Farklı hareket veya varış idareleri ile sevkiyatın birden fazla araca bölünmesi halinde ayrı beyan verilir.'],
+      ['Transit beyanına hangi belgeler eklenir?', 'Kabul için LRN bilgisini içeren Transit Refakat Belgesi çıktısı, fatura, taşıma belgesi ve eşyanın mevzuatına göre gereken diğer belgeler sunulur. Transitinde teminat aranmayan eşyada fatura zorunlu değildir.'],
+      ['Beyan ne zaman reddedilir?', 'DEC_DAT (IE015) ile LRN alan beyan için 30 gün içinde hareket gümrük idaresine başvurulmazsa beyan DEP_REJ (IE016) ile reddedilir. Gerekli bilgi, belge veya eşyanın sunulmaması da ret sebebidir.'],
+      ['Beyan düzeltilebilir veya iptal edilebilir mi?', 'Ön beyan türü D olan beyanda PRE_NOT (IE170) öncesi düzeltme yapılabilir ve sonuç DEC_AMD (IE013) ile bildirilir. Kabul edilmiş beyan, eşya serbest bırakılmamışsa DEC_INV (IE014) talebi üzerine iptal edilebilir; sonuç INV_DEC (IE009) ile bildirilir.'],
+      ['Teminat kontrolünde ne yapılır?', 'Hareket idaresi teminatın varlığını, geçerliliğini ve tutar yeterliliğini kontrol eder. Uygun teminat GUA_USE (IE203) ile onaylanır; geçersiz veya yetersiz teminat bilgisi yalnız bir kez güncellenebilir.'],
+      ['Ulusal transit süresi nasıl belirlenir?', 'Mevsim ve yol şartlarına göre en uzun mesafe için Nisan–Eylül döneminde azami 120 saat, Ekim–Mart döneminde azami 168 saat verilir. ATS veya risk bulunması halinde mümkün olan en kısa süre belirlenir.'],
+      ['Zorunlu güzergâhtan ayrılınırsa ne yapılır?', 'Mücbir sebeple güzergâhtan çıkılmışsa neden ve gerekli bilgiler TRB’nin 56 numaralı kutusuna kaydedilir. Varış idaresi sunulan bilgi ve belgeleri değerlendirir; haklı neden yoksa mevzuata göre işlem yapılır.'],
+      ['Mühürden vazgeçilebilir mi?', 'Eşya tanımı; miktar, cins ve ayırt edici özellikleriyle ayniyet tespitine yeterliyse mühür kullanılmayabilir. Bu durumda mühür alanına VAZGEÇME – 99201 kaydedilir.'],
+      ['Taşıma sırasında olay çıkarsa ne yapılır?', 'Kaza, araç arızası, aktarma ihtiyacı, mühür hasarı, güzergâh sapması veya acil boşaltmada taşıyıcı derhal en yakın gümrüğü bilgilendirir ve eşya ile MRN’yi sunar. Olay kaydı INC_NOT (IE180) ile hareket idaresine iletilir.'],
+      ['Sadece çekici değişirse olay kaydı gerekir mi?', 'Eşyanın bulunduğu römork veya konteyner değişmeden yalnız çekici değişiyorsa olay kaydı aranmaz; yeni çekicinin kimlik ve plaka bilgileri taşıyıcı tarafından sisteme kaydedilir.'],
+      ['Süre aşımı nasıl değerlendirilir?', 'Süre aşımı; polis, jandarma, gümrük veya sağlık kuruluşu belgesi ile kanıtlanan kaza, arıza, hastalık ya da doğal afet ve benzeri mücbir sebeplerle açıklanabilir. Belge ve olayın süreyle ilişkisi idarece değerlendirilir.'],
+      ['Transit nasıl alternatif kanıtla sonlandırılır?', 'Varış kaydı bulunmadığında, eşyanın varış idaresine veya başka bir gümrükçe kabul edilmiş rejime sunulduğunu gösteren onaylı belge alternatif kanıt olabilir. Belgenin gerçekliği ilgili idareden doğrulanır.']
+    );
+
+    transitGuideData.ncts.items.push(
+      ['Faz 5 beyan ve kabul mesajları hangileridir?', 'Beyan DEC_DAT (IE015) ile sunulur. Uygun olmayan beyan DEP_REJ (IE016) ile reddedilir; kabul edilen beyanda MRN oluşturulur ve MRN_ALL (IE028) ile rejim hak sahibine bildirilir.'],
+      ['Hareketten varışa hangi kayıtlar gönderilir?', 'Serbest bırakma işlemi tamamlandığında varış idaresine AAR_SND (IE001), varsa transit idaresine ATR_SND (IE050) gönderilir. Taşıma sırasındaki olaylar INC_NOT (IE180) ile kaydedilir.'],
+      ['Araştırma ve tahsilat ne zaman gündeme gelir?', 'Varış veya kontrol sonucu süresinde alınamazsa araştırma başlatılır. Alternatif kanıtlar ve ilgili idare cevapları değerlendirilir; eşyanın usulüne uygun sunulduğu kanıtlanamazsa gümrük borcu ve sorumlular belirlenerek tahsilat sürecine geçilir.']
+    );
+
+    // Taşıt Onay Belgesinin normal geçerlilik süresi mevzuata göre iki yıldır.
+    transitGuideData.tir.items[2][1] = 'Yetkili gümrük idarelerince ETOBS üzerinden düzenlenen Taşıt Onay Belgesi normal olarak iki yıl geçerlidir. Taşıtta esaslı değişiklik yapılması, onayın yenilenmesi veya belgenin geçerliliği konusunda güncel kayıt kontrol edilmelidir.';
+    transitGuideData.tir.items.push(
+      ['TIR Karnesinde düzeltme nasıl yapılır?', 'Karne üzerinde silinti ve kazıntı yapılamaz. Yanlış bilgi üzeri okunabilir kalacak şekilde çizilerek doğrusu yazılır; değişiklik karne hamili tarafından paraflanır ve gümrük idaresince tasdik edilir.'],
+      ['TIR taşımasında süre nasıl belirlenir?', 'Ulusal transit sürelerine paralel olarak Nisan–Eylül döneminde azami 120 saat, Ekim–Mart döneminde azami 168 saat esas alınır. Risk veya ATS uygulanması halinde mümkün olan en kısa süre verilir.'],
+      ['TIR taşımalarında eşya muayene edilir mi?', 'TIR Sözleşmesi kapsamında eşya kural olarak yol boyu gümrük idarelerinde muayene edilmez. İhbar, kuvvetli şüphe veya risk bulunması halinde mühür ve eşya kontrolü yapılabilir.'],
+      ['Volet-1 ve Volet-2 ne işe yarar?', 'Volet-1 giriş veya hareket işleminde açılan yapraktır. Volet-2 varış veya çıkış işlemini ve taşımanın ilgili bölümünün sonlandırılmasını gösterir; dipkoçanlara yapılan işlem ve mühür bilgileri yazılır.'],
+      ['TIR taşımasında eksiklik veya fazlalık çıkarsa ne olur?', 'Tespit Volet-2 ve dipkoçana yazılır, sistem kaydına işlenir ve gerektiğinde şartlı ibra uygulanır. Açıklayıcı belgelerin sonucuna göre ibra, vergi takibatı ve ceza işlemleri yürütülür.'],
+      ['Süresinde teslim edilemeyen eşya için ne yapılır?', 'Beklenmeyen hal veya mücbir sebeple eşya süresinde yurtdışı edilemiyor ya da varış idaresine teslim edilemiyorsa en yakın gümrük derhal haberdar edilir. Olay belgeleri değerlendirilir ve TIR Karnesinin onaylı rapor sayfası doldurulur.'],
+      ['Kaza veya yük kaymasında işlem nedir?', 'Emniyet tedbirleri alınır ve en yakın gümrüğe haber verilir. Eşya düzeltilir veya uygun başka taşıta aktarılır; muayene, yeni mühür, tutanak ve TIR Karnesi onaylı rapor işlemleri tamamlanır.'],
+      ['Eşya başka bir taşıta aktarılabilir mi?', 'Aktarma kural olarak gümrük gözetiminde yapılır. Yeni taşıtın onay belgesi varsa eşya muayene edilip mühürlenerek TIR taşıması sürer; onay belgesi yoksa TIR işlemi sonlandırılır ve eşya transit beyannamesiyle sevk edilir.'],
+      ['Varış veya çıkış gümrüğü değiştirilebilir mi?', 'Mücbir sebep, olağanüstü hal veya haklı neden varsa belgeler değerlendirilerek farklı gümrük idaresinde işlem yapılabilir. Mevzuattaki şartlar sağlandığında değişiklik güzergâh ihlali sayılmaz ve sırf bu nedenle usulsüzlük cezası uygulanmaz.'],
+      ['Ağır veya havaleli eşya TIR ile nasıl taşınır?', 'Karne üzerinde HEAVY OR BULKY GOODS veya MARCHANDISES PONDÉREUSES OU VOLUMINEUSES ibaresi bulunmalı ve ilgili yetkili kurumdan özel yük taşıma belgesi alınmalıdır.'],
+      ['TIR plakası ve tartım şartı nedir?', 'TIR taşıtının ön ve arkasında mavi zemin üzerine beyaz TIR plakası bulunur. Türkiye’ye giren veya çıkan taşıtlar dolu ya da boş olmalarına bakılmaksızın tartılır; ölçü ve ağırlık sınırları ayrıca kontrol edilir.'],
+      ['TIR taşımalarında fatura ne zaman zorunludur?', 'Karne kutu 10’daki eşya tanımı tam tespiti sağlıyorsa fatura eklenmesi zorunlu değildir. “Fatura muhteviyatı” gibi yetersiz tanımlarda fatura eklenmelidir; geçici belgeyle işlemde asıl fatura 15 gün içinde sunulur.'],
+      ['Tütün ve alkol TIR Karnesiyle taşınabilir mi?', 'Tebliğ ekinde sayılan içki, sigara ve türevleri normal TIR Karnesiyle taşınamaz. Uluslararası kefalet kabul edilmediği sürece Tütün–Alkol TIR Karnesiyle de taşıma yapılamaz; ham tütün, bira ve şarap için özel hüküm ayrıca dikkate alınır.'],
+      ['Memur refakati ne zaman uygulanabilir?', 'Vergiler azami TIR teminatını aşmıyorsa refakat verilmez. Aşıyorsa ve risk varsa öncelikle ATS kullanılır; ATS bulunan durumda refakat verilmez. ATS yoksa gerekçeli komisyon kararıyla refakat uygulanabilir.']
+    );
+
+    let activeTransitGuide = 'transit-rejimi';
+    function renderTransitGuide() {
+      const query = (document.getElementById('transitGuideSearch')?.value || '').toLocaleLowerCase('tr-TR').trim();
+      const group = transitGuideData[activeTransitGuide];
+      const statusSection = document.getElementById('nctsStatusSection');
+      if (statusSection) statusSection.hidden = activeTransitGuide !== 'ncts';
+      document.getElementById('transitGuideHeading').textContent = group.title;
+      const matches = group.items.filter(([question, answer]) =>
+        !query || `${question} ${answer}`.replace(/<[^>]+>/g, ' ').toLocaleLowerCase('tr-TR').includes(query)
+      );
+      document.getElementById('transitGuideContent').innerHTML = matches.length
+        ? matches.map(([question, answer]) => `<details class="transit-guide-card"><summary>${question}</summary><div class="transit-guide-answer">${answer}</div></details>`).join('')
+        : '<div class="guide-note">Bu başlıkta aramanızla eşleşen bilgi bulunamadı.</div>';
+    }
+    document.querySelectorAll('#transit-akilli-rehber [data-transit-guide]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeTransitGuide = btn.dataset.transitGuide;
+        document.querySelectorAll('#transit-akilli-rehber [data-transit-guide]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderTransitGuide();
+      });
+    });
+    document.getElementById('transitGuideSearch')?.addEventListener('input', renderTransitGuide);
+    renderTransitGuide();
 
     // TAŞIT-YOLCU ALT MENÜ VE REHBER FİLTRELERİ
     document.querySelectorAll('#tasit_yolcu [data-tasit-tab]').forEach(btn => {
@@ -3054,7 +3470,7 @@
   }
   #installPwaBtn { bottom: 200px !important; }
   .masaustu-ekle-btn:not(#installPwaBtn) { bottom: 260px !important; }
-  .pdf-duzenle-btn { bottom: 320px !important; }
+  .pdf-duzenle-btn { bottom: 20px !important; }
   #themeToggleBtn {
       position:fixed;
       right:20px;
@@ -3128,7 +3544,7 @@
   <style>
   .pdf-duzenle-btn {
       position: fixed;
-      bottom: 205px; /* Masaüstü butonunun 50px üstü */
+      bottom: 20px; /* Not defteri düğmesinin hemen altı */
       right: 20px;
       width: 50px;
       height: 50px;
@@ -3149,7 +3565,7 @@
   .pdf-ana-panel {
       display: none;
       position: fixed;
-      bottom: 265px;
+      bottom: 82px;
       right: 20px;
       width: 300px;
       background: #1a1d21;
