@@ -2,6 +2,7 @@
   <html lang="tr">
   <head>
       <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#00f6d2" />
@@ -38,11 +39,11 @@
       color:var(--text);
       display:flex;
       justify-content:center;
-      padding:28px;
+      padding:clamp(12px, 1.5vw, 28px);
     }
     .app {
       width:100%;
-      max-width:1200px;
+      max-width:none;
       backdrop-filter:blur(30px);
     }
 
@@ -309,7 +310,6 @@
 
     @media(max-width:900px){
       body { padding: 12px; }
-      .app { max-width: 100%; }
       .main-container{flex-direction:column;}
       .tabs{flex-direction:row;overflow-x:auto; padding-bottom:4px;}
       .tab-button{flex:1;min-width:150px;text-align:center; padding:12px 10px; font-size:14px;}
@@ -321,8 +321,6 @@
       .link-card, .link-card-vertical { padding:14px; }
       .pdf-ana-panel { width: calc(100vw - 24px); right: 12px; left: 12px; bottom: 78px; }
       .masaustu-ekle-btn, .pdf-duzenle-btn, #notesToggleBtn { width: 48px; height: 48px; }
-      .masaustu-ekle-btn { bottom: 132px; }
-      .pdf-duzenle-btn { bottom: 190px; }
     }
 
     @media(max-width:600px){
@@ -419,6 +417,31 @@
     .link-card-vertical p { margin: 0; font-size: 13px; color: var(--muted); }
     .link-card-vertical .url { font-size: 12px; color: var(--accent); word-break: break-all; }
 
+    /* Tasit-Yolcu kartlarini diger kartlarla ayni genislikte goster. */
+    #tasit_yolcu .link-grid-vertical {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    #tasit_yolcu .link-card-vertical {
+      min-width: 0;
+      min-height: 120px;
+      padding: 18px;
+    }
+
+    .theme-toggle-btn {
+      position: fixed;
+      top: 36px;
+      right: 20px;
+      z-index: 9999;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: var(--card);
+      border: 1px solid var(--accent);
+      font-size: 20px;
+    }
+
     .ceza-info {
       background: rgba(255,255,255,0.05); padding: 16px; border-radius: 8px; margin-bottom: 20px;
       font-size: 14px; line-height: 1.6; color: var(--text);
@@ -500,6 +523,61 @@
       }
       .close-notes { background: none; border: none; color: var(--text); font-size: 2rem; cursor: pointer; }
       .notes-footer { margin-top: 10px; font-size: 0.8rem; color: var(--muted); }
+
+      .radio-bar {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin: 0 0 24px;
+          padding: 12px 14px;
+          border: 1px solid var(--border);
+          border-radius: 14px;
+          background: var(--card);
+          box-shadow: 0 8px 24px rgba(0,0,0,.22);
+          flex-wrap: wrap;
+      }
+      .radio-title {
+          color: var(--accent);
+          font-weight: 700;
+          white-space: nowrap;
+      }
+      .radio-stations {
+          display: flex;
+          gap: 8px;
+          flex: 1;
+          flex-wrap: wrap;
+      }
+      .radio-station-btn, .radio-control-btn {
+          border: 1px solid var(--border);
+          border-radius: 9px;
+          background: rgba(255,255,255,.08);
+          color: var(--text);
+          padding: 8px 11px;
+          cursor: pointer;
+          transition: .2s;
+      }
+      .radio-station-btn:hover, .radio-station-btn.active, .radio-control-btn:hover {
+          border-color: var(--accent);
+          color: var(--accent);
+          box-shadow: 0 0 10px rgba(0,246,210,.22);
+      }
+      .radio-player-controls {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+      }
+      #radioStatus {
+          max-width: 180px;
+          color: var(--muted);
+          font-size: 12px;
+      }
+      #radioVolume { width: 80px; accent-color: var(--accent); }
+      @media(max-width:600px) {
+          .radio-bar { align-items: stretch; }
+          .radio-title, .radio-player-controls { width: 100%; }
+          .radio-station-btn { flex: 1 1 130px; }
+          #radioStatus { max-width: none; flex: 1; }
+      }
   </style>
   </head>
   <body data-theme="dark">
@@ -556,6 +634,98 @@
   </div>
   </div>
 
+
+      <div class="radio-bar" aria-label="Türk radyoları">
+        <div class="radio-title">📻 Türk Radyoları</div>
+        <div class="radio-stations">
+          <button type="button" class="radio-station-btn" data-name="Gençlik Radyosu" data-stream="https://gsbradyo.ercdn.net/gsbradyo/gsbradyo.m3u8" data-hls="true">Gençlik Radyosu</button>
+          <button type="button" class="radio-station-btn" data-name="Süper FM" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/SUPER_FM128AAC.aac">Süper FM</button>
+          <button type="button" class="radio-station-btn" data-name="JoyTürk" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/JOY_TURK128AAC.aac">JoyTürk</button>
+          <button type="button" class="radio-station-btn" data-name="Metro FM" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO_FM128AAC.aac">Metro FM</button>
+          <button type="button" class="radio-station-btn" data-name="Virgin Radio Türkiye" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/VIRGIN_RADIO128AAC.aac">Virgin Radio</button>
+          <button type="button" class="radio-station-btn" data-name="Joy FM" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/JOY_FM128AAC.aac">Joy FM</button>
+        </div>
+        <div class="radio-player-controls">
+          <button type="button" id="radioStopBtn" class="radio-control-btn" title="Yayını durdur">■</button>
+          <input id="radioVolume" type="range" min="0" max="1" step="0.05" value="0.65" aria-label="Radyo ses seviyesi">
+          <span id="radioStatus">Bir radyo seçin</span>
+        </div>
+        <audio id="turkishRadioPlayer" preload="none"></audio>
+      </div>
+
+      <script>
+      (function() {
+        const player = document.getElementById('turkishRadioPlayer');
+        const status = document.getElementById('radioStatus');
+        const buttons = document.querySelectorAll('.radio-station-btn');
+        const stopButton = document.getElementById('radioStopBtn');
+        const volume = document.getElementById('radioVolume');
+        let loadTimer;
+        let hlsPlayer;
+
+        function setStatus(message) {
+          status.textContent = message;
+        }
+
+        function stopRadio(message) {
+          clearTimeout(loadTimer);
+          if (hlsPlayer) {
+            hlsPlayer.destroy();
+            hlsPlayer = null;
+          }
+          player.pause();
+          player.removeAttribute('src');
+          player.load();
+          buttons.forEach(button => button.classList.remove('active'));
+          setStatus(message || 'Yayın durduruldu');
+        }
+
+        buttons.forEach(button => {
+          button.addEventListener('click', function() {
+            clearTimeout(loadTimer);
+            if (hlsPlayer) {
+              hlsPlayer.destroy();
+              hlsPlayer = null;
+            }
+            buttons.forEach(item => item.classList.remove('active'));
+            this.classList.add('active');
+            player.volume = Number(volume.value);
+            setStatus(this.dataset.name + ' bağlanıyor…');
+
+            if (this.dataset.hls === 'true' && window.Hls && Hls.isSupported()) {
+              hlsPlayer = new Hls();
+              hlsPlayer.loadSource(this.dataset.stream);
+              hlsPlayer.attachMedia(player);
+              hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
+                player.play().catch(() => stopRadio('Yayın başlatılamadı'));
+              });
+              hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
+                if (data.fatal) stopRadio('Yayın geçici olarak kullanılamıyor');
+              });
+            } else {
+              player.src = this.dataset.stream;
+              const playRequest = player.play();
+              if (playRequest) {
+                playRequest.catch(() => stopRadio('Yayın başlatılamadı'));
+              }
+            }
+
+            loadTimer = setTimeout(() => {
+              if (player.readyState < 2) stopRadio('Yayın yanıt vermedi');
+            }, 10000);
+          });
+        });
+
+        player.addEventListener('playing', () => {
+          clearTimeout(loadTimer);
+          const active = document.querySelector('.radio-station-btn.active');
+          setStatus((active ? active.dataset.name : 'Radyo') + ' çalıyor');
+        });
+        player.addEventListener('error', () => stopRadio('Yayın geçici olarak kullanılamıyor'));
+        stopButton.addEventListener('click', () => stopRadio());
+        volume.addEventListener('input', () => { player.volume = Number(volume.value); });
+      })();
+      </script>
 
       <div class="main-container">
         <nav class="tabs">
@@ -2561,6 +2731,10 @@
       background: var(--accent);
       color: #000;
   }
+  #installPwaBtn { bottom: 140px !important; }
+  .masaustu-ekle-btn:not(#installPwaBtn) { bottom: 200px !important; }
+  .pdf-duzenle-btn { bottom: 260px !important; }
+  button[onclick="toggleTheme()"] { top: 36px !important; }
   </style>
 
   <script>
