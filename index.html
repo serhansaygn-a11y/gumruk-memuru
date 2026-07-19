@@ -61,15 +61,15 @@
     }
 
     .header-left { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
-    .header-left img { height:70px; border-radius:14px; box-shadow:0 0 12px rgba(0,0,0,.5); }
+    .header-left img { height:90px; border-radius:14px; box-shadow:0 0 12px rgba(0,0,0,.5); }
 
     .header-center { text-align:center; flex:1; }
     .header-center h1 { margin:0; font-size:24px; color:var(--accent); text-shadow: var(--accent-glow); }
-    .header-center p { margin:4px 0 0; font-size:14px; color:var(--muted); }
+    .header-center p { display:none; }
 
     .header-right { display:flex; flex-direction:column; align-items:center; gap:10px; }
     .right-images { display:flex; gap:12px; align-items:center; }
-    .right-images img { height:70px; border-radius:14px; box-shadow:0 0 12px rgba(0,0,0,.5); }
+    .right-images img { height:90px; border-radius:14px; box-shadow:0 0 12px rgba(0,0,0,.5); }
     .datetime { font-weight:600; color:var(--accent); text-shadow: var(--accent-glow); font-size:15px; text-align:center; }
 
     .main-container { display:flex; gap:24px; }
@@ -572,6 +572,25 @@
           font-size: 12px;
       }
       #radioVolume { width: 80px; accent-color: var(--accent); }
+      .header-right .radio-bar {
+          width: 100%;
+          margin: 0;
+          padding: 6px 0 0;
+          border: 0;
+          border-radius: 0;
+          background: transparent;
+          box-shadow: none;
+          justify-content: center;
+          flex-wrap: nowrap;
+      }
+      .header-right .radio-title { display: none; }
+      .header-right .radio-stations { flex: 0 0 auto; }
+      .header-right #radioStatus {
+          max-width: 115px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+      }
       @media(max-width:600px) {
           .radio-bar { align-items: stretch; }
           .radio-title, .radio-player-controls { width: 100%; }
@@ -662,6 +681,15 @@
         const volume = document.getElementById('radioVolume');
         let loadTimer;
         let hlsPlayer;
+
+        document.getElementById('superSearch').placeholder = 'Gümrük işlemleri için modern kaynak';
+        buttons.forEach((button, index) => {
+          if (index > 0) button.remove();
+        });
+        const radioBar = document.querySelector('.radio-bar');
+        const headerRight = document.querySelector('.header-right');
+        const dateTime = document.getElementById('datetime');
+        if (radioBar && headerRight) headerRight.insertBefore(radioBar, dateTime);
 
         function setStatus(message) {
           status.textContent = message;
