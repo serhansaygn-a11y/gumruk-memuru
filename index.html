@@ -769,7 +769,6 @@
           <button class="tab-button" data-tab="mense_kontrol">Menşe Kontrol</button>
           <button class="tab-button" data-tab="referanslar">Referans Mesajları</button>
           <button class="tab-button" data-tab="istatistikler">İstatistikler ve Veri Tabanları</button>
-          <button class="tab-button" data-tab="calisma_masasi">⚡ Çalışma Masası</button>
           <button class="tab-button" data-tab="tir">TIR</button> </nav>
 
       <section class="tab-content" id="favoriler">
@@ -2205,212 +2204,6 @@
           </div>
         </section>
 
-        <section class="tab-content" id="calisma_masasi">
-          <h2>Çalışma Masası</h2>
-          <div class="desk-summary">
-            <div><span id="taskOpenCount">0</span><small>Açık görev</small></div>
-            <div><span id="taskDoneCount">0</span><small>Tamamlanan</small></div>
-            <button type="button" id="openCommandMenu">⌘ Hızlı Komut <kbd>Ctrl K</kbd></button>
-          </div>
-
-          <div class="desk-layout">
-            <article class="desk-panel task-panel">
-              <div class="desk-panel-head">
-                <div><span class="desk-kicker">GÜNLÜK PLAN</span><h3>Görev Merkezi</h3></div>
-                <button type="button" id="clearDoneTasks" class="desk-ghost-btn">Tamamlananları temizle</button>
-              </div>
-              <form id="taskForm" class="task-form">
-                <input id="taskTitle" type="text" maxlength="120" placeholder="Yeni görev yazın…" required>
-                <input id="taskDate" type="date" aria-label="Son tarih">
-                <select id="taskPriority" aria-label="Öncelik">
-                  <option value="normal">Normal</option>
-                  <option value="high">Yüksek</option>
-                  <option value="low">Düşük</option>
-                </select>
-                <button type="submit">＋ Ekle</button>
-              </form>
-              <div id="taskList" class="task-list"></div>
-            </article>
-
-            <article class="desk-panel">
-              <div class="desk-panel-head">
-                <div><span class="desk-kicker">PRATİK ARAÇLAR</span><h3>Hızlı Hesaplamalar</h3></div>
-              </div>
-              <div class="calculator-grid">
-                <div class="calculator-card">
-                  <h4>Vergi Hesabı</h4>
-                  <label>Matrah <input id="taxBase" type="number" min="0" step="0.01" placeholder="0,00"></label>
-                  <label>Oran (%) <input id="taxRate" type="number" min="0" step="0.01" placeholder="20"></label>
-                  <div class="calc-result"><span>Vergi</span><strong id="taxAmount">0,00 ₺</strong></div>
-                  <div class="calc-result total"><span>Toplam</span><strong id="taxTotal">0,00 ₺</strong></div>
-                </div>
-                <div class="calculator-card">
-                  <h4>Döviz → TL</h4>
-                  <label>Döviz tutarı <input id="fxAmount" type="number" min="0" step="0.01" placeholder="0,00"></label>
-                  <label>Kur <input id="fxRate" type="number" min="0" step="0.0001" placeholder="0,0000"></label>
-                  <div class="calc-result total"><span>TL karşılığı</span><strong id="fxResult">0,00 ₺</strong></div>
-                </div>
-                <div class="calculator-card">
-                  <h4>Tarih Farkı</h4>
-                  <label>Başlangıç <input id="dateStart" type="date"></label>
-                  <label>Bitiş <input id="dateEnd" type="date"></label>
-                  <div class="calc-result total"><span>Süre</span><strong id="dateResult">— gün</strong></div>
-                </div>
-              </div>
-              <p class="calc-note">Hesaplamalar bilgilendirme amaçlıdır; resmî işlem öncesi mevzuat ve sistem kayıtlarını kontrol edin.</p>
-            </article>
-          </div>
-        </section>
-
-        <div id="commandPalette" class="command-palette" aria-hidden="true">
-          <div class="command-dialog" role="dialog" aria-modal="true" aria-label="Hızlı komut menüsü">
-            <div class="command-search-row">
-              <span>⌘</span>
-              <input id="commandSearch" type="text" placeholder="Komut veya bölüm ara…">
-              <kbd>ESC</kbd>
-            </div>
-            <div id="commandList" class="command-list"></div>
-          </div>
-        </div>
-
-        <style id="workdesk-styles">
-        .desk-summary{display:grid;grid-template-columns:repeat(2,minmax(130px,180px)) 1fr;gap:14px;margin-bottom:22px}
-        .desk-summary>div,.desk-summary>button{min-height:78px;border:1px solid rgba(255,255,255,.08);border-radius:16px;background:rgba(255,255,255,.045);box-shadow:var(--shadow-card);padding:14px 18px}
-        .desk-summary>div{display:flex;flex-direction:column;justify-content:center}
-        .desk-summary span{font-size:26px;font-weight:800;color:var(--accent)}
-        .desk-summary small{color:var(--muted)}
-        #openCommandMenu{justify-self:end;align-self:stretch;color:var(--text);cursor:pointer;font-weight:700}
-        kbd{padding:3px 7px;border:1px solid rgba(255,255,255,.14);border-radius:6px;background:rgba(0,0,0,.16);font-size:11px}
-        .desk-layout{display:grid;grid-template-columns:minmax(360px,.85fr) minmax(520px,1.4fr);gap:20px}
-        .desk-panel{border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.035);padding:20px;box-shadow:var(--shadow-card)}
-        .desk-panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
-        .desk-panel-head h3{margin:3px 0 0;font-size:21px}
-        .desk-kicker{font-size:10px;letter-spacing:1.8px;color:var(--accent);font-weight:800}
-        .desk-ghost-btn{border:1px solid var(--border);border-radius:9px;background:transparent;color:var(--muted);padding:8px 10px;cursor:pointer}
-        .task-form{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;margin-bottom:14px}
-        .task-form input,.task-form select{min-width:0;padding:11px;border:1px solid var(--border);border-radius:10px;color:var(--text);background:rgba(0,0,0,.18)}
-        .task-form button{border:0;border-radius:10px;background:var(--accent);color:#00110f;font-weight:800;padding:0 14px;cursor:pointer}
-        .task-list{display:flex;flex-direction:column;gap:8px;max-height:440px;overflow:auto}
-        .task-empty{padding:32px 14px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:12px}
-        .task-item{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:10px;padding:11px 12px;border:1px solid rgba(255,255,255,.07);border-radius:12px;background:rgba(255,255,255,.035)}
-        .task-item.done{opacity:.58}.task-item.done .task-name{text-decoration:line-through}
-        .task-check{width:20px;height:20px;accent-color:var(--accent)}
-        .task-name{font-weight:650;word-break:break-word}
-        .task-meta{display:block;margin-top:3px;font-size:11px;color:var(--muted)}
-        .priority-dot{width:9px;height:9px;border-radius:50%;background:#94a3b8}.priority-dot.high{background:#fb7185;box-shadow:0 0 10px #fb7185}.priority-dot.low{background:#38bdf8}
-        .task-delete{border:0;background:transparent;color:#fb7185;font-size:18px;cursor:pointer}
-        .calculator-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-        .calculator-card{border:1px solid rgba(255,255,255,.075);border-radius:14px;background:rgba(0,0,0,.12);padding:15px}
-        .calculator-card h4{margin:0 0 13px;color:var(--accent)}
-        .calculator-card label{display:block;margin-bottom:9px;font-size:12px;color:var(--muted)}
-        .calculator-card input{width:100%;margin-top:5px;padding:10px;border:1px solid var(--border);border-radius:9px;color:var(--text);background:rgba(0,0,0,.18)}
-        .calc-result{display:flex;justify-content:space-between;gap:10px;margin-top:9px;padding-top:9px;border-top:1px solid var(--border);font-size:13px}
-        .calc-result strong{color:var(--accent)}.calc-result.total strong{font-size:16px}
-        .calc-note{margin:14px 0 0;color:var(--muted);font-size:11px}
-        .command-palette{display:none;position:fixed;inset:0;z-index:20000;align-items:flex-start;justify-content:center;padding-top:min(18vh,150px);background:rgba(1,5,10,.68);backdrop-filter:blur(10px)}
-        .command-palette.open{display:flex}
-        .command-dialog{width:min(620px,calc(100vw - 28px));overflow:hidden;border:1px solid rgba(0,246,210,.24);border-radius:18px;background:#111923;box-shadow:0 30px 90px rgba(0,0,0,.58)}
-        .command-search-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}
-        .command-search-row>span{color:var(--accent);font-size:22px}.command-search-row input{border:0!important;outline:0;background:transparent!important;color:var(--text);font-size:17px;padding:8px}
-        .command-list{max-height:360px;overflow:auto;padding:8px}
-        .command-item{width:100%;display:flex;justify-content:space-between;align-items:center;border:0;border-radius:10px;background:transparent;color:var(--text);padding:12px;cursor:pointer;text-align:left}
-        .command-item:hover,.command-item.selected{background:rgba(0,246,210,.10);color:var(--accent)}
-        .command-item small{color:var(--muted)}
-        body[data-theme="light"] .desk-summary>div,body[data-theme="light"] .desk-summary>button,body[data-theme="light"] .desk-panel,body[data-theme="light"] .task-item{color:#1e293b;border-color:rgba(15,118,110,.12);background:rgba(255,255,255,.72)}
-        body[data-theme="light"] .calculator-card{background:rgba(240,253,250,.75);border-color:rgba(15,118,110,.12)}
-        body[data-theme="light"] .task-form input,body[data-theme="light"] .task-form select,body[data-theme="light"] .calculator-card input{color:#0f172a;background:#fff}
-        body[data-theme="light"] .command-dialog{background:#f8fafc}body[data-theme="light"] .command-item{color:#1e293b}
-        @media(max-width:1100px){.desk-layout{grid-template-columns:1fr}.calculator-grid{grid-template-columns:repeat(3,1fr)}}
-        @media(max-width:700px){.desk-summary{grid-template-columns:1fr 1fr}.desk-summary>button{grid-column:1/-1;justify-self:stretch}.task-form{grid-template-columns:1fr 1fr}.task-form #taskTitle{grid-column:1/-1}.calculator-grid{grid-template-columns:1fr}.task-item{grid-template-columns:auto 1fr auto}.priority-dot{display:none}}
-        </style>
-
-        <script>
-        (function(){
-          const storageKey='gumrukGorevleriV1';
-          let tasks=[];
-          try{tasks=JSON.parse(localStorage.getItem(storageKey)||'[]');}catch(e){tasks=[];}
-          const form=document.getElementById('taskForm');
-          const list=document.getElementById('taskList');
-          const openCount=document.getElementById('taskOpenCount');
-          const doneCount=document.getElementById('taskDoneCount');
-          const trDate=new Intl.DateTimeFormat('tr-TR');
-          const money=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2});
-
-          function saveTasks(){localStorage.setItem(storageKey,JSON.stringify(tasks));renderTasks();}
-          function renderTasks(){
-            openCount.textContent=tasks.filter(t=>!t.done).length;
-            doneCount.textContent=tasks.filter(t=>t.done).length;
-            if(!tasks.length){list.innerHTML='<div class="task-empty">Henüz görev yok. İlk görevinizi yukarıdan ekleyin.</div>';return;}
-            list.innerHTML='';
-            tasks.slice().sort((a,b)=>Number(a.done)-Number(b.done)||(a.date||'9999').localeCompare(b.date||'9999')).forEach(task=>{
-              const row=document.createElement('div');row.className='task-item'+(task.done?' done':'');
-              const check=document.createElement('input');check.type='checkbox';check.className='task-check';check.checked=task.done;
-              check.addEventListener('change',()=>{task.done=check.checked;saveTasks();});
-              const body=document.createElement('div');
-              const name=document.createElement('div');name.className='task-name';name.textContent=task.title;
-              const meta=document.createElement('span');meta.className='task-meta';meta.textContent=task.date?('Son tarih: '+trDate.format(new Date(task.date+'T12:00:00'))):'Tarih belirtilmedi';
-              body.append(name,meta);
-              const dot=document.createElement('span');dot.className='priority-dot '+task.priority;dot.title='Öncelik: '+task.priority;
-              const del=document.createElement('button');del.type='button';del.className='task-delete';del.textContent='×';del.title='Görevi sil';
-              del.addEventListener('click',()=>{tasks=tasks.filter(t=>t.id!==task.id);saveTasks();});
-              row.append(check,body,dot,del);list.appendChild(row);
-            });
-          }
-          form.addEventListener('submit',e=>{
-            e.preventDefault();
-            const title=document.getElementById('taskTitle').value.trim();if(!title)return;
-            tasks.push({id:Date.now().toString(36),title,date:document.getElementById('taskDate').value,priority:document.getElementById('taskPriority').value,done:false});
-            form.reset();saveTasks();document.getElementById('taskTitle').focus();
-          });
-          document.getElementById('clearDoneTasks').addEventListener('click',()=>{tasks=tasks.filter(t=>!t.done);saveTasks();});
-
-          function calculate(){
-            const base=Number(document.getElementById('taxBase').value)||0,rate=Number(document.getElementById('taxRate').value)||0,tax=base*rate/100;
-            document.getElementById('taxAmount').textContent=money.format(tax)+' ₺';
-            document.getElementById('taxTotal').textContent=money.format(base+tax)+' ₺';
-            const fx=(Number(document.getElementById('fxAmount').value)||0)*(Number(document.getElementById('fxRate').value)||0);
-            document.getElementById('fxResult').textContent=money.format(fx)+' ₺';
-            const start=document.getElementById('dateStart').value,end=document.getElementById('dateEnd').value;
-            document.getElementById('dateResult').textContent=start&&end?Math.abs(Math.round((new Date(end)-new Date(start))/86400000))+' gün':'— gün';
-          }
-          document.querySelectorAll('.calculator-card input').forEach(input=>input.addEventListener('input',calculate));
-
-          const palette=document.getElementById('commandPalette'),search=document.getElementById('commandSearch'),commandList=document.getElementById('commandList');
-          const commands=[
-            {label:'Ana Sayfaya Git',hint:'Bölüm',run:()=>activateTab('anasayfa')},
-            {label:'Çalışma Masasını Aç',hint:'Bölüm',run:()=>activateTab('calisma_masasi')},
-            {label:'Favorilerimi Aç',hint:'Bölüm',run:()=>activateTab('favoriler')},
-            {label:'Mevzuat ve Tarifeyi Aç',hint:'Bölüm',run:()=>activateTab('mevzuat')},
-            {label:'Transit Bölümünü Aç',hint:'Bölüm',run:()=>activateTab('transit')},
-            {label:'Taşıt Yolcu Bölümünü Aç',hint:'Bölüm',run:()=>activateTab('tasit_yolcu')},
-            {label:'Hızlı Notları Aç',hint:'Araç',run:()=>{if(typeof toggleNotes==='function')toggleNotes();}},
-            {label:'PDF İşlem Merkezini Aç',hint:'Araç',run:()=>{if(typeof togglePdfPanel==='function')togglePdfPanel();}},
-            {label:'Genel Aramaya Git',hint:'Ara',run:()=>document.getElementById('superSearch').focus()},
-            {label:'Temayı Değiştir',hint:'Görünüm',run:()=>{if(typeof toggleTheme==='function')toggleTheme();}}
-          ];
-          function activateTab(id){
-            const btn=document.querySelector('.tab-button[data-tab="'+id+'"]');if(btn)btn.click();
-          }
-          function drawCommands(){
-            const term=search.value.toLocaleLowerCase('tr-TR');commandList.innerHTML='';
-            commands.filter(c=>c.label.toLocaleLowerCase('tr-TR').includes(term)).forEach(c=>{
-              const button=document.createElement('button');button.type='button';button.className='command-item';
-              button.innerHTML='<span>'+c.label+'</span><small>'+c.hint+'</small>';
-              button.addEventListener('click',()=>{closePalette();c.run();});commandList.appendChild(button);
-            });
-          }
-          function openPalette(){palette.classList.add('open');palette.setAttribute('aria-hidden','false');search.value='';drawCommands();setTimeout(()=>search.focus(),0);}
-          function closePalette(){palette.classList.remove('open');palette.setAttribute('aria-hidden','true');}
-          document.addEventListener('keydown',e=>{
-            if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openPalette();}
-            if(e.key==='Escape'&&palette.classList.contains('open'))closePalette();
-          });
-          document.getElementById('openCommandMenu').addEventListener('click',openPalette);
-          palette.addEventListener('click',e=>{if(e.target===palette)closePalette();});
-          search.addEventListener('input',drawCommands);
-          renderTasks();calculate();
-        })();
-        </script>
 
       </div>
 
@@ -2476,7 +2269,10 @@
         b.classList.remove('active');
         if (b.dataset.tab === pageName) b.classList.add('active');
       });
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => {
+        c.classList.remove('active');
+        c.style.removeProperty('display');
+      });
       document.getElementById(pageName).classList.add('active');
 
       if (pageName === 'transit') {
@@ -2831,7 +2627,7 @@
         if(activeContent) {
             activeContent.classList.add('active');
             // CSS'teki varsayılan görünürlüğe dönmesini sağla
-            activeContent.style.display = "block";
+            activeContent.style.removeProperty('display');
         }
       }
     }
