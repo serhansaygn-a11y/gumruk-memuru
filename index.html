@@ -767,6 +767,17 @@
           #radioStatus { max-width: none; flex: 1; }
       }
   </style>
+  <style>
+    .shift-pane{--shift-day:#f5b942;--shift-night:#8f7cff;--shift-rest:#38d996}.shift-setup,.shift-calendar-shell{border:1px solid var(--border);border-radius:20px;background:var(--card);box-shadow:0 16px 40px rgba(0,0,0,.16)}
+    .shift-intro{display:flex;justify-content:space-between;gap:20px;padding:22px;margin-bottom:15px;border:1px solid color-mix(in srgb,var(--accent) 25%,var(--border));border-radius:20px;background:linear-gradient(135deg,color-mix(in srgb,var(--panel) 92%,var(--accent) 5%),var(--card))}.shift-intro h3{margin:0 0 7px;color:var(--accent);font-size:23px}.shift-intro p{margin:0;max-width:720px;color:var(--muted);font-size:12px;line-height:1.6}.shift-cycle-badge{display:flex;align-items:center;gap:9px;padding:10px 14px;border:1px solid var(--border);border-radius:15px;white-space:nowrap}.shift-cycle-badge strong{color:var(--accent);font-size:30px}.shift-cycle-badge span{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.08em}
+    .shift-setup{padding:20px}.shift-setup-head,.shift-calendar-head,.shift-setup-actions{display:flex;align-items:center;justify-content:space-between;gap:12px}.shift-setup-head{margin-bottom:16px}.shift-setup-head h3,.shift-calendar-head h3{margin:0}.shift-config{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:15px}.shift-field{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:10px;font-weight:750}.shift-field input,.shift-field select,.shift-day-template select{height:42px;padding:0 11px;border:1px solid var(--border);border-radius:11px;outline:0;color:var(--text);background:var(--panel)}.shift-field input:focus,.shift-field select:focus,.shift-day-template select:focus{border-color:var(--accent)}
+    .shift-template-grid{display:grid;grid-template-columns:repeat(6,minmax(125px,1fr));gap:8px}.shift-day-template{padding:11px;border:1px solid var(--border);border-radius:14px;background:var(--panel)}.shift-day-template time{display:block;margin-bottom:9px;color:var(--accent);font-size:11px;font-weight:850}.shift-role{display:flex;align-items:center;justify-content:space-between;gap:5px;margin-top:6px;padding:5px 7px;border-radius:8px;font-size:9px;font-weight:800}.shift-role select{width:84px;height:29px;margin:0;padding:0 5px;border:1px solid currentColor;border-radius:7px;color:var(--text);background:color-mix(in srgb,var(--panel) 90%,transparent);font-size:9px}.shift-role.day{color:#b67800;background:color-mix(in srgb,var(--shift-day) 18%,transparent)}.shift-role.night{color:#d8d2ff;background:color-mix(in srgb,var(--shift-night) 18%,transparent)}.shift-role.rest{color:#18a66a;background:color-mix(in srgb,var(--shift-rest) 18%,transparent)}body[data-theme="light"] .shift-role.night{color:#40358d}
+    .shift-setup-actions{margin-top:15px}.shift-primary,.shift-secondary,.shift-nav-btn{border-radius:11px;font-weight:800;cursor:pointer}.shift-primary{padding:11px 17px;border:0;color:#00251f;background:var(--accent);box-shadow:0 7px 20px color-mix(in srgb,var(--accent) 22%,transparent)}.shift-secondary,.shift-nav-btn{padding:9px 12px;border:1px solid var(--border);color:var(--text);background:var(--panel)}.shift-setup-note{color:var(--muted);font-size:10px}
+    .shift-calendar-shell{padding:18px}.shift-calendar-head{margin-bottom:14px}.shift-month-nav{display:flex;align-items:center;gap:7px}.shift-month-label{min-width:145px;text-align:center;color:var(--accent);font-size:14px;font-weight:900}.shift-today-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}.shift-stat{padding:11px;border:1px solid var(--border);border-radius:13px;background:var(--panel)}.shift-stat small{display:block;margin-bottom:4px;color:var(--muted);font-size:9px}.shift-stat strong{font-size:13px}.shift-stat.day strong{color:var(--shift-day)}.shift-stat.night strong{color:var(--shift-night)}.shift-stat.rest strong{color:var(--shift-rest)}
+    .shift-weekdays,.shift-month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.shift-weekdays span{text-align:center;color:var(--muted);font-size:9px;font-weight:800}.shift-month-grid{margin-top:7px}.shift-calendar-day{position:relative;min-height:128px;padding:9px;border:1px solid var(--border);border-radius:14px;background:var(--panel);overflow:hidden}.shift-calendar-day.outside{opacity:.28}.shift-calendar-day.yesterday{border-color:#ef4f5f;background:color-mix(in srgb,#ef4f5f 10%,var(--panel))}.shift-calendar-day.today{border-color:#39d98a;background:color-mix(in srgb,#39d98a 11%,var(--panel));box-shadow:0 0 0 2px color-mix(in srgb,#39d98a 17%,transparent)}.shift-calendar-day.tomorrow{border-color:#f4c542;background:color-mix(in srgb,#f4c542 11%,var(--panel))}.shift-date-number{display:flex;justify-content:space-between;margin-bottom:8px;font-size:11px;font-weight:900}.shift-date-number em{font-style:normal;font-size:8px}.shift-calendar-day.yesterday .shift-date-number em{color:#ef4f5f}.shift-calendar-day.today .shift-date-number em{color:#39d98a}.shift-calendar-day.tomorrow .shift-date-number em{color:#f4c542}.shift-duty-list{display:grid;gap:5px}.shift-duty-line{display:grid;grid-template-columns:17px 1fr auto;align-items:center;gap:5px;min-height:25px;padding:4px 6px;border:1px solid transparent;border-radius:8px;font-size:8px}.shift-duty-line .icon{font-size:11px;text-align:center}.shift-duty-line .label{font-weight:750}.shift-duty-line strong{white-space:nowrap;font-size:8px}.shift-duty-line strong.mine:after{content:" •";color:var(--accent)}.shift-duty-line.day{border-color:color-mix(in srgb,var(--shift-day) 25%,transparent);color:#e7b745;background:color-mix(in srgb,var(--shift-day) 12%,transparent)}.shift-duty-line.night{border-color:color-mix(in srgb,var(--shift-night) 25%,transparent);color:#beb3ff;background:color-mix(in srgb,var(--shift-night) 13%,transparent)}.shift-duty-line.rest{border-color:color-mix(in srgb,var(--shift-rest) 25%,transparent);color:#62e8ad;background:color-mix(in srgb,var(--shift-rest) 12%,transparent)}body[data-theme="light"] .shift-duty-line.day{color:#815500}body[data-theme="light"] .shift-duty-line.night{color:#493c9a}body[data-theme="light"] .shift-duty-line.rest{color:#087346}.shift-empty-setup{padding:25px;text-align:center;color:var(--muted)}
+    .shift-calendar-day.temporary-start{box-shadow:inset 0 0 0 2px #54a8ff}.shift-calendar-day.temporary-end{box-shadow:inset 0 0 0 2px #ff61d2,0 0 18px color-mix(in srgb,#ff61d2 22%,transparent)}.shift-calendar-day.temporary-start.temporary-end{box-shadow:inset 0 0 0 2px #ff61d2,0 0 18px color-mix(in srgb,#ff61d2 22%,transparent)}.shift-calendar-day.temporary-start .shift-date-number em{color:#54a8ff}.shift-calendar-day.temporary-end .shift-date-number em{color:#ff61d2}.shift-temp-panel{display:grid;grid-template-columns:minmax(150px,1fr) minmax(120px,.7fr) auto auto minmax(220px,1.4fr);gap:9px;align-items:end;margin:-3px 0 14px;padding:13px;border:1px solid color-mix(in srgb,#ff61d2 35%,var(--border));border-radius:15px;background:linear-gradient(120deg,color-mix(in srgb,#54a8ff 8%,var(--panel)),color-mix(in srgb,#ff61d2 8%,var(--panel)))}.shift-temp-panel[hidden]{display:none}.shift-temp-result{align-self:stretch;display:flex;flex-direction:column;justify-content:center;padding:8px 12px;border:1px solid var(--border);border-radius:11px;background:var(--card)}.shift-temp-result strong{color:#ff61d2;font-size:13px}.shift-temp-result span{margin-top:3px;color:var(--muted);font-size:9px}.shift-date-legend{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 13px;color:var(--muted);font-size:9px}.shift-date-legend span:before{content:"";display:inline-block;width:8px;height:8px;margin-right:5px;border-radius:50%}.shift-date-legend .yesterday:before{background:#ef4f5f}.shift-date-legend .today:before{background:#39d98a}.shift-date-legend .tomorrow:before{background:#f4c542}.shift-date-legend .temporary-start:before{background:#54a8ff}.shift-date-legend .temporary-end:before{background:#ff61d2}.shift-report-box{margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}.shift-report-controls{display:grid;grid-template-columns:1fr 1fr auto auto;gap:9px;align-items:end}.shift-report-message{min-height:17px;margin:7px 0;color:var(--muted);font-size:9px}.shift-report-message.error{color:#ef4f5f}.shift-report-wrap{overflow:auto;max-height:470px;border:1px solid var(--border);border-radius:13px}.shift-report-table{width:100%;border-collapse:collapse;min-width:680px;font-size:10px}.shift-report-table th{position:sticky;top:0;z-index:1;padding:9px;border-bottom:1px solid var(--border);color:var(--accent);background:var(--card);text-align:left}.shift-report-table td{padding:8px 9px;border-bottom:1px solid var(--border)}.shift-report-table tr:last-child td{border-bottom:0}.shift-report-table tr.yesterday{background:color-mix(in srgb,#ef4f5f 9%,transparent)}.shift-report-table tr.today{background:color-mix(in srgb,#39d98a 11%,transparent)}.shift-report-table tr.tomorrow{background:color-mix(in srgb,#f4c542 10%,transparent)}.shift-report-status.day{color:var(--shift-day);font-weight:850}.shift-report-status.night{color:var(--shift-night);font-weight:850}.shift-report-status.rest{color:var(--shift-rest);font-weight:850}
+    @media(max-width:1100px){.shift-template-grid{grid-template-columns:repeat(3,1fr)}.shift-temp-panel{grid-template-columns:1fr 1fr auto auto}.shift-temp-result{grid-column:1/-1}}@media(max-width:720px){.shift-intro{flex-direction:column}.shift-cycle-badge{align-self:flex-start}.shift-config,.shift-template-grid{grid-template-columns:1fr 1fr}.shift-today-strip{grid-template-columns:1fr 1fr}.shift-calendar-day{min-height:112px;padding:5px}.shift-duty-line{grid-template-columns:1fr;padding:4px;text-align:center}.shift-duty-line .icon,.shift-duty-line .label{display:none}.shift-report-controls{grid-template-columns:1fr 1fr}.shift-report-controls button{width:100%}.shift-month-nav{flex-wrap:wrap}.shift-temp-panel{grid-template-columns:1fr 1fr}}@media(max-width:460px){.shift-template-grid,.shift-report-controls,.shift-temp-panel{grid-template-columns:1fr}.shift-temp-result{grid-column:auto}.shift-calendar-head{align-items:flex-start;flex-direction:column}.shift-weekdays,.shift-month-grid{gap:3px}.shift-calendar-day{min-height:103px}.shift-duty-line strong{font-size:7px}}
+  </style>
   </head>
   <body data-theme="dark">
   <button id="themeToggleBtn" onclick="toggleTheme()" title="Açık / Koyu Tema" aria-label="Açık ve koyu tema arasında geçiş yap">🌓</button>
@@ -818,6 +829,7 @@
       <span style="color: var(--accent); font-size: 11px; font-weight: bold; letter-spacing: 1px;">TCMB ARŞİV</span>
   </a>
   <button type="button" id="bist100Toggle" class="bist100-toggle" onclick="openBist100()" aria-haspopup="dialog">📈 BIST 100</button>
+  <button type="button" id="shiftCalendarToggle" class="bist100-toggle" onclick="openShiftCalendar()">🗓️ Vardiya Takvimi</button>
   <div style="background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0 15px; height: 42px; display: flex; align-items: center; white-space: nowrap;">
       <span id="canli-zaman" style="color: var(--accent); font-size: 13px; font-weight: bold;">Yükleniyor...</span>
   </div>
@@ -1244,6 +1256,7 @@
             <button class="sub-tab-button active" type="button" data-personel-tab="personel-uygulamalar">Uygulamalar</button>
             <button class="sub-tab-button" type="button" data-personel-tab="personel-formlar">Formlar</button>
             <button class="sub-tab-button" type="button" data-personel-tab="personel-staj">Staj</button>
+            <button class="sub-tab-button" type="button" data-personel-tab="personel-vardiya">Vardiya Takvimi</button>
           </div>
           <div class="personel-pane active" id="personel-uygulamalar">
           <div class="link-grid">
@@ -1370,6 +1383,47 @@
               <a class="link-card" href="https://egitim.ticaret.gov.tr/data/6304781f13b8763014c3bf48/Ticaret%20Bakanl%C4%B1%C4%9F%C4%B1%20Staj%20Y%C3%B6nergesi.pdf" target="_blank" rel="noopener">
                 <div><h3>Ticaret Bakanlığı Staj Yönergesi</h3><p>PDF belge</p></div>
               </a>
+            </div>
+          </div>
+
+          <div class="personel-pane shift-pane" id="personel-vardiya">
+            <div class="shift-intro">
+              <div><h3>Vardiya Takvimi</h3><p>İlk altı günlük çalışma düzenini bir kez oluşturun. Her gün için gündüz, gece ve istirahat gruplarını ayrı ayrı seçin; takvim bu düzeni geçmişe ve geleceğe otomatik uygular.</p></div>
+              <div class="shift-cycle-badge"><strong>2+2+2</strong><span>GÜNDÜZ · GECE<br>İSTİRAHAT</span></div>
+            </div>
+            <div class="shift-setup" id="shiftSetupPanel">
+              <div class="shift-setup-head"><h3>İlk 6 Günü Belirleyin</h3><span class="shift-setup-note">Bilgiler yalnızca bu bilgisayarda saklanır.</span></div>
+              <div class="shift-config">
+                <label class="shift-field">Döngünün ilk günü<input type="date" id="shiftStartDate"></label>
+                <label class="shift-field">Benim grubum<select id="shiftMyGroup"><option value="1">1. Grup</option><option value="2">2. Grup</option><option value="3">3. Grup</option></select></label>
+              </div>
+              <div class="shift-template-grid" id="shiftTemplateGrid"></div>
+              <div class="shift-setup-actions"><span class="shift-setup-note" id="shiftSetupMessage">Her gün gündüz, gece ve istirahat satırından görevli grubu seçin.</span><button class="shift-primary" id="shiftSaveBtn" type="button">Takvimi Oluştur</button></div>
+            </div>
+            <div class="shift-calendar-shell" id="shiftCalendarPanel" hidden>
+              <div class="shift-calendar-head"><div><h3 id="shiftCalendarTitle">Aylık Takvim</h3><span class="shift-setup-note" id="shiftCycleInfo"></span></div><div class="shift-month-nav"><button class="shift-nav-btn" id="shiftPrevMonth" type="button">‹</button><span class="shift-month-label" id="shiftMonthLabel"></span><button class="shift-nav-btn" id="shiftNextMonth" type="button">›</button><button class="shift-secondary" id="shiftTodayBtn" type="button">Bugün</button><button class="shift-secondary" id="shiftTemporaryToggle" type="button">⏳ Geçici Görev Hesapla</button><button class="shift-secondary" id="shiftEditBtn" type="button">Düzeni Değiştir</button></div></div>
+              <div class="shift-temp-panel" id="shiftTemporaryPanel" hidden>
+                <label class="shift-field">Göreve başlama tarihi<input type="date" id="shiftTemporaryStart"></label>
+                <label class="shift-field">Görev süresi (gün)<input type="number" id="shiftTemporaryDays" min="1" max="3650" value="60" inputmode="numeric"></label>
+                <button class="shift-primary" id="shiftTemporaryCalculate" type="button">Hesapla</button>
+                <button class="shift-secondary" id="shiftTemporaryClear" type="button">Temizle</button>
+                <div class="shift-temp-result" id="shiftTemporaryResult"><strong>Başlangıç ve süreyi seçin</strong><span>Başlangıç tarihi 1. gün sayılır.</span></div>
+              </div>
+              <div class="shift-today-strip" id="shiftTodayStrip"></div>
+              <div class="shift-date-legend"><span class="yesterday">Dün</span><span class="today">Bugün</span><span class="tomorrow">Yarın</span><span class="temporary-start">Görev başlangıcı</span><span class="temporary-end">Son gün</span><span>Çerçeveli satır: seçtiğiniz grup</span></div>
+              <div class="shift-weekdays"><span>Pzt</span><span>Sal</span><span>Çar</span><span>Per</span><span>Cum</span><span>Cmt</span><span>Paz</span></div>
+              <div class="shift-month-grid" id="shiftMonthGrid"></div>
+              <div class="shift-report-box">
+                <div class="shift-section-title"><h3>Tarih Aralığı Vardiya Tablosu</h3><span class="shift-setup-note">Bir aylık veya istediğiniz tarih aralığını seçebilirsiniz.</span></div>
+                <div class="shift-report-controls">
+                  <label class="shift-field">Başlangıç<input type="date" id="shiftRangeStart"></label>
+                  <label class="shift-field">Bitiş<input type="date" id="shiftRangeEnd"></label>
+                  <button class="shift-primary" id="shiftGenerateReport" type="button">Tabloyu Oluştur</button>
+                  <button class="shift-secondary" id="shiftExportExcel" type="button" disabled>Excel’e Aktar</button>
+                </div>
+                <p class="shift-report-message" id="shiftReportMessage"></p>
+                <div class="shift-report-wrap" id="shiftReportWrap" hidden><table class="shift-report-table" id="shiftReportTable"><thead><tr><th>Tarih</th><th>Gün</th><th>Gündüz</th><th>Gece</th><th>İstirahat</th><th>Benim Vardiyam</th></tr></thead><tbody></tbody></table></div>
+              </div>
             </div>
           </div>
         </section>
@@ -4419,6 +4473,178 @@
       bistWidgetLoaded = false;
       if (bistCurrentSymbol) showBistSymbol(bistCurrentSymbol); else loadBist100Widget(true);
     }).observe(document.body, { attributes:true, attributeFilter:['data-theme'] });
+  </script>
+  <script>
+  (() => {
+    const root = document.getElementById('personel-vardiya');
+    if (!root) return;
+    const storageKey = 'gumrukVardiyaTakvimiV2';
+    const legacyStorageKey = 'gumrukVardiyaTakvimiV1';
+    const temporaryStorageKey = 'gumrukGeciciGorevV1';
+    const dayNames = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
+    const monthNames = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+    const roleNames = { day:'Gündüz', night:'Gece', rest:'İstirahat' };
+    const defaultAssignments = [{day:1,night:2,rest:3},{day:1,night:2,rest:3},{day:3,night:1,rest:2},{day:3,night:1,rest:2},{day:2,night:3,rest:1},{day:2,night:3,rest:1}];
+    let viewDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    let draftAssignments = defaultAssignments.map(item=>({...item}));
+    let lastReportRows = [];
+
+    const el = id => document.getElementById(id);
+    const pad = value => String(value).padStart(2,'0');
+    const toKey = date => `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+    const fromKey = value => { const [y,m,d] = value.split('-').map(Number); return new Date(y,m-1,d); };
+    const toDateOnly = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const addDays = (date, amount) => new Date(date.getFullYear(), date.getMonth(), date.getDate()+amount);
+    const dayDiff = (dateA,dateB) => Math.round((toDateOnly(dateA)-toDateOnly(dateB))/86400000);
+    const mod = (value,size) => ((value%size)+size)%size;
+    const groupLabel = group => `${group}. grup`;
+    const readConfig = () => { try {
+      const data=JSON.parse(localStorage.getItem(storageKey)||'null');
+      if(data && data.start && Array.isArray(data.assignments) && data.assignments.length===6) return data;
+      const legacy=JSON.parse(localStorage.getItem(legacyStorageKey)||'null');
+      if(legacy && legacy.start && Array.isArray(legacy.days) && legacy.days.length===6){const migrated={start:legacy.start,group:Number(legacy.group)||1,assignments:legacy.days.map(value=>derivedGroups(Number(value)))};writeConfig(migrated);return migrated;}
+      return null;
+    } catch { return null; } };
+    const writeConfig = data => { try { localStorage.setItem(storageKey,JSON.stringify(data)); } catch {} };
+    const readTemporary = () => { try { const data=JSON.parse(localStorage.getItem(temporaryStorageKey)||'null'); return data && data.start && Number(data.days)>0 ? {start:data.start,days:Number(data.days)} : null; } catch { return null; } };
+    const writeTemporary = data => { try { localStorage.setItem(temporaryStorageKey,JSON.stringify(data)); } catch {} };
+    const derivedGroups = dayGroup => ({day:dayGroup,night:(dayGroup%3)+1,rest:((dayGroup+1)%3)+1});
+
+    function currentDraftStart() { return fromKey(el('shiftStartDate').value || toKey(new Date())); }
+    function renderTemplate() {
+      const start=currentDraftStart();
+      const options=value=>[1,2,3].map(group=>`<option value="${group}" ${group===value?'selected':''}>${group}. Grup</option>`).join('');
+      el('shiftTemplateGrid').innerHTML=draftAssignments.map((groups,index)=>{
+        const date=addDays(start,index);
+        return `<div class="shift-day-template" data-shift-template="${index}"><time>${pad(date.getDate())}.${pad(date.getMonth()+1)}.${date.getFullYear()} · ${dayNames[date.getDay()]}</time><label class="shift-role day"><span>Gündüz</span><select data-shift-role-select="${index}" data-shift-role="day">${options(groups.day)}</select></label><label class="shift-role night"><span>Gece</span><select data-shift-role-select="${index}" data-shift-role="night">${options(groups.night)}</select></label><label class="shift-role rest"><span>İstirahat</span><select data-shift-role-select="${index}" data-shift-role="rest">${options(groups.rest)}</select></label></div>`;
+      }).join('');
+    }
+
+    function assignmentFor(date,config) {
+      const index=mod(dayDiff(date,fromKey(config.start)),6);
+      return {index,...config.assignments[index]};
+    }
+    function roleForGroup(assignment,group) {
+      if(assignment.day===group) return 'day'; if(assignment.night===group) return 'night'; return 'rest';
+    }
+    function allDutiesMarkup(assignment,myGroup) { const icons={day:'☀',night:'☾',rest:'⌂'}; return `<div class="shift-duty-list">${['day','night','rest'].map(role=>`<div class="shift-duty-line ${role}"><span class="icon">${icons[role]}</span><span class="label">${roleNames[role]}</span><strong class="${assignment[role]===myGroup?'mine':''}">${groupLabel(assignment[role])}</strong></div>`).join('')}</div>`; }
+
+    function renderToday(config) {
+      const today=new Date(); const tomorrow=addDays(today,1); const myGroup=Number(config.group);
+      const todayRole=roleForGroup(assignmentFor(today,config),myGroup); const tomorrowRole=roleForGroup(assignmentFor(tomorrow,config),myGroup);
+      let counts={day:0,night:0,rest:0}; const last=new Date(viewDate.getFullYear(),viewDate.getMonth()+1,0).getDate();
+      for(let d=1;d<=last;d++) counts[roleForGroup(assignmentFor(new Date(viewDate.getFullYear(),viewDate.getMonth(),d),config),myGroup)]++;
+      el('shiftTodayStrip').innerHTML=`<div class="shift-stat ${todayRole}"><small>Bugün · ${dayNames[today.getDay()]}</small><strong>${roleNames[todayRole]}</strong></div><div class="shift-stat ${tomorrowRole}"><small>Yarın</small><strong>${roleNames[tomorrowRole]}</strong></div><div class="shift-stat"><small>Benim grubum</small><strong>${groupLabel(myGroup)}</strong></div><div class="shift-stat"><small>Bu ay</small><strong>${counts.day} G · ${counts.night} N · ${counts.rest} İ</strong></div>`;
+    }
+
+    function renderTemporaryResult() {
+      const result=el('shiftTemporaryResult'), data=readTemporary();
+      if(!data){result.innerHTML='<strong>Başlangıç ve süreyi seçin</strong><span>Başlangıç tarihi 1. gün sayılır.</span>';return;}
+      const start=toDateOnly(fromKey(data.start));
+      const end=toDateOnly(addDays(start,data.days-1));
+      const today=toDateOnly(new Date());
+      const before=dayDiff(start,today);
+      const remaining=Math.max(0, dayDiff(end,today));
+      let status='';
+      if(before>0) status=`Başlamasına ${before} gün`;
+      else if(remaining>0) status=`Şafak ${remaining}`;
+      else if(remaining===0) status='Şafak 0 · Son gün';
+      else status='Görev tamamlandı';
+      result.innerHTML=`<strong>${status}</strong><span>${start.toLocaleDateString('tr-TR')} → ${end.toLocaleDateString('tr-TR')} · ${data.days} gün</span>`;
+    }
+
+    function renderCalendar() {
+      const config=readConfig(); if(!config){showSetup();return;}
+      el('shiftSetupPanel').hidden=true; el('shiftCalendarPanel').hidden=false;
+      el('shiftMonthLabel').textContent=`${monthNames[viewDate.getMonth()]} ${viewDate.getFullYear()}`;
+      el('shiftCycleInfo').textContent=`${groupLabel(Number(config.group))} · Başlangıç ${fromKey(config.start).toLocaleDateString('tr-TR')}`;
+      const first=new Date(viewDate.getFullYear(),viewDate.getMonth(),1); const mondayOffset=(first.getDay()+6)%7; const gridStart=addDays(first,-mondayOffset); const today=new Date(); const todayKey=toKey(today); const yesterdayKey=toKey(addDays(today,-1)); const tomorrowKey=toKey(addDays(today,1)); const myGroup=Number(config.group); const temporary=readTemporary(); const temporaryStartKey=temporary?.start||''; const temporaryEndKey=temporary?toKey(addDays(fromKey(temporary.start),temporary.days-1)):'';
+      let html='';
+      for(let i=0;i<42;i++){
+        const date=addDays(gridStart,i); const assignment=assignmentFor(date,config); const outside=date.getMonth()!==viewDate.getMonth(); const key=toKey(date);
+        const dateState=key===todayKey?'today':key===yesterdayKey?'yesterday':key===tomorrowKey?'tomorrow':''; const temporaryState=`${key===temporaryStartKey?' temporary-start':''}${key===temporaryEndKey?' temporary-end':''}`; const tags=[]; if(dateState) tags.push(dateState==='today'?'BUGÜN':dateState==='yesterday'?'DÜN':'YARIN'); if(key===temporaryStartKey) tags.push('1. GÜN'); if(key===temporaryEndKey) tags.push(`${temporary.days}. GÜN`);
+        html+=`<div class="shift-calendar-day ${outside?'outside':''} ${dateState}${temporaryState}"><div class="shift-date-number"><span>${date.getDate()}</span>${tags.length?`<em>${tags.join(' · ')}</em>`:''}</div>${allDutiesMarkup(assignment,myGroup)}</div>`;
+      }
+      el('shiftMonthGrid').innerHTML=html; renderToday(config); renderTemporaryResult(); setDefaultReportRange();
+    }
+
+    function setDefaultReportRange() {
+      if(el('shiftRangeStart').value && el('shiftRangeEnd').value) return;
+      const start=new Date(viewDate.getFullYear(),viewDate.getMonth(),1); const end=new Date(viewDate.getFullYear(),viewDate.getMonth()+1,0);
+      el('shiftRangeStart').value=toKey(start); el('shiftRangeEnd').value=toKey(end);
+    }
+
+    function generateReport() {
+      const config=readConfig(); const message=el('shiftReportMessage'); const startValue=el('shiftRangeStart').value; const endValue=el('shiftRangeEnd').value;
+      if(!config || !startValue || !endValue){message.textContent='Başlangıç ve bitiş tarihini seçin.';message.classList.add('error');return;}
+      const start=fromKey(startValue), end=fromKey(endValue), total=dayDiff(end,start)+1;
+      if(total<1 || total>366){message.textContent='Bitiş tarihi başlangıçtan sonra olmalı; en fazla 366 günlük tablo oluşturabilirsiniz.';message.classList.add('error');return;}
+      const today=new Date(), todayKey=toKey(today), yesterdayKey=toKey(addDays(today,-1)), tomorrowKey=toKey(addDays(today,1)), myGroup=Number(config.group);
+      lastReportRows=[]; let body='';
+      for(let i=0;i<total;i++){
+        const date=addDays(start,i), key=toKey(date), assignment=assignmentFor(date,config), myRole=roleForGroup(assignment,myGroup), state=key===todayKey?'today':key===yesterdayKey?'yesterday':key===tomorrowKey?'tomorrow':'';
+        const row={key,dateText:date.toLocaleDateString('tr-TR'),dayName:dayNames[date.getDay()],day:groupLabel(assignment.day),night:groupLabel(assignment.night),rest:groupLabel(assignment.rest),myRole, myRoleText:roleNames[myRole]}; lastReportRows.push(row);
+        body+=`<tr class="${state}"><td>${row.dateText}</td><td>${row.dayName}</td><td>${row.day}</td><td>${row.night}</td><td>${row.rest}</td><td><span class="shift-report-status ${myRole}">${row.myRoleText}</span></td></tr>`;
+      }
+      el('shiftReportTable').querySelector('tbody').innerHTML=body; el('shiftReportWrap').hidden=false; el('shiftExportExcel').disabled=false; message.textContent=`${start.toLocaleDateString('tr-TR')} – ${end.toLocaleDateString('tr-TR')} arasında ${total} günlük vardiya tablosu oluşturuldu.`; message.classList.remove('error');
+    }
+
+    function exportReportToExcel() {
+      if(!lastReportRows.length) return;
+      const rows=lastReportRows.map(row=>`<tr><td>${row.dateText}</td><td>${row.dayName}</td><td>${row.day}</td><td>${row.night}</td><td>${row.rest}</td><td>${row.myRoleText}</td></tr>`).join('');
+      const config=readConfig(); const html=`<!doctype html><html><head><meta charset="utf-8"><style>table{border-collapse:collapse;font-family:Calibri,Arial}th,td{border:1px solid #888;padding:7px}th{background:#0bbfac;color:#fff}.day{background:#fff2cc}.night{background:#ded7ff}.rest{background:#d9ead3}</style></head><body><h3>Vardiya Takvimi - ${groupLabel(Number(config.group))}</h3><table><thead><tr><th>Tarih</th><th>Gün</th><th>Gündüz</th><th>Gece</th><th>İstirahat</th><th>Benim Vardiyam</th></tr></thead><tbody>${rows}</tbody></table></body></html>`;
+      const blob=new Blob(['\ufeff',html],{type:'application/vnd.ms-excel;charset=utf-8'}); const url=URL.createObjectURL(blob); const link=document.createElement('a'); link.href=url; link.download=`vardiya-takvimi-${el('shiftRangeStart').value}-${el('shiftRangeEnd').value}.xls`; document.body.appendChild(link); link.click(); link.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }
+
+    function showSetup() {
+      const config=readConfig();
+      if(config){el('shiftStartDate').value=config.start; el('shiftMyGroup').value=String(config.group); draftAssignments=config.assignments.map(item=>({...item}));} else {el('shiftStartDate').value=toKey(new Date()); el('shiftMyGroup').value='1'; draftAssignments=defaultAssignments.map(item=>({...item}));}
+      el('shiftSetupMessage').textContent='Her gün gündüz, gece ve istirahat satırından görevli grubu seçin.'; el('shiftSetupMessage').style.color='';
+      el('shiftSetupPanel').hidden=false; el('shiftCalendarPanel').hidden=true; renderTemplate();
+    }
+
+    el('shiftTemplateGrid').addEventListener('change',event=>{
+      const select=event.target.closest('[data-shift-role-select]'); if(!select)return;
+      const index=Number(select.dataset.shiftRoleSelect), role=select.dataset.shiftRole, newGroup=Number(select.value), previousGroup=draftAssignments[index][role];
+      const otherRole=['day','night','rest'].find(item=>item!==role && draftAssignments[index][item]===newGroup);
+      draftAssignments[index][role]=newGroup; if(otherRole) draftAssignments[index][otherRole]=previousGroup;
+      renderTemplate();
+    });
+    el('shiftStartDate').addEventListener('change',renderTemplate);
+    el('shiftSaveBtn').addEventListener('click',()=>{
+      if(!el('shiftStartDate').value)return;
+      const valid=draftAssignments.every(item=>new Set([item.day,item.night,item.rest]).size===3);
+      if(!valid){el('shiftSetupMessage').textContent='Her gün 1, 2 ve 3. gruplar farklı görevlere seçilmelidir.';el('shiftSetupMessage').style.color='#ef4f5f';return;}
+      writeConfig({start:el('shiftStartDate').value,group:Number(el('shiftMyGroup').value),assignments:draftAssignments.map(item=>({...item}))});viewDate=new Date(new Date().getFullYear(),new Date().getMonth(),1);renderCalendar();
+    });
+    el('shiftPrevMonth').addEventListener('click',()=>{viewDate=new Date(viewDate.getFullYear(),viewDate.getMonth()-1,1);renderCalendar();});
+    el('shiftNextMonth').addEventListener('click',()=>{viewDate=new Date(viewDate.getFullYear(),viewDate.getMonth()+1,1);renderCalendar();});
+    el('shiftTodayBtn').addEventListener('click',()=>{const now=new Date();viewDate=new Date(now.getFullYear(),now.getMonth(),1);renderCalendar();});
+    el('shiftTemporaryToggle').addEventListener('click',()=>{const panel=el('shiftTemporaryPanel');panel.hidden=!panel.hidden;if(!panel.hidden)el('shiftTemporaryStart').focus();});
+    el('shiftTemporaryCalculate').addEventListener('click',()=>{
+      const startValue=el('shiftTemporaryStart').value, days=Number(el('shiftTemporaryDays').value);
+      if(!startValue || !Number.isInteger(days) || days<1 || days>3650){el('shiftTemporaryResult').innerHTML='<strong>Bilgileri kontrol edin</strong><span>Başlangıç tarihi ve 1–3650 arasında gün sayısı girin.</span>';return;}
+      const data={start:startValue,days}; writeTemporary(data); const end=addDays(fromKey(startValue),days-1); viewDate=new Date(end.getFullYear(),end.getMonth(),1); renderCalendar(); el('shiftTemporaryPanel').hidden=false;
+    });
+    el('shiftTemporaryClear').addEventListener('click',()=>{try{localStorage.removeItem(temporaryStorageKey);}catch{} el('shiftTemporaryStart').value='';el('shiftTemporaryDays').value='60';renderTemporaryResult();renderCalendar();el('shiftTemporaryPanel').hidden=false;});
+    el('shiftEditBtn').addEventListener('click',showSetup);
+    el('shiftGenerateReport').addEventListener('click',generateReport);
+    el('shiftExportExcel').addEventListener('click',exportReportToExcel);
+    el('shiftRangeStart').addEventListener('change',()=>{lastReportRows=[];el('shiftExportExcel').disabled=true;});
+    el('shiftRangeEnd').addEventListener('change',()=>{lastReportRows=[];el('shiftExportExcel').disabled=true;});
+    window.openShiftCalendar=()=>{
+      const search=document.getElementById('superSearch');
+      if(search && search.value){search.value='';search.dispatchEvent(new Event('input',{bubbles:true}));}
+      document.querySelector('.tabs .tab-button[data-tab="personel"]')?.click();
+      document.querySelector('#personel [data-personel-tab="personel-vardiya"]')?.click();
+      setTimeout(()=>document.getElementById('personel-vardiya')?.scrollIntoView({behavior:'smooth',block:'start'}),80);
+    };
+    const savedTemporary=readTemporary();
+    el('shiftTemporaryStart').value=savedTemporary?.start||toKey(new Date());
+    el('shiftTemporaryDays').value=String(savedTemporary?.days||60);
+    if(savedTemporary){el('shiftTemporaryPanel').hidden=false;renderTemporaryResult();}
+    if(readConfig()) renderCalendar(); else showSetup();
+  })();
   </script>
   </body>
 
