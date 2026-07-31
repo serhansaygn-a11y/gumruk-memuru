@@ -830,6 +830,7 @@
   </a>
   <button type="button" id="bist100Toggle" class="bist100-toggle" onclick="openBist100()" aria-haspopup="dialog">📈 BIST 100</button>
   <button type="button" id="shiftCalendarToggle" class="bist100-toggle" onclick="openShiftCalendar()">🗓️ Vardiya Takvimi</button>
+  <button type="button" id="musicCenterToggle" class="bist100-toggle music-center-toggle" onclick="openMusicCenter()" aria-haspopup="dialog">🎵 Müzik Merkezi</button>
   <div style="background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0 15px; height: 42px; display: flex; align-items: center; white-space: nowrap;">
       <span id="canli-zaman" style="color: var(--accent); font-size: 13px; font-weight: bold;">Yükleniyor...</span>
   </div>
@@ -927,6 +928,7 @@
         });
 
         player.addEventListener('playing', () => {
+          document.getElementById('musicCenterFrame')?.contentWindow?.postMessage({type:'gumruk-music-command',command:'pause'},'*');
           clearTimeout(loadTimer);
           const active = document.querySelector('.radio-station-btn.active');
           setStatus((active ? active.dataset.name : 'Radyo') + ' çalıyor');
@@ -2691,6 +2693,11 @@
           </div>
     </div>
 
+    <div id="musicCenterModal" class="music-center-overlay" role="dialog" aria-modal="true" aria-labelledby="musicCenterTitle">
+      <div class="music-center-windowbar"><div><strong id="musicCenterTitle">🎵 Müzik Merkezi</strong><span>Audius açık müzik kataloğu</span></div><button type="button" class="music-center-close" onclick="closeMusicCenter()" aria-label="Müzik Merkezini kapat">×</button></div>
+      <iframe id="musicCenterFrame" class="music-center-frame" title="Müzik Merkezi" loading="lazy" data-src="audius-muzik-merkezi-test.html"></iframe>
+    </div>
+
     <div id="bist100Modal" class="bist100-overlay" role="dialog" aria-modal="true" aria-labelledby="bist100Title">
       <div class="bist100-panel">
         <div class="bist100-head">
@@ -4345,6 +4352,15 @@
   body[data-theme="light"] .bist-symbol-search { background:rgba(255,255,255,.62); }body[data-theme="light"] .bist-symbol-search input,body[data-theme="light"] .bist-favorite-btn,body[data-theme="light"] .bist-ranking-btn,body[data-theme="light"] .bist-favorite-chip{color:#13263b}
   .bist100-overlay.active ~ *{pointer-events:none;}
   @media(max-width:650px){.bist100-panel{padding:12px}.bist100-head p{display:none}.bist100-tools{grid-template-columns:1fr 1fr}.bist-symbol-search{grid-column:1/-1}.bist100-widget{min-height:390px}.bist100-note{display:none}.bist-favorites-line{align-items:flex-start}.bist100-toggle{padding:0 12px}}
+  .music-center-toggle{margin-left:0;border-color:rgba(169,112,255,.46);background:linear-gradient(135deg,rgba(169,112,255,.16),rgba(0,246,210,.1))}
+  .music-center-overlay{display:none;position:fixed;inset:0;z-index:30000;background:#050a0f}
+  .music-center-overlay.active{display:flex;flex-direction:column;animation:fade .2s ease}
+  .music-center-windowbar{height:52px;flex:0 0 52px;display:flex;align-items:center;justify-content:space-between;padding:0 14px 0 18px;border-bottom:1px solid rgba(0,246,210,.2);color:#eef8fb;background:linear-gradient(90deg,#0d1d25,#171126)}
+  .music-center-windowbar strong{color:var(--accent);font-size:14px;letter-spacing:.03em}.music-center-windowbar span{margin-left:9px;color:#8ea6b2;font-size:10px}
+  .music-center-close{width:38px;height:38px;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef8fb;background:rgba(255,255,255,.07);font-size:23px;cursor:pointer}
+  .music-center-frame{width:100%;height:calc(100vh - 52px);border:0;background:#071016}
+  body.music-center-open{overflow:hidden}.music-center-overlay.active~.masaustu-ekle-btn,.music-center-overlay.active~.pdf-duzenle-btn{visibility:hidden}
+  body[data-theme="light"] .music-center-windowbar{color:#13263b;background:linear-gradient(90deg,#effbfc,#eee8ff)}body[data-theme="light"] .music-center-close{color:#13263b;border-color:rgba(0,70,90,.16);background:#fff9}
   </style>
   <script>
     let bistWidgetLoaded = false;
@@ -4644,6 +4660,25 @@
     el('shiftTemporaryDays').value=String(savedTemporary?.days||60);
     if(savedTemporary){el('shiftTemporaryPanel').hidden=false;renderTemporaryResult();}
     if(readConfig()) renderCalendar(); else showSetup();
+  })();
+  </script>
+  <script>
+  (()=>{
+    const modal=document.getElementById('musicCenterModal');
+    const frame=document.getElementById('musicCenterFrame');
+    const sendTheme=()=>frame?.contentWindow?.postMessage({type:'gumruk-panel-theme',theme:document.body.dataset.theme||'dark'},'*');
+    window.openMusicCenter=()=>{
+      if(!frame.getAttribute('src')) frame.src=frame.dataset.src;
+      modal.classList.add('active');
+      document.body.classList.add('music-center-open');
+      setTimeout(sendTheme,120);
+    };
+    window.closeMusicCenter=()=>{modal.classList.remove('active');document.body.classList.remove('music-center-open');};
+    frame.addEventListener('load',sendTheme);
+    modal.addEventListener('click',event=>{if(event.target===modal)closeMusicCenter();});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'&&modal.classList.contains('active'))closeMusicCenter();});
+    new MutationObserver(sendTheme).observe(document.body,{attributes:true,attributeFilter:['data-theme']});
+    addEventListener('message',event=>{if(event.data?.type==='gumruk-audius-playing')document.getElementById('turkishRadioPlayer')?.pause();});
   })();
   </script>
   </body>
