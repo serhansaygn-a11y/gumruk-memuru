@@ -830,7 +830,8 @@
   </a>
   <button type="button" id="bist100Toggle" class="bist100-toggle" onclick="openBist100()" aria-haspopup="dialog">📈 BIST 100</button>
   <button type="button" id="shiftCalendarToggle" class="bist100-toggle" onclick="openShiftCalendar()">🗓️ Vardiya Takvimi</button>
-  <button type="button" id="musicCenterToggle" class="bist100-toggle music-center-toggle" onclick="openMusicCenter()" aria-haspopup="dialog">🎵 Müzik Merkezi</button>
+  <button type="button" id="musicCenterToggle" class="bist100-toggle music-center-toggle" onclick="openMusicCenter()" aria-haspopup="dialog">🎵 Audius Müzik</button>
+  <a class="bist100-toggle apple-music-toggle" href="https://music.apple.com/tr/new" target="_blank" rel="noopener" title="Apple Music Türkiye'yi aç"> Apple Music</a>
   <div style="background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0 15px; height: 42px; display: flex; align-items: center; white-space: nowrap;">
       <span id="canli-zaman" style="color: var(--accent); font-size: 13px; font-weight: bold;">Yükleniyor...</span>
   </div>
@@ -1113,6 +1114,13 @@
     <div>
       <h3>Bilge Gümrük Platformu</h3>
       <p>BGP Portal Girişi</p>
+    </div>
+  </a>
+
+  <a class="link-card" href="https://bgp-tatp.ticaret.gov.tr/" target="_blank" rel="noopener">
+    <div>
+      <h3>Bilge - Transit Araç Takip Programı (TATP)</h3>
+      <p>Transit araç takip ve işlem ekranı</p>
     </div>
   </a>
 
@@ -2694,8 +2702,8 @@
     </div>
 
     <div id="musicCenterModal" class="music-center-overlay" role="dialog" aria-modal="true" aria-labelledby="musicCenterTitle">
-      <div class="music-center-windowbar"><div><strong id="musicCenterTitle">🎵 Müzik Merkezi</strong><span>Audius açık müzik kataloğu</span></div><button type="button" class="music-center-close" onclick="closeMusicCenter()" aria-label="Müzik Merkezini kapat">×</button></div>
-      <iframe id="musicCenterFrame" class="music-center-frame" title="Müzik Merkezi" loading="lazy"></iframe>
+      <div class="music-center-windowbar"><div><strong id="musicCenterTitle">🎵 Audius Müzik</strong><span>Audius açık müzik kataloğu</span></div><button type="button" class="music-center-close" onclick="closeMusicCenter()" aria-label="Audius Müzik penceresini kapat">×</button></div>
+      <iframe id="musicCenterFrame" class="music-center-frame" title="Audius Müzik" loading="lazy"></iframe>
     </div>
 
     <div id="bist100Modal" class="bist100-overlay" role="dialog" aria-modal="true" aria-labelledby="bist100Title">
@@ -4353,6 +4361,7 @@
   .bist100-overlay.active ~ *{pointer-events:none;}
   @media(max-width:650px){.bist100-panel{padding:12px}.bist100-head p{display:none}.bist100-tools{grid-template-columns:1fr 1fr}.bist-symbol-search{grid-column:1/-1}.bist100-widget{min-height:390px}.bist100-note{display:none}.bist-favorites-line{align-items:flex-start}.bist100-toggle{padding:0 12px}}
   .music-center-toggle{margin-left:0;border-color:rgba(169,112,255,.46);background:linear-gradient(135deg,rgba(169,112,255,.16),rgba(0,246,210,.1))}
+.apple-music-toggle{display:inline-flex;align-items:center;justify-content:center;margin-left:0;text-decoration:none;border-color:rgba(250,65,86,.5);color:#ff788b;background:linear-gradient(135deg,rgba(250,65,86,.16),rgba(169,112,255,.09))}.apple-music-toggle:hover{color:#fff;border-color:#fa4156;box-shadow:0 0 22px rgba(250,65,86,.22)}
   .music-center-overlay{display:none;position:fixed;inset:0;z-index:30000;background:#050a0f}
   .music-center-overlay.active{display:flex;flex-direction:column;animation:fade .2s ease}
   .music-center-windowbar{height:52px;flex:0 0 52px;display:flex;align-items:center;justify-content:space-between;padding:0 14px 0 18px;border-bottom:1px solid rgba(0,246,210,.2);color:#eef8fb;background:linear-gradient(90deg,#0d1d25,#171126)}
