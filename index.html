@@ -4,7 +4,6 @@
       <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
       <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#00f6d2" />
@@ -778,7 +777,29 @@
     .shift-calendar-day.temporary-start{box-shadow:inset 0 0 0 2px #54a8ff}.shift-calendar-day.temporary-end{box-shadow:inset 0 0 0 2px #ff61d2,0 0 18px color-mix(in srgb,#ff61d2 22%,transparent)}.shift-calendar-day.temporary-start.temporary-end{box-shadow:inset 0 0 0 2px #ff61d2,0 0 18px color-mix(in srgb,#ff61d2 22%,transparent)}.shift-calendar-day.temporary-start .shift-date-number em{color:#54a8ff}.shift-calendar-day.temporary-end .shift-date-number em{color:#ff61d2}.shift-temp-panel{display:grid;grid-template-columns:minmax(150px,1fr) minmax(120px,.7fr) auto auto minmax(220px,1.4fr);gap:9px;align-items:end;margin:-3px 0 14px;padding:13px;border:1px solid color-mix(in srgb,#ff61d2 35%,var(--border));border-radius:15px;background:linear-gradient(120deg,color-mix(in srgb,#54a8ff 8%,var(--panel)),color-mix(in srgb,#ff61d2 8%,var(--panel)))}.shift-temp-panel[hidden]{display:none}.shift-temp-result{align-self:stretch;display:flex;flex-direction:column;justify-content:center;padding:8px 12px;border:1px solid var(--border);border-radius:11px;background:var(--card)}.shift-temp-result strong{color:#ff61d2;font-size:13px}.shift-temp-result span{margin-top:3px;color:var(--muted);font-size:9px}.shift-date-legend{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 13px;color:var(--muted);font-size:9px}.shift-date-legend span:before{content:"";display:inline-block;width:8px;height:8px;margin-right:5px;border-radius:50%}.shift-date-legend .yesterday:before{background:#ef4f5f}.shift-date-legend .today:before{background:#39d98a}.shift-date-legend .tomorrow:before{background:#f4c542}.shift-date-legend .temporary-start:before{background:#54a8ff}.shift-date-legend .temporary-end:before{background:#ff61d2}.shift-report-box{margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}.shift-report-controls{display:grid;grid-template-columns:1fr 1fr auto auto;gap:9px;align-items:end}.shift-report-message{min-height:17px;margin:7px 0;color:var(--muted);font-size:9px}.shift-report-message.error{color:#ef4f5f}.shift-report-wrap{overflow:auto;max-height:470px;border:1px solid var(--border);border-radius:13px}.shift-report-table{width:100%;border-collapse:collapse;min-width:680px;font-size:10px}.shift-report-table th{position:sticky;top:0;z-index:1;padding:9px;border-bottom:1px solid var(--border);color:var(--accent);background:var(--card);text-align:left}.shift-report-table td{padding:8px 9px;border-bottom:1px solid var(--border)}.shift-report-table tr:last-child td{border-bottom:0}.shift-report-table tr.yesterday{background:color-mix(in srgb,#ef4f5f 9%,transparent)}.shift-report-table tr.today{background:color-mix(in srgb,#39d98a 11%,transparent)}.shift-report-table tr.tomorrow{background:color-mix(in srgb,#f4c542 10%,transparent)}.shift-report-status.day{color:var(--shift-day);font-weight:850}.shift-report-status.night{color:var(--shift-night);font-weight:850}.shift-report-status.rest{color:var(--shift-rest);font-weight:850}
     @media(max-width:1100px){.shift-template-grid{grid-template-columns:repeat(3,1fr)}.shift-temp-panel{grid-template-columns:1fr 1fr auto auto}.shift-temp-result{grid-column:1/-1}}@media(max-width:720px){.shift-intro{flex-direction:column}.shift-cycle-badge{align-self:flex-start}.shift-config,.shift-template-grid{grid-template-columns:1fr 1fr}.shift-today-strip{grid-template-columns:1fr 1fr}.shift-calendar-day{min-height:112px;padding:5px}.shift-duty-line{grid-template-columns:1fr;padding:4px;text-align:center}.shift-duty-line .icon,.shift-duty-line .label{display:none}.shift-report-controls{grid-template-columns:1fr 1fr}.shift-report-controls button{width:100%}.shift-month-nav{flex-wrap:wrap}.shift-temp-panel{grid-template-columns:1fr 1fr}}@media(max-width:460px){.shift-template-grid,.shift-report-controls,.shift-temp-panel{grid-template-columns:1fr}.shift-temp-result{grid-column:auto}.shift-calendar-head{align-items:flex-start;flex-direction:column}.shift-weekdays,.shift-month-grid{gap:3px}.shift-calendar-day{min-height:103px}.shift-duty-line strong{font-size:7px}}
   </style>
-  </head>
+  <style id="toolkitStyles">
+  .toolkit-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:20px;padding:20px;border:1px solid color-mix(in srgb,var(--accent) 24%,var(--border));border-radius:18px;background:linear-gradient(130deg,color-mix(in srgb,var(--accent) 10%,var(--card)),var(--card))}
+  .toolkit-kicker{color:var(--accent);font-size:10px;font-weight:900;letter-spacing:.14em}.toolkit-heading h2{margin:5px 0}.toolkit-heading p{margin:0;color:var(--muted);font-size:13px}.toolkit-shortcuts{display:flex;gap:8px;flex-wrap:wrap}
+  .toolkit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.tool-card{min-width:0;padding:17px;border:1px solid var(--border);border-radius:16px;background:color-mix(in srgb,var(--card) 86%,transparent);box-shadow:0 10px 28px rgba(0,0,0,.12)}
+  .tool-card-head{display:flex;align-items:flex-start;gap:11px;margin-bottom:14px}.tool-card-head>span{display:grid;place-items:center;flex:0 0 34px;height:34px;border-radius:10px;color:#001;background:var(--accent);font-size:11px;font-weight:900}.tool-card-head h3{margin:0 0 3px;color:var(--text);font-size:15px}.tool-card-head p{margin:0;color:var(--muted);font-size:11px;line-height:1.45}
+  .tool-field{display:flex;flex-direction:column;gap:5px;margin:9px 0;color:var(--muted);font-size:11px;font-weight:750}.tool-field input,.tool-field select,.tool-field textarea{width:100%;min-height:39px;padding:9px 11px;border:1px solid var(--border)!important;border-radius:10px;background:var(--panel,#071018)!important;color:var(--text);font:inherit;font-size:13px}.tool-field textarea{resize:vertical;line-height:1.5}.tool-inline-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}.tool-result{min-height:42px;margin-top:11px;padding:11px 12px;border:1px solid color-mix(in srgb,var(--accent) 22%,var(--border));border-radius:11px;background:color-mix(in srgb,var(--accent) 6%,var(--card));color:var(--accent);font-size:13px;font-weight:800;line-height:1.55;overflow-wrap:anywhere}.tool-result.compact{min-height:0;padding:8px 10px;font-size:11px}.tool-help{display:block;margin-top:7px;color:var(--muted);font-size:10px;line-height:1.45}
+  .toolkit-button{min-height:36px;padding:8px 11px;border:1px solid color-mix(in srgb,var(--accent) 38%,var(--border));border-radius:9px;background:color-mix(in srgb,var(--accent) 12%,var(--card));color:var(--text);font:inherit;font-size:11px;font-weight:800;cursor:pointer;transition:transform .18s,border-color .18s}.toolkit-button:hover{transform:translateY(-1px);border-color:var(--accent);color:var(--accent)}.toolkit-button.secondary{border-color:var(--border);background:var(--card)}.tool-action-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}.tool-text-count,.tool-status{min-height:18px;margin-top:6px;color:var(--muted);font-size:10px}.tool-status{color:var(--accent)}
+  .tool-check-form{display:grid;grid-template-columns:1fr auto;align-items:end;gap:8px}.tool-check-form .tool-field{margin:0}.tool-check-list{display:grid;gap:6px;max-height:210px;overflow:auto;margin:12px 0 0;padding:0;list-style:none}.tool-check-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font-size:12px}.tool-check-item input{accent-color:var(--accent)}.tool-check-item span{flex:1;overflow-wrap:anywhere}.tool-check-item.done span{color:var(--muted);text-decoration:line-through}.tool-check-item button{border:0;background:transparent;color:var(--muted);font-size:16px;cursor:pointer}.tool-list-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;color:var(--muted);font-size:10px}.tool-link-button{padding:3px;border:0;background:transparent;color:var(--accent);font:inherit;cursor:pointer}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  @media(max-width:760px){.toolkit-grid{grid-template-columns:1fr}.toolkit-heading{align-items:flex-start;flex-direction:column}.toolkit-shortcuts{width:100%}.toolkit-shortcuts .toolkit-button{flex:1}}
+</style>
+
+<style id="trackerStyles">
+  .tracker-layout{display:grid;grid-template-columns:minmax(260px,.78fr) minmax(0,1.5fr);gap:14px;align-items:start}.tracker-form .tool-card-head>span{font-size:20px}.tracker-add{width:100%;margin-top:10px}.tracker-local-badge{padding:9px 12px;border:1px solid color-mix(in srgb,#38d996 35%,var(--border));border-radius:999px;color:#38d996;font-size:10px;font-weight:800;white-space:nowrap}.tracker-list-panel{min-height:300px}.tracker-list-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.tracker-list-head h3{margin:0;color:var(--text);font-size:16px}.tracker-list-head h3 span{display:inline-grid;place-items:center;min-width:25px;height:23px;margin-left:5px;padding:0 6px;border-radius:8px;background:color-mix(in srgb,var(--accent) 15%,var(--card));color:var(--accent);font-size:11px}.tracker-list-head p{margin:5px 0 0;color:var(--muted);font-size:10px}.tracker-filter-row{display:grid;grid-template-columns:1fr 160px;gap:8px;margin:15px 0}.tracker-filter-row input,.tracker-filter-row select{min-width:0;height:39px;padding:8px 10px;border:1px solid var(--border)!important;border-radius:9px;background:var(--panel,#071018)!important;color:var(--text);font:inherit;font-size:11px}.work-tracker-list{display:grid;gap:8px;max-height:600px;overflow:auto}.tracker-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--card)}.tracker-item.overdue{border-color:rgba(255,105,105,.5);background:color-mix(in srgb,#ef4444 7%,var(--card))}.tracker-item-main{min-width:0}.tracker-item-ref{display:inline-block;margin-bottom:4px;color:var(--accent);font-size:9px;font-weight:900;letter-spacing:.04em;overflow-wrap:anywhere}.tracker-item-title{color:var(--text);font-size:12px;font-weight:750;line-height:1.45;overflow-wrap:anywhere}.tracker-item-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px;color:var(--muted);font-size:9px}.tracker-item-meta .overdue-label{color:#ff7a7a;font-weight:850}.tracker-item-actions{display:flex;align-items:center;gap:6px}.tracker-item-actions select{max-width:130px;height:34px;padding:5px 7px;border:1px solid var(--border);border-radius:8px;background:var(--panel,#071018);color:var(--text);font:inherit;font-size:10px}.tracker-delete{width:32px;height:32px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--muted);font-size:17px;cursor:pointer}.tracker-delete:hover{border-color:#ef6464;color:#ff7a7a}.tracker-empty{padding:28px 15px;border:1px dashed var(--border);border-radius:12px;color:var(--muted);font-size:11px;text-align:center}.tool-template-field{margin-bottom:7px}.tool-template-add{width:100%}.tool-backup-actions{display:flex;flex-wrap:wrap;gap:8px}.tool-backup-actions .toolkit-button{flex:1}.tool-backup-actions+.tool-help{margin-top:10px}
+  @media(max-width:900px){.tracker-layout{grid-template-columns:1fr}.tracker-form{order:0}.tracker-list-panel{order:1}}
+  @media(max-width:560px){.tracker-filter-row{grid-template-columns:1fr}.tracker-item{grid-template-columns:1fr}.tracker-item-actions{justify-content:space-between}.tracker-item-actions select{flex:1;max-width:none}.tracker-list-head{flex-direction:column}.tracker-list-head .toolkit-button{width:100%}.tracker-local-badge{white-space:normal}}
+</style>
+
+<style id="rightOverflowFix">
+  .header-right{min-width:0}.header-right .radio-bar{box-sizing:border-box;max-width:min(380px,100%);min-width:0;overflow:hidden}.header-right .radio-player-controls{min-width:0;max-width:100%;gap:7px}.header-right #radioStatus{min-width:0;flex:1 1 auto}
+  @media(max-width:600px){.header-right .radio-bar{overflow:visible}.header-right .radio-player-controls{flex-wrap:wrap;justify-content:center}.header-right #radioStatus{max-width:100%;flex:1 1 100%;text-align:center}}
+</style>
+
+</head>
   <body data-theme="dark">
   <button id="themeToggleBtn" onclick="toggleTheme()" title="Açık / Koyu Tema" aria-label="Açık ve koyu tema arasında geçiş yap">🌓</button>
     <div class="app">
@@ -841,7 +862,7 @@
       <div class="radio-bar" aria-label="Türk radyoları">
         <div class="radio-title">📻 Türk Radyoları</div>
         <div class="radio-stations">
-          <button type="button" class="radio-station-btn" data-name="Gençlik Radyosu" data-stream="https://gsbradyo.ercdn.net/gsbradyo/gsbradyo.m3u8" data-hls="true">Gençlik Radyosu</button>
+          <button type="button" class="radio-station-btn" data-name="Gençlik Radyosu" data-stream="https://genclikradyosu.net/canli.mp3">Gençlik Radyosu</button>
           <button type="button" class="radio-station-btn" data-name="Süper FM" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/SUPER_FM128AAC.aac">Süper FM</button>
           <button type="button" class="radio-station-btn" data-name="JoyTürk" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/JOY_TURK128AAC.aac">JoyTürk</button>
           <button type="button" class="radio-station-btn" data-name="Metro FM" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO_FM128AAC.aac">Metro FM</button>
@@ -852,6 +873,7 @@
           <button type="button" id="radioStopBtn" class="radio-control-btn" title="Yayını durdur">■</button>
           <input id="radioVolume" type="range" min="0" max="1" step="0.05" value="0.65" aria-label="Radyo ses seviyesi">
           <span id="radioStatus">Bir radyo seçin</span>
+          
         </div>
         <audio id="turkishRadioPlayer" preload="none"></audio>
       </div>
@@ -864,7 +886,6 @@
         const stopButton = document.getElementById('radioStopBtn');
         const volume = document.getElementById('radioVolume');
         let loadTimer;
-        let hlsPlayer;
 
         document.getElementById('superSearch').placeholder = 'Gümrük işlemleri için modern kaynak';
         buttons.forEach((button, index) => {
@@ -881,10 +902,6 @@
 
         function stopRadio(message) {
           clearTimeout(loadTimer);
-          if (hlsPlayer) {
-            hlsPlayer.destroy();
-            hlsPlayer = null;
-          }
           player.pause();
           player.removeAttribute('src');
           player.load();
@@ -895,35 +912,17 @@
         buttons.forEach(button => {
           button.addEventListener('click', function() {
             clearTimeout(loadTimer);
-            if (hlsPlayer) {
-              hlsPlayer.destroy();
-              hlsPlayer = null;
-            }
             buttons.forEach(item => item.classList.remove('active'));
             this.classList.add('active');
             player.volume = Number(volume.value);
             setStatus(this.dataset.name + ' bağlanıyor…');
 
-            if (this.dataset.hls === 'true' && window.Hls && Hls.isSupported()) {
-              hlsPlayer = new Hls();
-              hlsPlayer.loadSource(this.dataset.stream);
-              hlsPlayer.attachMedia(player);
-              hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
-                player.play().catch(() => stopRadio('Yayın başlatılamadı'));
-              });
-              hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
-                if (data.fatal) stopRadio('Yayın geçici olarak kullanılamıyor');
-              });
-            } else {
-              player.src = this.dataset.stream;
-              const playRequest = player.play();
-              if (playRequest) {
-                playRequest.catch(() => stopRadio('Yayın başlatılamadı'));
-              }
-            }
-
+            player.src = this.dataset.stream;
+            player.load();
+            const playRequest = player.play();
+            if (playRequest) playRequest.catch(() => stopRadio('Yayın açılamadı · ağ erişimini kontrol edin'));
             loadTimer = setTimeout(() => {
-              if (player.readyState < 2) stopRadio('Yayın yanıt vermedi');
+              if (player.readyState < 2) stopRadio('Yayın yanıt vermedi · ağ erişimini kontrol edin');
             }, 10000);
           });
         });
@@ -934,7 +933,7 @@
           const active = document.querySelector('.radio-station-btn.active');
           setStatus((active ? active.dataset.name : 'Radyo') + ' çalıyor');
         });
-        player.addEventListener('error', () => stopRadio('Yayın geçici olarak kullanılamıyor'));
+        player.addEventListener('error', () => stopRadio('Yayına erişilemiyor · ağ erişimini kontrol edin'));
         stopButton.addEventListener('click', () => stopRadio());
         volume.addEventListener('input', () => { player.volume = Number(volume.value); });
       })();
@@ -953,6 +952,8 @@
           <button class="tab-button" data-tab="mense_kontrol">Menşe Kontrol</button>
           <button class="tab-button" data-tab="referanslar">Referans Mesajları</button>
           <button class="tab-button" data-tab="istatistikler">İstatistikler ve Veri Tabanları</button>
+          <button class="tab-button" data-tab="arac_kutusu">🧰 Araç Kutusu</button>
+          <button class="tab-button" data-tab="is_takip">📋 İş Takip</button>
           </nav>
 
       <section class="tab-content" id="favoriler">
@@ -961,6 +962,91 @@
       <p style="color:var(--muted); grid-column: 1/-1; padding: 20px;">Henüz favori eklemediniz. Kartların sağ üstündeki yıldıza basarak buraya ekleyebilirsiniz.</p>
     </div>
   </section>
+        <section class="tab-content" id="is_takip">
+          <div class="toolkit-heading">
+            <div><span class="toolkit-kicker">KİŞİSEL ÇALIŞMA ALANI</span><h2>📋 İş Takip Merkezi</h2><p>Kısa referanslarla işlerini ve tarihlerini tek listede takip et.</p></div>
+            <span class="tracker-local-badge">● Bu tarayıcıda saklanır</span>
+          </div>
+          <div class="tracker-layout">
+            <form class="tool-card tracker-form" id="workTrackerForm">
+              <div class="tool-card-head"><span>＋</span><div><h3>Yeni iş ekle</h3><p>Hassas belge veya kişi bilgisi yerine kısa bir referans kullan.</p></div></div>
+              <label class="tool-field">Kısa referans<input id="workTrackerRef" type="text" maxlength="60" placeholder="Örn. dosya kodu veya kendi kısa notun" required></label>
+              <label class="tool-field">Yapılacak iş<input id="workTrackerTitle" type="text" maxlength="160" placeholder="Örn. belge kontrolünü tamamla" required></label>
+              <div class="tool-inline-fields"><label class="tool-field">Son tarih<input id="workTrackerDue" type="date"></label><label class="tool-field">Durum<select id="workTrackerStatus"><option>Bekliyor</option><option>Devam ediyor</option><option>Tamamlandı</option></select></label></div>
+              <button type="submit" class="toolkit-button tracker-add">İş ekle</button>
+            </form>
+            <section class="tool-card tracker-list-panel" aria-labelledby="workTrackerListTitle">
+              <div class="tracker-list-head"><div><h3 id="workTrackerListTitle">İşlerim <span id="workTrackerCount">0</span></h3><p>Durumu değiştirebilir veya CSV olarak dışa aktarabilirsin.</p></div><button class="toolkit-button secondary" type="button" id="workTrackerCsv">CSV indir</button></div>
+              <div class="tracker-filter-row"><input id="workTrackerSearch" type="search" placeholder="Referans veya iş ara" aria-label="İş listesinde ara"><select id="workTrackerFilter" aria-label="İş durumuna göre filtrele"><option value="all">Tüm işler</option><option value="open">Açık işler</option><option value="done">Tamamlananlar</option></select></div>
+              <div id="workTrackerList" class="work-tracker-list" aria-live="polite"></div>
+              <div class="tool-status" id="workTrackerMessage" aria-live="polite">İş kayıtları yalnızca bu tarayıcıda saklanır.</div>
+            </section>
+          </div>
+        </section>
+
+                <section class="tab-content" id="arac_kutusu">
+          <div class="toolkit-heading">
+            <div><span class="toolkit-kicker">GÜNLÜK İŞ AKIŞI</span><h2>🧰 Araç Kutusu</h2><p>Sık kullanılan küçük işlemler tek yerde. Hesaplamalar tarayıcınızda yapılır.</p></div>
+            <div class="toolkit-shortcuts"><button type="button" class="toolkit-button secondary" id="toolOpenNotes">📝 Hızlı Notlar</button><button type="button" class="toolkit-button secondary" id="toolOpenPdf">📄 PDF İşlem Merkezi</button></div>
+          </div>
+          <div class="toolkit-grid">
+            <article class="tool-card">
+              <div class="tool-card-head"><span>01</span><div><h3>Yüzde Hesabı</h3><p>Bir tutarın yüzdesini ve toplamını hesaplayın.</p></div></div>
+              <label class="tool-field">Tutar<input id="toolPercentBase" type="number" inputmode="decimal" step="any" placeholder="Örn. 12500"></label>
+              <label class="tool-field">Yüzde (%)<input id="toolPercentRate" type="number" inputmode="decimal" step="any" placeholder="Örn. 20"></label>
+              <div class="tool-result" id="toolPercentResult" aria-live="polite">Tutar ve yüzde girin.</div>
+            </article>
+
+            <article class="tool-card">
+              <div class="tool-card-head"><span>02</span><div><h3>Tarih Hesabı</h3><p>İki tarih arasını sayın veya tarihe gün ekleyin.</p></div></div>
+              <div class="tool-inline-fields"><label class="tool-field">Başlangıç<input id="toolDateStart" type="date"></label><label class="tool-field">Bitiş<input id="toolDateEnd" type="date"></label></div>
+              <div class="tool-result" id="toolDateResult" aria-live="polite">Tarih seçin.</div>
+              <div class="tool-inline-fields tool-date-add"><label class="tool-field">Tarihe gün ekle<input id="toolDateBase" type="date"></label><label class="tool-field">Gün sayısı<input id="toolDateDays" type="number" step="1" value="30"></label></div>
+              <div class="tool-result compact" id="toolDateAddResult" aria-live="polite">Takvim günü hesabıdır.</div>
+              <small class="tool-help">İş günü hesabı hafta sonlarını dışarıda bırakır; resmî tatilleri kapsamaz.</small>
+            </article>
+
+            <article class="tool-card">
+              <div class="tool-card-head"><span>03</span><div><h3>Birim Dönüştürücü</h3><p>Ağırlık, uzunluk ve hacim birimleri arasında dönüşüm.</p></div></div>
+              <label class="tool-field">Ölçü türü<select id="toolUnitType"><option value="mass">Ağırlık</option><option value="length">Uzunluk</option><option value="volume">Hacim</option></select></label>
+              <label class="tool-field">Değer<input id="toolUnitValue" type="number" inputmode="decimal" step="any" placeholder="Dönüştürülecek değer"></label>
+              <div class="tool-inline-fields"><label class="tool-field">Nereden<select id="toolUnitFrom"></select></label><label class="tool-field">Nereye<select id="toolUnitTo"></select></label></div>
+              <div class="tool-result" id="toolUnitResult" aria-live="polite">Değer girin.</div>
+            </article>
+
+            <article class="tool-card">
+              <div class="tool-card-head"><span>04</span><div><h3>Metin Yardımcıları</h3><p>Satırları temizleyin, düzenleyin ve kopyalayın.</p></div></div>
+              <label class="tool-field">Metin<textarea id="toolTextInput" rows="6" placeholder="Metni buraya yapıştırın..."></textarea></label>
+              <div class="tool-text-count" id="toolTextCount">0 karakter · 0 kelime · 0 satır</div>
+              <div class="tool-action-row"><button type="button" class="toolkit-button" data-text-action="trim">Boşlukları temizle</button><button type="button" class="toolkit-button" data-text-action="unique">Tekrarlı satırları kaldır</button><button type="button" class="toolkit-button" data-text-action="upper">BÜYÜK HARF</button><button type="button" class="toolkit-button secondary" data-text-action="copy">Kopyala</button></div>
+              <div class="tool-status" id="toolTextStatus" aria-live="polite"></div>
+            </article>
+
+            <article class="tool-card">
+              <div class="tool-card-head"><span>05</span><div><h3>JSON Biçimlendirici</h3><p>JSON metnini okunur hâle getirin veya sıkıştırın.</p></div></div>
+              <label class="tool-field">JSON<textarea id="toolJsonInput" rows="6" spellcheck="false" placeholder='{"örnek":"değer"}'></textarea></label>
+              <div class="tool-action-row"><button type="button" class="toolkit-button" id="toolJsonFormat">Biçimlendir</button><button type="button" class="toolkit-button secondary" id="toolJsonMinify">Sıkıştır</button><button type="button" class="toolkit-button secondary" id="toolJsonCopy">Kopyala</button></div>
+              <div class="tool-status" id="toolJsonStatus" aria-live="polite"></div>
+            </article>
+
+            <article class="tool-card">
+              <div class="tool-card-head"><span>06</span><div><h3>Kişisel Kontrol Listesi</h3><p>Bu tarayıcıda saklanan, size özel kısa iş listesi.</p></div></div>
+              <label class="tool-field tool-template-field">Kontrol listesi şablonu<select id="toolCheckTemplate"><option value="">Şablon seçin</option><option value="transit">Transit işlemi</option><option value="tasit">Taşıt-yolcu işlemi</option><option value="tir">TIR işlemi</option></select></label>
+              <button type="button" class="toolkit-button secondary tool-template-add" id="toolAddTemplate">Şablonu listeye ekle</button>
+              <small class="tool-help">Şablonlar genel hatırlatıcıdır; işlem türüne ve güncel talimatlara göre düzenleyin.</small>
+              <form class="tool-check-form" id="toolCheckForm"><label class="tool-field"><span class="sr-only">Yeni kontrol maddesi</span><input id="toolCheckInput" type="text" maxlength="180" placeholder="Yeni madde yazın ve ekleyin"></label><button type="submit" class="toolkit-button">Ekle</button></form>
+              <ul class="tool-check-list" id="toolCheckList" aria-live="polite"></ul>
+              <div class="tool-list-footer"><span id="toolCheckStatus">Liste yalnızca bu tarayıcıda saklanır.</span><button type="button" class="tool-link-button" id="toolClearChecks">Tamamlananları sil</button></div>
+            </article>
+            <article class="tool-card">
+              <div class="tool-card-head"><span>07</span><div><h3>Panel Yedeği</h3><p>Favoriler, notlar, vardiya düzeni, iş kayıtları ve kontrol listelerini taşı.</p></div></div>
+              <div class="tool-backup-actions"><button type="button" class="toolkit-button" id="toolBackupExport">Yedeği indir</button><button type="button" class="toolkit-button secondary" id="toolBackupChoose">Yedekten geri yükle</button><input type="file" id="toolBackupInput" accept="application/json,.json" hidden></div>
+              <small class="tool-help">Yedek dosyası not ve iş kayıtlarınızı içerebilir; güvenli yerde saklayın. Geri yükleme mevcut kayıtları değiştirir.</small>
+              <div class="tool-status" id="toolBackupStatus" aria-live="polite"></div>
+            </article>
+          </div>
+        </section>
+
         <section class="tab-content active" id="anasayfa">
           <h2>Ana Sayfa</h2>
           <div class="link-grid">
@@ -3180,35 +3266,52 @@
       // İçeriği temizle
       innerContent.innerHTML = ''; 
 
-      const title = "Gümrük Bayrağı Tarihçe ve Şekli";
+      const title = "Gümrük İdaresi Bayrakları: Ekonomik Egemenliğin ve Sınır Güvenliğinin Teminatı Olan Resmi \"Devlet Bayrağı\"";
       const content = `
-        <h3 style="color: var(--accent); margin-bottom: 15px; text-align: center;">${title}</h3>
-        <p style="text-align: left; margin-bottom: 20px;">
-          Hukuki Dayanak ve Kurucu İradenin Tespiti: Gümrük idarelerinde kullanılan Gümrük İdaresi Bayrakları, 
-          28.07.1937 tarihli ve 2/7175 sayılı İcra Vekilleri Heyeti (Bakanlar Kurulu) Kararnamesi ile kabul edilen 
-          ve 14.09.1937 tarihli ve 3708 sayılı Resmî Gazete'de yayımlanan Türk Bayrağı Nizamnamesi'nin 36 ncı maddesinde 
-          belirtilen (2) numaralı Levha ile tespit edilmiştir. Bu Kararname, Türkiye Cumhuriyeti'nin kurucusu 
-          Mustafa Kemal ATATÜRK'ün (Reisicumhur) ve dönemin Başvekili İsmet İNÖNÜ'nün imzalarını taşımaktadır.
+        <h3 style="color: var(--accent); margin-bottom: 18px; text-align: center;">${title}</h3>
+
+        <p style="text-align: left; margin-bottom: 16px;">
+          Gümrük İdaresi Bayrağı, sıradan bir kurum sembolü, logo veya flama değil; hukuken bizzat şanlı Türk Bayrağı ile eşdeğer statüde olan, Türkiye Cumhuriyeti'nin sınır güvenliğini ve ekonomik egemenliğini dalgalandığı her karışı tescilleyen resmi bir "Devlet Bayrağı"dır.
         </p>
-        <p style="text-align: left; margin-bottom: 20px;">
-          Bayrak Çeşitleri: Anılan Nizamnamenin eki (2) numaralı Levhada gümrük idareleri için iki adet özel bayrak bulunmaktadır:
-          <br>
-          1. **Gümrük Dairesi Bayrağı (Gümrük Teşkilatı Bayrağı):** Türk Bayrağının şekil ve ölçüleriyle aynı olup, ay ve yıldızı levhada belirtilen ölçülerde yeşil renkli dikdörtgen bir şerit çerçevelemektedir. Yeşil şeridin genişliği $1/25 G$ (Bayrak Genişliği) olup, yeşilin dış kenarlarının bayrağın dört dış kenarından açıklığı ise $1/-5 G$ olarak belirlenmiştir. Gümrük Müsteşarlığının (şimdiki T.C. Ticaret Bakanlığı) resmi web sitesinin sağ üst köşesinde kullanılan bayrak bu bayraktır.
-          <br>
-          2. **Gümrük Kontrolünü Simgeleyen Bayrak:** Yeşil zemin üzerinde, levhada belirtilen ölçülerde kırmızı ve beyaz dikdörtgen şeklindeki bayraktır.
+        <p style="text-align: left; margin-bottom: 16px;">
+          Bu eşsiz statü ve tarihi miras, kurucu iradenin vizyonuyla şekillenmiş ve güncel mevzuatımızda da en güçlü şekilde koruma altına alınmıştır.
         </p>
-        <p style="text-align: left; margin-bottom: 20px;">
-          Kullanım Süresi: Bu özel bayraklar, 1937 yılından bu yana bütün gümrük idarelerinde ve kara sınır kapılarında kullanılmaktadır.
+
+        <h4 style="color: var(--text); margin: 22px 0 8px;">Hukuki Dayanak ve Kurucu İradenin İmzası</h4>
+        <p style="text-align: left; margin-bottom: 16px;">
+          Gümrük idarelerimizde kullanılan bu özel bayraklar, bizzat Türkiye Cumhuriyeti’nin kurucusu Gazi Mustafa Kemal ATATÜRK (Reisicumhur) ve dönemin Başvekili İsmet İNÖNÜ’nün imzalarını taşıyan 28.07.1937 tarihli ve 2/7175 sayılı İcra Vekilleri Heyeti (Bakanlar Kurulu) Kararnamesi ile hayat bulmuştur. 14 Eylül 1937 tarihli ve 3708 sayılı Resmî Gazete’de yayımlanan Türk Bayrağı Nizamnamesi'nin 36. maddesinde yer alan (2) numaralı Levha ile bu bayrakların standartları kesin ve resmi bir biçimde tespit edilmiştir.
         </p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Gumruk-Bayragi-Sinir-Kapisi-Bayragi-yonetmelik.jpg" 
-            alt="Gümrük Bayrağı Yönetmelik Görseli" 
+
+        <h4 style="color: var(--text); margin: 22px 0 8px;">Mevzuattaki İstisnai ve Özel Statüsü</h4>
+        <p style="text-align: left; margin-bottom: 10px;">
+          Gümrük bayraklarının hukuki gücü, Türk Bayrağı Tüzüğü ve Gümrük Kanunu ile sarsılmaz bir temele oturtulmuştur:
+        </p>
+        <ul style="text-align: left; padding-left: 22px; margin-bottom: 16px;">
+          <li style="margin-bottom: 10px;"><strong>Özel Statünün Tescili:</strong> Türk Bayrağı Tüzüğü’nün 36. Maddesi, gümrük bayrağını tüzüğün genel tescil hükümlerinden muaf tutarak ona apayrı, özel bir "Devlet Bayrağı" statüsü tanımıştır. Tüzükteki bu istisna, 1615 sayılı eski Gümrük Kanunu'na atıfla yapılmış olup, 4458 sayılı güncel Gümrük Kanunu’nun Geçici 3. Maddesi gereğince hukuki geçerliliğini ve gücünü bugün de aynen korumaktadır.</li>
+          <li><strong>Kesintisiz Dalgalanma Esası:</strong> Türk Bayrağı Tüzüğü'nün 9. Maddesi (E bendi) ile 4458 sayılı Gümrük Kanunu’nun 224. Maddesi gereğince; günün her saatinde hizmet veren gümrük kapılarında ve gümrük muhafaza karakollarında gümrük bayrağı <strong>sürekli olarak</strong> çekili kalır. Diğer gümrük binalarında ise yasal çalışma saatleri boyunca göndere çekilerek devletin otoritesini hissettirir.</li>
+        </ul>
+
+        <h4 style="color: var(--text); margin: 22px 0 8px;">Günümüzde Aktif Olarak Kullanılan İki Özel Bayrak</h4>
+        <p style="text-align: left; margin-bottom: 10px;">
+          Bugün, Gümrük idareleri ile bu idareler altında hizmet veren Gümrük Muhafaza Bölge ve Kısım Amirliklerinde, Nizamnamenin eki (2) numaralı Levhada tanımlanan iki farklı bayrak aktif olarak kullanılmaktadır:
+        </p>
+        <ol style="text-align: left; padding-left: 22px; margin-bottom: 16px;">
+          <li style="margin-bottom: 10px;"><strong>Gümrük Dairesi Bayrağı (Gümrük Teşkilatı Bayrağı):</strong> Türk Bayrağımızın şekil ve ölçüleriyle birebir aynı olan, devletin varlığını simgeleyen bayraktır. Ay ve yıldızımızı, bayrak genişliğinin 1/25'i oranında yeşil renkli dikdörtgen bir şerit çerçevelemektedir.</li>
+          <li><strong>Gümrük Kontrolünü Simgeleyen Bayrak:</strong> Sahadaki denetim, muhafaza ve kontrol yetkisini simgeler. Yeşil bir zemin üzerinde, levhada belirtilen ölçülerde kırmızı ve beyaz dikdörtgen şekillerden oluşur.</li>
+        </ol>
+
+        <p style="text-align: left; margin-bottom: 16px;">
+          Özetle; 1937'den günümüze uzanan bu köklü miras, sınır boylarında ve gümrük kapılarında görev yapan teşkilat mensuplarının gölgesinde görev yaptığı, Cumhuriyetin iktisadi bağımsızlığını cihana ilan eden kutsal birer emanettir.
+        </p>
+
+        <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/G%C3%BCmr%C3%BCk_ve_inhisarlar_Vek%C3%A2letinin_kulland%C4%B1%C4%9F%C4%B1_bayraklar.jpg/1920px-G%C3%BCmr%C3%BCk_ve_inhisarlar_Vek%C3%A2letinin_kulland%C4%B1%C4%9F%C4%B1_bayraklar.jpg?utm_source=tr.wikipedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+            alt="Gümrük bayraklarının yer aldığı mevzuat levhası"
             style="max-width: 100%; height: auto; border-radius: 8px; cursor: pointer;"
-            onclick="showModal('https://upload.wikimedia.org/wikipedia/commons/2/20/Gumruk-Bayragi-Sinir-Kapisi-Bayragi-yonetmelik.jpg')"> 
+            onclick="showModal('https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/G%C3%BCmr%C3%BCk_ve_inhisarlar_Vek%C3%A2letinin_kulland%C4%B1%C4%9F%C4%B1_bayraklar.jpg/1920px-G%C3%BCmr%C3%BCk_ve_inhisarlar_Vek%C3%A2letinin_kulland%C4%B1%C4%9F%C4%B1_bayraklar.jpg?utm_source=tr.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail')">
         <p style="font-size: 0.8em; color: var(--muted); margin-top: 10px;">
           Görseli büyütmek için üzerine tıklayın.
         </p>
       `;
-
       // İçeriği innerHTML ile tek seferde yerleştiriyoruz.
       innerContent.innerHTML = content;
       
@@ -4691,6 +4794,261 @@
     addEventListener('message',event=>{if(event.data?.type==='gumruk-audius-playing')document.getElementById('turkishRadioPlayer')?.pause();});
   })();
   </script>
-  </body>
+  
 
-  </html>
+
+<script id="toolkitScript">
+(() => {
+  const $ = id => document.getElementById(id);
+  const format = value => new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 6 }).format(value);
+  const localDateKey = date => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+  const parseDate = value => value ? new Date(`${value}T00:00:00Z`) : null;
+  const dateText = date => new Intl.DateTimeFormat('tr-TR', { day:'2-digit', month:'long', year:'numeric', timeZone:'UTC' }).format(date);
+
+  const percentBase = $('toolPercentBase'), percentRate = $('toolPercentRate');
+  const updatePercent = () => {
+    const base = Number(percentBase.value), rate = Number(percentRate.value);
+    $('toolPercentResult').textContent = percentBase.value !== '' && percentRate.value !== '' && Number.isFinite(base) && Number.isFinite(rate)
+      ? `%${format(rate)} karşılığı ${format(base * rate / 100)} · Toplam ${format(base + base * rate / 100)}` : 'Tutar ve yüzde girin.';
+  };
+  percentBase.addEventListener('input', updatePercent); percentRate.addEventListener('input', updatePercent);
+
+  const updateDates = () => {
+    const start = parseDate($('toolDateStart').value), end = parseDate($('toolDateEnd').value);
+    if (!start || !end) { $('toolDateResult').textContent = 'Başlangıç ve bitiş tarihini seçin.'; return; }
+    const first = start <= end ? start : end, last = start <= end ? end : start;
+    const elapsed = Math.round((last - first) / 86400000);
+    let workdays = 0;
+    for (let day = new Date(first); day <= last; day.setUTCDate(day.getUTCDate() + 1)) {
+      const weekday = day.getUTCDay(); if (weekday !== 0 && weekday !== 6) workdays++;
+    }
+    $('toolDateResult').textContent = `Geçen süre: ${format(elapsed)} gün · İki tarih dâhil: ${format(elapsed + 1)} gün · Hafta içi: ${format(workdays)} gün`;
+  };
+  ['toolDateStart','toolDateEnd'].forEach(id => $(id).addEventListener('change', updateDates));
+  const today = localDateKey(new Date());
+  $('toolDateStart').value = today; $('toolDateEnd').value = today; $('toolDateBase').value = today; updateDates();
+  const updateDateAdd = () => {
+    const base = parseDate($('toolDateBase').value), days = Number($('toolDateDays').value);
+    if (!base || $('toolDateDays').value === '' || !Number.isFinite(days)) { $('toolDateAddResult').textContent = 'Tarih ve gün sayısı girin.'; return; }
+    const target = new Date(base); target.setUTCDate(target.getUTCDate() + Math.trunc(days));
+    $('toolDateAddResult').textContent = `${Math.trunc(days)} takvim günü sonrası: ${dateText(target)}`;
+  };
+  $('toolDateBase').addEventListener('change', updateDateAdd); $('toolDateDays').addEventListener('input', updateDateAdd); updateDateAdd();
+
+  const units = {
+    mass: { kg:1, g:.001, ton:1000, lb:.45359237 },
+    length: { m:1, mm:.001, cm:.01, km:1000, ft:.3048 },
+    volume: { l:1, ml:.001, m3:1000, gal:3.785411784 }
+  };
+  const unitNames = { kg:'kg',g:'g',ton:'ton',lb:'lb',m:'m',mm:'mm',cm:'cm',km:'km',ft:'ft',l:'L',ml:'mL',m3:'m³',gal:'US gal' };
+  const updateUnitOptions = () => {
+    const items = Object.keys(units[$('toolUnitType').value]);
+    for (const id of ['toolUnitFrom','toolUnitTo']) {
+      const select = $(id), previous = select.value;
+      select.replaceChildren(...items.map(unit => { const option = document.createElement('option'); option.value = unit; option.textContent = unitNames[unit]; return option; }));
+      if (items.includes(previous)) select.value = previous;
+    }
+    if ($('toolUnitType').value === 'mass') $('toolUnitTo').value = 'ton';
+    if ($('toolUnitType').value === 'length') $('toolUnitTo').value = 'cm';
+    if ($('toolUnitType').value === 'volume') $('toolUnitTo').value = 'ml';
+    updateUnit();
+  };
+  function updateUnit() {
+    const value = Number($('toolUnitValue').value), from = $('toolUnitFrom').value, to = $('toolUnitTo').value;
+    $('toolUnitResult').textContent = $('toolUnitValue').value === '' || !Number.isFinite(value) ? 'Değer girin.' : `${format(value)} ${unitNames[from]} = ${format(value * units[$('toolUnitType').value][from] / units[$('toolUnitType').value][to])} ${unitNames[to]}`;
+  }
+  $('toolUnitType').addEventListener('change', updateUnitOptions); $('toolUnitValue').addEventListener('input', updateUnit);
+  $('toolUnitFrom').addEventListener('change', updateUnit); $('toolUnitTo').addEventListener('change', updateUnit); updateUnitOptions();
+
+  const textInput = $('toolTextInput');
+  const updateTextCount = () => {
+    const text = textInput.value, lines = text ? text.split(/\r?\n/).length : 0, words = text.trim() ? text.trim().split(/\s+/u).length : 0;
+    $('toolTextCount').textContent = `${format(text.length)} karakter · ${format(words)} kelime · ${format(lines)} satır`;
+  };
+  textInput.addEventListener('input', updateTextCount);
+  async function copyText(value, status) {
+    try { await navigator.clipboard.writeText(value); status.textContent = 'Panoya kopyalandı.'; }
+    catch { status.textContent = 'Tarayıcı pano izni vermedi; metni seçip kopyalayabilirsiniz.'; }
+  }
+  document.querySelectorAll('[data-text-action]').forEach(button => button.addEventListener('click', async () => {
+    const action = button.dataset.textAction, status = $('toolTextStatus');
+    if (action === 'copy') { await copyText(textInput.value, status); return; }
+    if (action === 'trim') textInput.value = textInput.value.split(/\r?\n/).map(line => line.replace(/\s+/gu,' ').trim()).join('\n').trim();
+    if (action === 'unique') { const seen = new Set(); textInput.value = textInput.value.split(/\r?\n/).map(line => line.trim()).filter(line => { const key = line.toLocaleLowerCase('tr-TR'); if (!line || seen.has(key)) return false; seen.add(key); return true; }).join('\n'); }
+    if (action === 'upper') textInput.value = textInput.value.toLocaleUpperCase('tr-TR');
+    updateTextCount(); status.textContent = 'Metin güncellendi.';
+  }));
+
+  const jsonInput = $('toolJsonInput'), jsonStatus = $('toolJsonStatus');
+  const transformJson = compact => {
+    try { const value = JSON.parse(jsonInput.value); jsonInput.value = JSON.stringify(value, null, compact ? 0 : 2); jsonStatus.textContent = compact ? 'JSON sıkıştırıldı.' : 'JSON biçimlendirildi.'; }
+    catch (error) { jsonStatus.textContent = `JSON okunamadı: ${error.message}`; }
+  };
+  $('toolJsonFormat').addEventListener('click', () => transformJson(false)); $('toolJsonMinify').addEventListener('click', () => transformJson(true));
+  $('toolJsonCopy').addEventListener('click', () => copyText(jsonInput.value, jsonStatus));
+
+  const storageKey = 'gumrukToolChecklistV1';
+  const readChecks = () => { try { const value = JSON.parse(localStorage.getItem(storageKey) || '[]'); return Array.isArray(value) ? value.filter(item => item && typeof item.text === 'string').slice(0,200) : []; } catch { return []; } };
+  let checks = readChecks();
+  const saveChecks = () => { try { localStorage.setItem(storageKey, JSON.stringify(checks)); $('toolCheckStatus').textContent = 'Kaydedildi · yalnızca bu tarayıcıda saklanır.'; } catch { $('toolCheckStatus').textContent = 'Tarayıcı saklama alanına yazılamadı.'; } };
+  const renderChecks = () => {
+    const list = $('toolCheckList'); list.replaceChildren();
+    if (!checks.length) { const empty = document.createElement('li'); empty.className = 'tool-text-count'; empty.textContent = 'Henüz madde eklenmedi.'; list.appendChild(empty); return; }
+    checks.forEach((item, index) => {
+      const row = document.createElement('li'); row.className = `tool-check-item${item.done ? ' done' : ''}`;
+      const checkbox = document.createElement('input'); checkbox.type = 'checkbox'; checkbox.checked = !!item.done; checkbox.setAttribute('aria-label', `${item.text} tamamlandı`);
+      checkbox.addEventListener('change', () => { checks[index].done = checkbox.checked; saveChecks(); renderChecks(); });
+      const label = document.createElement('span'); label.textContent = item.text;
+      const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = '×'; remove.title = 'Maddeyi sil'; remove.setAttribute('aria-label','Maddeyi sil');
+      remove.addEventListener('click', () => { checks.splice(index,1); saveChecks(); renderChecks(); }); row.append(checkbox,label,remove); list.appendChild(row);
+    });
+  };
+  $('toolCheckForm').addEventListener('submit', event => { event.preventDefault(); const input = $('toolCheckInput'), text = input.value.trim(); if (!text) return; checks.push({ text, done:false }); checks = checks.slice(-200); input.value = ''; saveChecks(); renderChecks(); input.focus(); });
+  $('toolClearChecks').addEventListener('click', () => { checks = checks.filter(item => !item.done); saveChecks(); renderChecks(); }); renderChecks();
+
+  $('toolOpenNotes').addEventListener('click', () => { if (typeof window.toggleNotes === 'function') window.toggleNotes(); });
+  $('toolOpenPdf').addEventListener('click', () => { if (typeof window.togglePdfPanel === 'function') { const panel = $('pdfPanel'); if (panel && getComputedStyle(panel).display === 'none') window.togglePdfPanel(); } });
+})();
+</script>
+<script id="workTrackerScript">
+(() => {
+  const $ = id => document.getElementById(id);
+  const jobKey = 'gumrukIsTakipV1';
+  const statuses = ['Bekliyor','Devam ediyor','Tamamlandı'];
+  const dateKey = date => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+  const newId = () => (globalThis.crypto && crypto.randomUUID) ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  const readJobs = () => {
+    try {
+      const data = JSON.parse(localStorage.getItem(jobKey) || '[]');
+      return Array.isArray(data) ? data.filter(job => job && typeof job.id === 'string' && typeof job.ref === 'string' && typeof job.title === 'string' && statuses.includes(job.status)).slice(0,300) : [];
+    } catch { return []; }
+  };
+  let jobs = readJobs();
+  const saveJobs = () => {
+    try { localStorage.setItem(jobKey, JSON.stringify(jobs)); $('workTrackerMessage').textContent = 'Kaydedildi · yalnızca bu tarayıcıda saklanır.'; }
+    catch { $('workTrackerMessage').textContent = 'Tarayıcı saklama alanına yazılamadı.'; }
+  };
+  const isOverdue = job => !!job.due && job.due < dateKey(new Date()) && job.status !== 'Tamamlandı';
+  const filteredJobs = () => {
+    const query = $('workTrackerSearch').value.trim().toLocaleLowerCase('tr-TR'), filter = $('workTrackerFilter').value;
+    return jobs.filter(job => {
+      const matchesQuery = !query || `${job.ref} ${job.title}`.toLocaleLowerCase('tr-TR').includes(query);
+      const matchesFilter = filter === 'all' || (filter === 'done' ? job.status === 'Tamamlandı' : job.status !== 'Tamamlandı');
+      return matchesQuery && matchesFilter;
+    }).sort((a,b) => (a.status === 'Tamamlandı') - (b.status === 'Tamamlandı') || (a.due || '9999-12-31').localeCompare(b.due || '9999-12-31'));
+  };
+  const renderJobs = () => {
+    const list = $('workTrackerList'), rows = filteredJobs(); list.replaceChildren();
+    $('workTrackerCount').textContent = String(jobs.length);
+    if (!rows.length) {
+      const empty = document.createElement('div'); empty.className = 'tracker-empty';
+      empty.textContent = jobs.length ? 'Bu aramayla eşleşen iş bulunamadı.' : 'Henüz iş eklenmedi. İlk işini soldaki formdan ekleyebilirsin.';
+      list.appendChild(empty); return;
+    }
+    rows.forEach(job => {
+      const row = document.createElement('article'); row.className = `tracker-item${isOverdue(job) ? ' overdue' : ''}`;
+      const main = document.createElement('div'); main.className = 'tracker-item-main';
+      const ref = document.createElement('div'); ref.className = 'tracker-item-ref'; ref.textContent = job.ref;
+      const title = document.createElement('div'); title.className = 'tracker-item-title'; title.textContent = job.title;
+      const meta = document.createElement('div'); meta.className = 'tracker-item-meta';
+      const due = document.createElement('span'); due.textContent = job.due ? `Son tarih: ${job.due}` : 'Son tarih yok'; meta.appendChild(due);
+      if (isOverdue(job)) { const late = document.createElement('span'); late.className = 'overdue-label'; late.textContent = 'Süresi geçti'; meta.appendChild(late); }
+      main.append(ref,title,meta);
+      const actions = document.createElement('div'); actions.className = 'tracker-item-actions';
+      const select = document.createElement('select'); select.setAttribute('aria-label', `${job.ref} iş durumu`);
+      statuses.forEach(status => { const option = document.createElement('option'); option.value = status; option.textContent = status; select.appendChild(option); }); select.value = job.status;
+      select.addEventListener('change', () => { const target = jobs.find(item => item.id === job.id); if (target) target.status = select.value; saveJobs(); renderJobs(); });
+      const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'tracker-delete'; remove.textContent = '×'; remove.title = 'İşi sil'; remove.setAttribute('aria-label', `${job.ref} işini sil`);
+      remove.addEventListener('click', () => { jobs = jobs.filter(item => item.id !== job.id); saveJobs(); renderJobs(); });
+      actions.append(select,remove); row.append(main,actions); list.appendChild(row);
+    });
+  };
+  $('workTrackerForm').addEventListener('submit', event => {
+    event.preventDefault();
+    const ref = $('workTrackerRef').value.trim(), title = $('workTrackerTitle').value.trim();
+    if (!ref || !title) return;
+    jobs.unshift({id:newId(),ref:ref.slice(0,60),title:title.slice(0,160),due:$('workTrackerDue').value,status:$('workTrackerStatus').value,createdAt:new Date().toISOString()});
+    jobs = jobs.slice(0,300); saveJobs(); renderJobs(); event.currentTarget.reset(); $('workTrackerRef').focus();
+  });
+  $('workTrackerSearch').addEventListener('input', renderJobs); $('workTrackerFilter').addEventListener('change', renderJobs);
+  $('workTrackerCsv').addEventListener('click', () => {
+    if (!jobs.length) { $('workTrackerMessage').textContent = 'İndirilecek iş kaydı yok.'; return; }
+    const quote = value => `"${String(value ?? '').replace(/"/g,'""')}"`;
+    const lines = [['Referans','Yapılacak iş','Son tarih','Durum'], ...jobs.map(job => [job.ref,job.title,job.due,job.status])].map(row => row.map(quote).join(';')).join('\r\n');
+    const blob = new Blob(['\ufeff',lines], {type:'text/csv;charset=utf-8'}), url = URL.createObjectURL(blob), link = document.createElement('a');
+    link.href = url; link.download = `gumruk-is-takip-${dateKey(new Date())}.csv`; link.click(); setTimeout(() => URL.revokeObjectURL(url),1000);
+    $('workTrackerMessage').textContent = 'İş listesi CSV olarak indirildi.';
+  });
+  renderJobs();
+
+  const backupKeys = ['gumrukFavs','gumrukNotes','gumrukNotlari','bistFavorites','gumrukVardiyaTakvimiV2','gumrukVardiyaTakvimiV1','gumrukGeciciGorevV1','gumrukToolChecklistV1',jobKey];
+  const parseJson = (value,key) => { try { return JSON.parse(value); } catch { throw new Error(`${key} verisi okunamadı.`); } };
+  const validDate = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(`${value}T00:00:00Z`));
+  const cleanArrayOfStrings = (raw,key,pattern,max) => {
+    const array = parseJson(raw,key); if (!Array.isArray(array)) throw new Error(`${key} biçimi geçersiz.`);
+    return [...new Set(array.filter(value => typeof value === 'string' && pattern.test(value)))].slice(0,max);
+  };
+  const cleanBackupValue = (key,raw) => {
+    if (typeof raw !== 'string') throw new Error(`${key} yedek değeri geçersiz.`);
+    if (key === 'gumrukNotes' || key === 'gumrukNotlari') { if (raw.length > 200000) throw new Error('Not yedeği çok büyük.'); return raw; }
+    if (key === 'gumrukFavs') return JSON.stringify(cleanArrayOfStrings(raw,key,/^card-\d+$/,500));
+    if (key === 'bistFavorites') return JSON.stringify(cleanArrayOfStrings(raw,key,/^[A-Z0-9.]{1,12}$/,20));
+    if (key === 'gumrukToolChecklistV1') {
+      const value = parseJson(raw,key); if (!Array.isArray(value)) throw new Error('Kontrol listesi biçimi geçersiz.');
+      return JSON.stringify(value.filter(item => item && typeof item.text === 'string').slice(-200).map(item => ({text:item.text.slice(0,180),done:!!item.done})));
+    }
+    if (key === jobKey) {
+      const value = parseJson(raw,key); if (!Array.isArray(value)) throw new Error('İş listesi biçimi geçersiz.');
+      return JSON.stringify(value.filter(item => item && typeof item.id === 'string' && typeof item.ref === 'string' && typeof item.title === 'string' && statuses.includes(item.status)).slice(0,300).map(item => ({id:item.id.slice(0,80),ref:item.ref.slice(0,60),title:item.title.slice(0,160),due:validDate(item.due)?item.due:'',status:item.status,createdAt:typeof item.createdAt==='string'?item.createdAt:''})));
+    }
+    if (key === 'gumrukVardiyaTakvimiV2') {
+      const value = parseJson(raw,key), validGroups = groups => groups && ['day','night','rest'].every(role => Number.isInteger(groups[role]) && groups[role] >= 1 && groups[role] <= 3);
+      if (!value || !validDate(value.start) || !Array.isArray(value.assignments) || value.assignments.length !== 6 || !value.assignments.every(validGroups) || !Number.isInteger(Number(value.group)) || Number(value.group)<1 || Number(value.group)>3) throw new Error('Vardiya düzeni biçimi geçersiz.');
+      return JSON.stringify({start:value.start,group:Number(value.group),assignments:value.assignments});
+    }
+    if (key === 'gumrukVardiyaTakvimiV1') {
+      const value = parseJson(raw,key);
+      if (!value || !validDate(value.start) || !Array.isArray(value.days) || value.days.length !== 6 || !value.days.every(day => Number.isInteger(Number(day)) && Number(day)>=1 && Number(day)<=3)) throw new Error('Eski vardiya yedeği biçimi geçersiz.');
+      return JSON.stringify({start:value.start,group:Number(value.group)||1,days:value.days.map(Number)});
+    }
+    if (key === 'gumrukGeciciGorevV1') {
+      const value = parseJson(raw,key);
+      if (!value || !validDate(value.start) || !Number.isFinite(Number(value.days)) || Number(value.days)<1 || Number(value.days)>3650) throw new Error('Geçici görev yedeği biçimi geçersiz.');
+      return JSON.stringify({start:value.start,days:Number(value.days)});
+    }
+    throw new Error('Desteklenmeyen yedek alanı.');
+  };
+  const backupStatus = message => { $('toolBackupStatus').textContent = message; };
+  $('toolBackupExport').addEventListener('click', () => {
+    const data = {};
+    backupKeys.forEach(key => { const value = localStorage.getItem(key); if (value !== null) data[key] = value; });
+    const backup = {app:'gumruk-paneli',formatVersion:1,createdAt:new Date().toISOString(),data};
+    const blob = new Blob([JSON.stringify(backup,null,2)],{type:'application/json;charset=utf-8'}), url = URL.createObjectURL(blob), link = document.createElement('a');
+    link.href=url; link.download=`gumruk-paneli-yedek-${dateKey(new Date())}.json`; link.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+    backupStatus('Yedek dosyası indirildi. İçeriği notlar ve iş kayıtlarını kapsayabilir.');
+  });
+  $('toolBackupChoose').addEventListener('click', () => $('toolBackupInput').click());
+  $('toolBackupInput').addEventListener('change', async event => {
+    const file = event.target.files && event.target.files[0]; if (!file) return;
+    try {
+      if (file.size > 2_000_000) throw new Error('Yedek dosyası 2 MB sınırını aşıyor.');
+      const backup = JSON.parse(await file.text());
+      if (!backup || backup.app !== 'gumruk-paneli' || backup.formatVersion !== 1 || !backup.data || typeof backup.data !== 'object' || Array.isArray(backup.data)) throw new Error('Bu dosya tanınan bir Gümrük Paneli yedeği değil.');
+      const cleaned = {};
+      backupKeys.forEach(key => { if (Object.prototype.hasOwnProperty.call(backup.data,key)) cleaned[key] = cleanBackupValue(key,backup.data[key]); });
+      if (!confirm('Yedek geri yüklenecek. Desteklenen panel kayıtları yedekteki hâle geçecek; yedekte bulunmayan kayıtlar silinecek. Devam edilsin mi?')) return;
+      const previous = Object.fromEntries(backupKeys.map(key => [key,localStorage.getItem(key)]));
+      try {
+        backupKeys.forEach(key => { if (Object.prototype.hasOwnProperty.call(cleaned,key)) localStorage.setItem(key,cleaned[key]); else localStorage.removeItem(key); });
+      } catch (error) {
+        backupKeys.forEach(key => { const value=previous[key]; if(value===null)localStorage.removeItem(key);else localStorage.setItem(key,value); });
+        throw error;
+      }
+      backupStatus('Yedek geri yüklendi; panel yenileniyor…'); location.reload();
+    } catch (error) { backupStatus(`Geri yüklenemedi: ${error.message}`); }
+    finally { event.target.value = ''; }
+  });
+})();
+</script>
+</body>
+</html>
