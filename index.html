@@ -425,15 +425,50 @@
       color: inherit;
       text-decoration: none;
       display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
     }
-    .sig:hover {
-      transform: none; 
-      box-shadow: none;
-      background: transparent;
+    .sig-signature {
+      color: var(--accent);
+      font-family: "Segoe Script", "Brush Script MT", "Lucida Handwriting", cursive;
+      font-size: 28px;
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -1px;
+      line-height: 1.12;
+      text-shadow: var(--accent-glow);
+      white-space: nowrap;
     }
-
+    .sig-underline {
+      position: relative;
+      width: 196px;
+      height: 2px;
+      margin: 3px 0 6px 8px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent) 12%, #52b9ff);
+      transform: rotate(-1deg);
+    }
+    .sig-underline::after {
+      position: absolute;
+      top: -2px;
+      right: -3px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+    }
+    .sig-title {
+      margin-left: 16px;
+      color: var(--muted);
+      font: 700 9px/1 "Segoe UI", Arial, sans-serif;
+      letter-spacing: 2px;
+      text-shadow: none;
+      text-transform: uppercase;
+    }
+    .sig:hover { transform: none; box-shadow: none; background: transparent; }
+    .sig a:hover .sig-signature { color: #8dfff0; }
     .martyrs-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -2775,7 +2810,9 @@
       <footer>
         <div class="sig">
           <a href="https://www.linkedin.com/in/serhansaygin/" target="_blank">
-            Serhan SAYGIN — Gümrük Memuru
+            <span class="sig-signature">Serhan SAYGIN</span>
+            <span class="sig-underline" aria-hidden="true"></span>
+            <span class="sig-title">Gümrük Memuru</span>
           </a>
         </div>
       </footer>
